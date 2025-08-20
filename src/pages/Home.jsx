@@ -15,6 +15,10 @@ import wpressLogo    from "@/assets/logos/wordpress.svg";
 import firebaseLogo    from "@/assets/logos/firebase.svg";
 import woocomLogo    from "@/assets/logos/woocommerce-icon.svg";
 import htmlLogo    from "@/assets/logos/html-5.svg";
+import logo354    from "@/assets/logos/logoipsum-354.svg";
+import logo369    from "@/assets/logos/logoipsum-369.svg";
+import logo393    from "@/assets/logos/logoipsum-393.svg";
+import logo398    from "@/assets/logos/logoipsum-398.svg";
 import { useEffect, useState } from 'react';
 
 
@@ -74,6 +78,45 @@ const Home = () => {
     { value: '40%', label: 'Avg. Performance Improvement' },
     { value: '2+', label: 'Years Experience' },
   ];
+
+  const testimonials = [
+  {
+    quote:
+      "Untitled has saved us thousands of hours of work. We're able to spin up projects and features faster.",
+    name: "Ammar Foley",
+    role: "UX Designer",
+    company: "GlobalBank",
+    avatar: "AF",
+    logo: logo354,
+  },
+  {
+    quote:
+      "Our SaaS dashboard is 3× faster and our churn dropped 28 % after the redesign. Absolute game-changers.",
+    name: "Marcus Lee",
+    role: "Founder",
+    company: "SaaSify",
+    avatar: "ML",
+    logo: logo369 ,
+  },
+  {
+    quote:
+      "From rough sketches to a pixel-perfect product in four weeks. Communication was seamless and the results stellar.",
+    name: "Aisha Patel",
+    role: "Product Lead",
+    company: "InnovateX",
+    avatar: "AP",
+    logo: logo393 ,
+  },
+];
+
+
+const companyLogos = [
+  { src: logo354, alt: "3Portals" },
+  { src: logo369, alt: "CD Warpspeed" },
+  { src: logo393, alt: "GlobalBank" },
+  { src: logo398, alt: "Ikigai Labs" },
+  
+];
 
   useEffect(() => {
     // Add scroll animation effect
@@ -404,75 +447,57 @@ const Home = () => {
             </div>
           </section>
 
-{/* Animated Testimonials Section */}
+
 <section className="py-20 bg-white">
-  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div className="text-center mb-16 fade-in">
-      <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-        What Our Clients Say
+  <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <div className="fade-up">
+      <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-3">
+        Loved by teams everywhere
       </h2>
-      <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-        Don’t just take our word for it — hear from our satisfied clients
+      <p className="text-lg text-gray-600 mb-10 max-w-3xl mx-auto">
+        Ship faster, look sharper, and delight users—without the extra hours.
       </p>
-    </div>
 
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-      {[
-        {
-          quote:
-            "Velora Tech delivered exactly what we needed on time and within budget. The website has already increased our leads by 40%.",
-          name: "Sarah Johnson",
-          role: "CEO, TechStart Inc.",
-          initials: "SJ",
-        },
-        {
-          quote:
-            "Working with them felt like having an in-house CTO. Our SaaS dashboard is faster, more reliable, and our users love it.",
-          name: "Marcus Lee",
-          role: "Founder, SaaSify",
-          initials: "ML",
-        },
-        {
-          quote:
-            "They turned our vague idea into a pixel-perfect product in 4 weeks. Communication was seamless and the results are stellar.",
-          name: "Aisha Patel",
-          role: "Product Lead, InnovateX",
-          initials: "AP",
-        },
-      ].map((t, i) => (
-        <div
-          key={i}
-          className="bg-white p-6 rounded-2xl shadow-sm hover:shadow-xl
-                     transition-all duration-300 transform hover:-translate-y-2 fade-in"
-          style={{ animationDelay: `${i * 150}ms` }}
-        >
-          {/* 5-star rating */}
-          <div className="flex items-center mb-4 text-yellow-400">
-            {[...Array(5)].map((_, idx) => (
-              <svg
-                key={idx}
-                className="w-5 h-5 fill-current"
-                viewBox="0 0 20 20"
-              >
-                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-              </svg>
-            ))}
-          </div>
+      {/* Testimonials */}
+      <div className="space-y-12">
+        {testimonials.map((t, i) => (
+          <div
+            key={i}
+            className="bg-gray-50 p-8 rounded-2xl shadow-sm hover:shadow-xl
+                       transition-all duration-300 transform hover:-translate-y-1 fade-in"
+            style={{ animationDelay: `${i * 150}ms` }}
+          >
+            <blockquote className="text-xl md:text-2xl text-gray-800 italic leading-snug">
+              “{t.quote}”
+            </blockquote>
 
-          <p className="text-gray-600 mb-6 italic">“{t.quote}”</p>
-
-          <div className="flex items-center">
-            {/* Avatar placeholder */}
-            <div className="w-12 h-12 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold text-lg mr-4">
-              {t.initials}
-            </div>
-            <div>
-              <h4 className="font-semibold text-gray-900">{t.name}</h4>
-              <p className="text-sm text-gray-500">{t.role}</p>
+            <div className="mt-6 flex flex-col items-center">
+              <div className="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center text-blue-600 font-bold text-xl">
+                {t.avatar}
+              </div>
+              <p className="mt-3 font-semibold text-gray-900">{t.name}</p>
+              <p className="text-sm text-gray-500">{t.role} · {t.company}</p>
+              <img
+                src={t.logo}
+                alt={t.company}
+                className="mt-4 h-7 w-auto grayscale hover:grayscale-0 transition-all duration-300"
+              />
             </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
+
+      {/* Hover-color logo cloud */}
+      <div className="mt-12 flex justify-center items-center gap-8 md:gap-14 flex-wrap">
+        {companyLogos.map(({ src, alt }) => (
+          <img
+            key={alt}
+            src={src}
+            alt={alt}
+            className="h-10 w-auto grayscale hover:grayscale-0 transition-all duration-300 cursor-pointer"
+          />
+        ))}
+      </div>
     </div>
   </div>
 </section>
