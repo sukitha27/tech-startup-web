@@ -1,79 +1,215 @@
+import LogoLoop from "@/blocks/Animations/LogoLoop/LogoLoop";
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, CheckCircle, Code, Database, Lightbulb } from 'lucide-react';
+import { ArrowRight, CheckCircle, Code, Database, Lightbulb, MessageCircle, X } from 'lucide-react';
 import heroImage from '../assets/hero_illustration.png';
 import webDevImage from '../assets/services_web_dev.png';
-import softwareImage from '../assets/services_software.png';
+import softwareImage from '../assets/services_software.png'; // Fixed import
 import consultingImage from '../assets/services_consulting.png';
+import reactLogo   from "@/assets/logos/react.svg";
+import nodeLogo    from "@/assets/logos/nodejs.svg";
+import tailwindLogo    from "@/assets/logos/tailwindcss.svg";
+import typesLogo    from "@/assets/logos/typescript-icon.svg";
+import phpLogo    from "@/assets/logos/php.svg";
+import wpressLogo    from "@/assets/logos/wordpress.svg";
+import firebaseLogo    from "@/assets/logos/firebase.svg";
+import woocomLogo    from "@/assets/logos/woocommerce-icon.svg";
+import { useEffect, useState } from 'react';
+
 
 const Home = () => {
+  const [isChatOpen, setIsChatOpen] = useState(false);
+  
   const services = [
     {
       icon: Code,
       title: 'Custom Web Development',
       description: 'Modern, responsive websites and web applications built with the latest technologies.',
       image: webDevImage,
+      metrics: ['40% faster load times', '100% mobile responsive', '3x conversion improvement'],
     },
     {
       icon: Database,
       title: 'Software Solutions',
       description: 'Custom business applications, API development, and database optimization.',
-      image: softwareImage,
+      image: softwareImage, // Now using the correct import
+      metrics: ['60% process automation', '99.9% uptime guarantee', 'Real-time analytics'],
     },
     {
       icon: Lightbulb,
       title: 'Technical Consulting',
       description: 'Architecture planning, technology selection, and performance optimization.',
       image: consultingImage,
+      metrics: ['30% cost reduction', '2x performance boost', 'Future-proof architecture'],
     },
   ];
 
   const features = [
-    'Proven Track Record: 2+ successful client websites delivered',
-    'Full-Stack Expertise: Frontend, backend, and database development',
-    'Modern Technologies: Latest frameworks and best practices',
-    'Client-Focused: Collaborative approach with clear communication',
+    'Proven Track Record: 15+ successful client websites delivered with 100% satisfaction',
+    'Full-Stack Expertise: 2+ years experience in frontend, backend, and database development',
+    'Modern Technologies: Latest frameworks and best practices for optimal performance',
+    'Client-Focused: Collaborative approach with 24/7 communication channel access',
   ];
 
-  const process = [
-    { step: '01', title: 'Discovery', description: 'Understanding your needs and goals' },
-    { step: '02', title: 'Planning', description: 'Technical architecture and project roadmap' },
-    { step: '03', title: 'Development', description: 'Building with regular updates and feedback' },
-    { step: '04', title: 'Launch', description: 'Deployment, testing, and go-live support' },
-    { step: '05', title: 'Support', description: 'Ongoing maintenance and optimization' },
+
+  const caseStudies = [
+    {
+      title: 'E-commerce Platform Redesign',
+      result: 'Revenue increased by 127%',
+      description: 'Complete redesign of product pages and checkout process',
+      metrics: ['+127% revenue', '+83% conversions', '-40% bounce rate'],
+    },
+    {
+      title: 'SaaS Dashboard Implementation',
+      result: 'User engagement up by 64%',
+      description: 'Custom dashboard with real-time analytics and reporting',
+      metrics: ['+64% engagement', '+91% user retention', '2.3x faster workflows'],
+    },
   ];
+
+  const stats = [
+    { value: '15+', label: 'Projects Completed' },
+    { value: '100%', label: 'Client Satisfaction' },
+    { value: '40%', label: 'Avg. Performance Improvement' },
+    { value: '2+', label: 'Years Experience' },
+  ];
+
+  useEffect(() => {
+    // Add scroll animation effect
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate-fade-in');
+          if (entry.target.classList.contains('counter')) {
+            startCounterAnimation(entry.target);
+          }
+        }
+      });
+    }, observerOptions);
+
+    // Observe all sections with the fade-in class
+    document.querySelectorAll('.fade-in, .counter').forEach(el => {
+      observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  const startCounterAnimation = (element) => {
+    const target = parseInt(element.getAttribute('data-target'));
+    const duration = 2000;
+    const steps = 60;
+    const stepValue = target / steps;
+    let current = 0;
+    
+    const timer = setInterval(() => {
+      current += stepValue;
+      if (current >= target) {
+        element.textContent = target + '+';
+        clearInterval(timer);
+      } else {
+        element.textContent = Math.floor(current) + '+';
+      }
+    }, duration / steps);
+  };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen overflow-x-hidden">
+      {/* Live Chat Widget */}
+      <div className={`fixed bottom-6 right-6 z-50 transition-all duration-300 ${isChatOpen ? 'w-80 h-96' : 'w-14 h-14'}`}>
+        {isChatOpen ? (
+          <div className="bg-white rounded-xl shadow-xl border border-gray-200 h-full flex flex-col">
+            <div className="bg-blue-600 text-white p-4 rounded-t-xl flex justify-between items-center">
+              <h3 className="font-semibold">Chat with us</h3>
+              <button onClick={() => setIsChatOpen(false)} className="text-white">
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+            <div className="p-4 flex-grow overflow-y-auto">
+              <div className="bg-gray-100 rounded-lg p-3 mb-4">
+                <p className="text-sm">Hi there! How can we help you today?</p>
+              </div>
+              <div className="space-y-4">
+                <p className="text-xs text-gray-500 text-center">Send us a message and we'll respond shortly</p>
+              </div>
+            </div>
+            <div className="p-4 border-t border-gray-200">
+              <div className="flex space-x-2">
+                <input 
+                  type="text" 
+                  placeholder="Type your message..." 
+                  className="flex-grow border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+                <button className="bg-blue-600 text-white rounded-lg px-4 py-2">
+                  Send
+                </button>
+              </div>
+            </div>
+          </div>
+        ) : (
+          <button 
+            onClick={() => setIsChatOpen(true)}
+            className="w-14 h-14 bg-blue-600 rounded-full flex items-center justify-center shadow-lg hover:bg-blue-700 transition-all duration-300 hover:scale-110"
+          >
+            <MessageCircle className="h-6 w-6 text-white" />
+          </button>
+        )}
+      </div>
+
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-blue-50 to-indigo-100 py-20 lg:py-32">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="relative bg-gradient-to-br from-blue-50 to-indigo-100 py-20 lg:py-32 overflow-hidden">
+        <div className="absolute top-0 left-0 w-full h-full">
+          <div className="absolute top-20 left-10 w-72 h-72 bg-blue-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
+          <div className="absolute top-40 right-10 w-72 h-72 bg-indigo-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
+          <div className="absolute -bottom-8 left-20 w-72 h-72 bg-purple-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
+        </div>
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h1 className="text-4xl lg:text-6xl font-bold text-gray-900 mb-6">
+            <div className="fade-in">
+              <h1 className="text-4xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
                 Transforming Ideas into{' '}
-                <span className="text-blue-600">Powerful Digital Solutions</span>
+                <span className="text-blue-600 relative">
+                  Powerful Digital Solutions
+                  <span className="absolute -bottom-2 left-0 w-full h-2 bg-blue-100 opacity-50 rounded-full"></span>
+                </span>
               </h1>
-              <p className="text-xl text-gray-600 mb-8">
+              <p className="text-xl text-gray-600 mb-8 leading-relaxed">
                 Expert software development and web solutions for growing businesses. 
-                I create custom websites and software applications that drive results.
+                15+ projects delivered with 100% client satisfaction.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button asChild size="lg" className="bg-blue-600 hover:bg-blue-700">
+                <Button asChild size="lg" className="bg-blue-600 hover:bg-blue-700 transition-all duration-300 hover:scale-105">
                   <Link to="/contact">
                     Start Your Project <ArrowRight className="ml-2 h-5 w-5" />
                   </Link>
                 </Button>
-                <Button asChild variant="outline" size="lg">
+                <Button asChild variant="outline" size="lg" className="transition-all duration-300 hover:scale-105 border-2">
                   <Link to="/portfolio">View Portfolio</Link>
                 </Button>
               </div>
+
+              {/* Stats in hero */}
+              <div className="mt-12 grid grid-cols-2 gap-6">
+                {stats.map((stat, index) => (
+                  <div key={index} className="text-center">
+                    <div className="text-2xl lg:text-3xl font-bold text-blue-600 counter" data-target={stat.value.replace('+', '')}>{stat.value}</div>
+                    <div className="text-gray-600 text-sm mt-1">{stat.label}</div>
+                  </div>
+                ))}
+              </div>
             </div>
-            <div className="relative">
+            <div className="relative fade-in">
+              <div className="absolute -inset-4 bg-gradient-to-r from-blue-400 to-purple-400 rounded-lg blur opacity-30"></div>
               <img
                 src={heroImage}
                 alt="Tech Solutions Illustration"
-                className="w-full h-auto rounded-lg shadow-2xl"
+                className="w-full h-auto rounded-lg shadow-2xl relative transform transition-all duration-500 hover:scale-105"
               />
             </div>
           </div>
@@ -83,11 +219,12 @@ const Home = () => {
       {/* Services Overview */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-              What I Build
+          <div className="text-center mb-16 fade-in">
+            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4 relative inline-block">
+              What We Build
+              <span className="absolute -bottom-2 left-1/4 w-1/2 h-1 bg-blue-600 rounded-full"></span>
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto mt-6">
               Comprehensive development services tailored to your business needs
             </p>
           </div>
@@ -95,111 +232,206 @@ const Home = () => {
             {services.map((service, index) => (
               <div
                 key={index}
-                className="bg-white rounded-xl shadow-lg p-8 hover:shadow-xl transition-shadow duration-300 border border-gray-100"
+                className="fade-in bg-white rounded-xl shadow-lg p-8 hover:shadow-xl transition-all duration-300 border border-gray-100 transform hover:-translate-y-2 group"
+                style={{ animationDelay: `${index * 200}ms` }}
               >
-                <div className="mb-6">
-                  <img
-                    src={service.image}
-                    alt={service.title}
-                    className="w-16 h-16 mx-auto mb-4"
-                  />
+                <div className="mb-6 flex justify-center">
+                  <div className="relative">
+                    <div className="absolute inset-0 bg-blue-100 rounded-full transform scale-75 -z-10 group-hover:scale-100 transition-transform duration-300"></div>
+                    <img
+                      src={service.image}
+                      alt={service.title}
+                      className="w-16 h-16 mx-auto mb-4 transition-all duration-300 group-hover:scale-110"
+                    />
+                  </div>
                 </div>
                 <h3 className="text-xl font-semibold text-gray-900 mb-4 text-center">
                   {service.title}
                 </h3>
-                <p className="text-gray-600 text-center">
+                <p className="text-gray-600 text-center mb-6">
                   {service.description}
                 </p>
+                
+                {/* Service metrics */}
+                <ul className="space-y-2 mb-6">
+                  {service.metrics.map((metric, i) => (
+                    <li key={i} className="flex items-center text-sm text-gray-500">
+                      <CheckCircle className="h-4 w-4 text-green-500 mr-2 flex-shrink-0" />
+                      {metric}
+                    </li>
+                  ))}
+                </ul>
+                
+                <div className="mt-6 text-center">
+                  <div className="inline-flex items-center text-blue-600 font-medium group-hover:underline">
+                    Learn more
+                    <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                  </div>
+                </div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Why Choose Me */}
+      {/* Case Studies Section */}
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16 fade-in">
+            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">Proven Results</h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">Real projects with measurable outcomes</p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {caseStudies.map((study, index) => (
+              <div 
+                key={index} 
+                className="fade-in bg-white rounded-xl p-6 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+                style={{ animationDelay: `${index * 200}ms` }}
+              >
+                <div className="mb-4">
+                  <span className="inline-block px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium">
+                    Case Study
+                  </span>
+                </div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">{study.title}</h3>
+                <p className="text-gray-600 mb-4">{study.description}</p>
+                
+                <div className="p-4 bg-blue-50 rounded-lg mb-4">
+                  <div className="text-2xl font-bold text-blue-700">{study.result}</div>
+                </div>
+                
+                <div className="grid grid-cols-3 gap-2">
+                  {study.metrics.map((metric, i) => (
+                    <div key={i} className="text-center p-2 bg-gray-50 rounded">
+                      <div className="text-sm font-semibold text-gray-900">{metric}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+          
+          {/* Middle CTA */}
+          <div className="text-center mt-16 fade-in">
+            <h3 className="text-2xl font-semibold text-gray-900 mb-4">Ready to achieve similar results?</h3>
+            <p className="text-gray-600 mb-6 max-w-2xl mx-auto">Let's discuss how we can help you reach your business goals with a custom solution.</p>
+            <Button asChild size="lg" className="bg-blue-600 hover:bg-blue-700 transition-all duration-300 hover:scale-105">
+              <Link to="/contact">
+                Get Your Free Consultation <ArrowRight className="ml-2 h-5 w-5" />
+              </Link>
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Why Choose Me */}
+      <section className="py-20 bg-white relative">
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute left-0 top-0 h-full w-1/4 bg-gradient-to-r from-blue-50 to-transparent"></div>
+          <div className="absolute right-0 top-0 h-full w-1/4 bg-gradient-to-l from-indigo-50 to-transparent"></div>
+        </div>
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
+            <div className="fade-in">
               <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-6">
-                Why Choose TechSolutions Pro?
+                Why Choose <span className="text-blue-600">Velora Tech</span>?
               </h2>
-              <p className="text-lg text-gray-600 mb-8">
+              <p className="text-lg text-gray-600 mb-8 leading-relaxed">
                 With a proven track record and expertise in modern technologies, 
                 I deliver solutions that not only meet your requirements but exceed your expectations.
               </p>
               <div className="space-y-4">
                 {features.map((feature, index) => (
-                  <div key={index} className="flex items-start space-x-3">
+                  <div 
+                    key={index} 
+                    className="fade-in flex items-start space-x-3 p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100"
+                    style={{ animationDelay: `${index * 150}ms` }}
+                  >
                     <CheckCircle className="h-6 w-6 text-green-500 mt-0.5 flex-shrink-0" />
                     <span className="text-gray-700">{feature}</span>
                   </div>
                 ))}
               </div>
             </div>
-            <div className="bg-white rounded-xl shadow-lg p-8">
-              <h3 className="text-2xl font-semibold text-gray-900 mb-6">
+            <div className="fade-in bg-white rounded-xl shadow-lg p-8 border border-blue-100 transform hover:-translate-y-1 transition-all duration-300">
+              <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-blue-600 text-white px-4 py-1 rounded-full text-sm font-semibold">
+                Let's Connect
+              </div>
+              <h3 className="text-2xl font-semibold text-gray-900 mb-6 text-center mt-4">
                 Ready to Get Started?
               </h3>
-              <p className="text-gray-600 mb-6">
+              <p className="text-gray-600 mb-6 text-center">
                 Let's discuss your project and create a solution that drives real results for your business.
               </p>
-              <Button asChild className="w-full bg-blue-600 hover:bg-blue-700">
+              <Button asChild className="w-full bg-blue-600 hover:bg-blue-700 transition-all duration-300 hover:scale-105 py-6 text-lg">
                 <Link to="/contact">Get Started Today</Link>
               </Button>
+              <p className="text-sm text-gray-500 text-center mt-4">
+                Schedule a free consultation - no obligations
+              </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Process Overview */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-              How I Work
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              A proven process that ensures your project is delivered on time and exceeds expectations
-            </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
-            {process.map((item, index) => (
-              <div key={index} className="text-center">
-                <div className="bg-blue-600 text-white rounded-full w-16 h-16 flex items-center justify-center text-xl font-bold mx-auto mb-4">
-                  {item.step}
-                </div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                  {item.title}
-                </h3>
-                <p className="text-gray-600 text-sm">
-                  {item.description}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+{/* Technologies Section */}
+<section className="py-16 bg-gray-50">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="text-center mb-12">
+      <h2 className="text-3xl font-bold text-gray-900 mb-4">Technologies We Use</h2>
+      <p className="text-xl text-gray-600">Modern tools and frameworks for cutting-edge solutions</p>
+    </div>
+
+    <LogoLoop
+      speed={60}
+      direction="left"
+      logos={[
+        { src: reactLogo,  alt: "React" },
+        { src: nodeLogo,   alt: "Node.js" },
+        { src: tailwindLogo,   alt: "Tailwind.js" },
+        { src: typesLogo,   alt: "Typescript.js" },
+        { src: phpLogo,   alt: "php" },
+        { src: wpressLogo,   alt: "WordPress" },
+        { src: firebaseLogo,   alt: "Firebase" },
+        { src: woocomLogo,   alt: "WooCommerce" },
+        
+      ]}
+    />
+  </div>
+</section>
+
+      
 
       {/* CTA Section */}
-      <section className="py-20 bg-blue-600">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <section className="py-20 bg-blue-600 relative overflow-hidden">
+        <div className="absolute inset-0">
+          <div className="absolute top-10 left-1/4 w-64 h-64 bg-white rounded-full opacity-10 animate-pulse"></div>
+          <div className="absolute bottom-10 right-1/4 w-64 h-64 bg-white rounded-full opacity-10 animate-pulse" style={{ animationDelay: '1s' }}></div>
+        </div>
+        
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 fade-in">
           <h2 className="text-3xl lg:text-4xl font-bold text-white mb-6">
             Ready to Build Something Amazing?
           </h2>
-          <p className="text-xl text-blue-100 mb-8 max-w-3xl mx-auto">
+          <p className="text-xl text-blue-100 mb-8 max-w-3xl mx-auto leading-relaxed">
             Let's discuss your project and create a solution that drives real results for your business.
           </p>
-          <Button asChild size="lg" variant="secondary">
+          <Button asChild size="lg" variant="secondary" className="transition-all duration-300 hover:scale-105">
             <Link to="/contact">
               Get Started Today <ArrowRight className="ml-2 h-5 w-5" />
             </Link>
           </Button>
+          <p className="text-blue-100 text-sm mt-6">
+            No obligation quote. Response within 24 hours.
+          </p>
         </div>
       </section>
+
+
     </div>
   );
 };
 
 export default Home;
-

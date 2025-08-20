@@ -10,7 +10,7 @@ const Footer = () => {
           <div className="col-span-1 md:col-span-2">
             <div className="flex items-center space-x-2 mb-4">
               <Code className="h-8 w-8 text-blue-400" />
-              <span className="text-xl font-bold">TechSolutions Pro</span>
+              <span className="text-xl font-bold">Velora Tech</span>
             </div>
             <p className="text-gray-300 mb-4 max-w-md">
               Expert software development and web solutions for growing businesses. 
@@ -79,7 +79,7 @@ const Footer = () => {
 
         <div className="border-t border-gray-800 mt-8 pt-8 text-center">
           <p className="text-gray-400">
-            © 2025 TechSolutions Pro. All rights reserved.
+            © 2025 Velora Technologies. All rights reserved.
           </p>
         </div>
       </div>
