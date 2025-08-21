@@ -20,64 +20,56 @@ import logo354 from "@/assets/logos/logoipsum-354.svg";
 import logo369 from "@/assets/logos/logoipsum-369.svg";
 import logo393 from "@/assets/logos/logoipsum-393.svg";
 import logo398 from "@/assets/logos/logoipsum-398.svg";
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef} from 'react';
 
 const Home = () => {
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [index, setIndex] = useState(0);
+  const [textIndex, setTextIndex] = useState(0);
+  const [currentText, setCurrentText] = useState('');
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [typingSpeed, setTypingSpeed] = useState(150);
+  const typewriterTexts = useRef([
+    "Web Applications",
+    "E-commerce Solutions",
+    "Business Software",
+    "Mobile Apps",
+    "Tourism Websites"
+  ]);
 
+  // Typewriter effect
+  useEffect(() => {
+    const handleType = () => {
+      const current = textIndex % typewriterTexts.current.length;
+      const fullText = typewriterTexts.current[current];
+      
+      if (isDeleting) {
+        setCurrentText(fullText.substring(0, currentText.length - 1));
+        setTypingSpeed(typingSpeed / 1.5);
+      } else {
+        setCurrentText(fullText.substring(0, currentText.length + 1));
+      }
+
+      if (!isDeleting && currentText === fullText) {
+        setTimeout(() => setIsDeleting(true), 1000);
+      } else if (isDeleting && currentText === '') {
+        setIsDeleting(false);
+        setTextIndex(textIndex + 1);
+        setTypingSpeed(150);
+      }
+    };
+
+    const timer = setTimeout(handleType, typingSpeed);
+    return () => clearTimeout(timer);
+  }, [currentText, isDeleting, textIndex, typingSpeed]);
+
+  // Testimonial carousel effect
   useEffect(() => {
     const id = setInterval(() => {
       setIndex((prev) => (prev + 1) % testimonials.length);
     }, 5000);
     return () => clearInterval(id);
   }, []);
-  
-  const services = [
-    {
-      icon: Code,
-      title: 'Custom Web Development',
-      description: 'Modern, responsive websites and web applications built with the latest technologies.',
-      image: webDevImage,
-      metrics: ['40% faster load times', '100% mobile responsive', '3x conversion improvement'],
-    },
-    {
-      icon: Database,
-      title: 'Software Solutions',
-      description: 'Custom business applications, API development, and database optimization.',
-      image: softwareImage,
-      metrics: ['60% process automation', '99.9% uptime guarantee', 'Real-time analytics'],
-    },
-    {
-      icon: Lightbulb,
-      title: 'Technical Consulting',
-      description: 'Architecture planning, technology selection, and performance optimization.',
-      image: consultingImage,
-      metrics: ['30% cost reduction', '2x performance boost', 'Future-proof architecture'],
-    },
-  ];
-
-  const features = [
-    'Proven Track Record: 15+ successful client websites delivered with 100% satisfaction',
-    'Full-Stack Expertise: 2+ years experience in frontend, backend, and database development',
-    'Modern Technologies: Latest frameworks and best practices for optimal performance',
-    'Client-Focused: Collaborative approach with 24/7 communication channel access',
-  ];
-
-  const caseStudies = [
-    {
-      title: 'E-commerce Platform Redesign',
-      result: 'Revenue increased by 127%',
-      description: 'Complete redesign of product pages and checkout process',
-      metrics: ['+127% revenue', '+83% conversions', '-40% bounce rate'],
-    },
-    {
-      title: 'SaaS Dashboard Implementation',
-      result: 'User engagement up by 64%',
-      description: 'Custom dashboard with real-time analytics and reporting',
-      metrics: ['+64% engagement', '+91% user retention', '2.3x faster workflows'],
-    },
-  ];
 
   const stats = [
     { value: '15+', label: 'Projects Completed' },
@@ -86,34 +78,81 @@ const Home = () => {
     { value: '2+', label: 'Years Experience' },
   ];
 
-  const testimonials = [
-    {
-      quote: "Velora Tech has saved us thousands of hours of work. We're able to spin up projects and features faster.",
-      name: "Ammar Foley",
-      role: "UX Designer",
-      company: "GlobalBank",
-      avatar: "AF",
-      logo: logo354,
-    },
-    {
-      quote: "Our SaaS dashboard is 3× faster and our churn dropped 28% after the redesign. Absolute game-changers.",
-      name: "Marcus Lee",
-      role: "Founder",
-      company: "SaaSify",
-      avatar: "ML",
-      logo: logo369,
-    },
-    {
-      quote: "From rough sketches to a pixel-perfect product in four weeks. Communication was seamless and the results stellar.",
-      name: "Aisha Patel",
-      role: "Product Lead",
-      company: "InnovateX",
-      avatar: "AP",
-      logo: logo393,
-    },
-  ];
+  const services = [
+  {
+    icon: Code,
+    title: 'Custom Web Development',
+    description: 'Modern, responsive websites and web applications built with the latest technologies.',
+    image: webDevImage,
+    metrics: ['40% faster load times', '100% mobile responsive', '3x conversion improvement'],
+  },
+  {
+    icon: Database,
+    title: 'Software Solutions',
+    description: 'Custom business applications, API development, and database optimization.',
+    image: softwareImage,
+    metrics: ['60% process automation', '99.9% uptime guarantee', 'Real-time analytics'],
+  },
+  {
+    icon: Lightbulb,
+    title: 'Technical Consulting',
+    description: 'Architecture planning, technology selection, and performance optimization.',
+    image: consultingImage,
+    metrics: ['30% cost reduction', '2x performance boost', 'Future-proof architecture'],
+  },
+];
 
-  useEffect(() => {
+const caseStudies = [
+  {
+    title: 'E-commerce Platform Redesign',
+    result: 'Revenue increased by 127%',
+    description: 'Complete redesign of product pages and checkout process',
+    metrics: ['+127% revenue', '+83% conversions', '-40% bounce rate'],
+  },
+  {
+    title: 'SaaS Dashboard Implementation',
+    result: 'User engagement up by 64%',
+    description: 'Custom dashboard with real-time analytics and reporting',
+    metrics: ['+64% engagement', '+91% user retention', '2.3x faster workflows'],
+  },
+];
+
+const features = [
+  'Proven Track Record: 15+ successful client websites delivered with 100% satisfaction',
+  'Full-Stack Expertise: 2+ years experience in frontend, backend, and database development',
+  'Modern Technologies: Latest frameworks and best practices for optimal performance',
+  'Client-Focused: Collaborative approach with 24/7 communication channel access',
+];
+
+// Update the testimonials to include logos or remove the logo reference
+const testimonials = [
+  {
+    quote: "Velora Tech has saved us thousands of hours of work. We're able to spin up projects and features faster.",
+    name: "Ammar Foley",
+    role: "UX Designer",
+    company: "GlobalBank",
+    avatar: "AF",
+    logo: logo354, // Add this
+  },
+  {
+    quote: "Our SaaS dashboard is 3× faster and our churn dropped 28% after the redesign. Absolute game-changers.",
+    name: "Marcus Lee",
+    role: "Founder",
+    company: "SaaSify",
+    avatar: "ML",
+    logo: logo369, // Add this
+  },
+  {
+    quote: "From rough sketches to a pixel-perfect product in four weeks. Communication was seamless and the results stellar.",
+    name: "Aisha Patel",
+    role: "Product Lead",
+    company: "InnovateX",
+    avatar: "AP",
+    logo: logo393, // Add this
+  },
+];
+
+useEffect(() => {
     // Add scroll animation effect
     const observerOptions = {
       threshold: 0.1,
@@ -200,48 +239,106 @@ const Home = () => {
         )}
       </div>
 
-      {/* Hero Section */}
-      <section
-        className="relative bg-cover bg-center py-16 lg:py-32 overflow-hidden"
-        style={{ backgroundImage: `url(${heroBgImage})` }}
-      >
-        <div className="absolute inset-0 bg-black/40"></div>
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-            <div className="fade-in text-center lg:text-left">
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-4 lg:mb-6 leading-tight">
-                Transforming Ideas into{' '}
-                <span className="text-blue-400 relative">
+      {/* Enhanced Hero Section */}
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+        {/* Background with overlay */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat z-0"
+          style={{ backgroundImage: `url(${heroBgImage})` }}
+        >
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-900/80 to-purple-900/80"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/50"></div>
+        </div>
+        
+        {/* Animated elements */}
+        <div className="absolute top-20 left-10 w-72 h-72 bg-blue-500 rounded-full mix-blend-soft-light filter blur-3xl opacity-20 animate-blob"></div>
+        <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-purple-500 rounded-full mix-blend-soft-light filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
+        <div className="absolute bottom-20 left-1/3 w-80 h-80 bg-indigo-500 rounded-full mix-blend-soft-light filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
+        
+        {/* Content */}
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center lg:text-left">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div className="fade-in">
+              {/* Badge */}
+              <div className="inline-flex items-center px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 mb-8">
+                <div className="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></div>
+                <span className="text-white text-sm font-medium">Currently accepting new projects</span>
+              </div>
+              
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-6 leading-tight">
+                Transforming Ideas Into <br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">
                   Powerful Digital Solutions
                 </span>
               </h1>
-              <p className="text-lg sm:text-xl text-gray-200 mb-6 lg:mb-8 leading-relaxed">
-                Expert software development and web solutions for growing businesses.
+              
+              {/* Typewriter text */}
+              <div className="text-xl lg:text-2xl text-gray-200 mb-8">
+                We build exceptional <span className="typewriter-text font-semibold text-blue-300 border-r-2 border-blue-400">{currentText}</span>
+              </div>
+              
+              <p className="text-lg lg:text-xl text-gray-300 mb-10 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                Expert software development and web solutions for growing businesses. 
                 15+ projects delivered with 100% client satisfaction.
               </p>
+              
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                <Button asChild size="lg" className="bg-blue-600 hover:bg-blue-700 transition-all duration-300 hover:scale-105">
-                  <Link to="/contact">
+                <Button asChild size="lg" className="bg-blue-600 hover:bg-blue-700 transition-all duration-300 hover:scale-105 shadow-lg shadow-blue-500/30">
+                  <Link to="/contact" className="flex items-center">
                     Start Your Project <ArrowRight className="ml-2 h-5 w-5" />
                   </Link>
                 </Button>
-                <Button asChild variant="outline" size="lg" className="border-white text-white hover:bg-white hover:text-blue-600">
-                  <Link to="/portfolio">View Portfolio</Link>
+                <Button asChild variant="outline" size="lg" className="border-white text-white hover:bg-white hover:text-blue-600 backdrop-blur-sm">
+                  <Link to="/portfolio" className="flex items-center">
+                    View Portfolio
+                  </Link>
                 </Button>
               </div>
 
               {/* Stats */}
-              <div className="mt-8 lg:mt-12 grid grid-cols-2 gap-4 lg:gap-6">
+              <div className="mt-16 grid grid-cols-2 lg:grid-cols-4 gap-6 max-w-2xl">
                 {stats.map((stat, index) => (
                   <div key={index} className="text-center lg:text-left">
-                    <div className="text-2xl lg:text-3xl font-bold text-blue-400 counter" data-target={stat.value.replace('+', '')}>
+                    <div className="text-3xl lg:text-4xl font-bold text-white mb-2 counter" data-target={stat.value.replace('+', '')}>
                       {stat.value}
                     </div>
-                    <div className="text-gray-300 text-sm mt-1">{stat.label}</div>
+                    <div className="text-gray-300 text-sm">{stat.label}</div>
                   </div>
                 ))}
               </div>
+            </div>
+            
+            {/* Testimonial card on the right */}
+            <div className="hidden lg:block fade-in">
+              <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 shadow-xl">
+                <div className="flex items-start mb-4">
+                  <div className="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold text-lg mr-4">
+                    {testimonials[index].avatar}
+                  </div>
+                  <div>
+                    <h4 className="text-white font-semibold">{testimonials[index].name}</h4>
+                    <p className="text-gray-300 text-sm">{testimonials[index].role}, {testimonials[index].company}</p>
+                  </div>
+                </div>
+                <p className="text-gray-200 italic">"{testimonials[index].quote}"</p>
+                <div className="flex mt-4">
+                  {testimonials.map((_, i) => (
+                    <div
+                      key={i}
+                      className={`h-1 rounded-full mr-1 transition-all duration-300 ${i === index ? 'w-6 bg-blue-400' : 'w-3 bg-white/30'}`}
+                    ></div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        {/* Scroll indicator */}
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10">
+          <div className="animate-bounce">
+            <div className="w-6 h-10 border-2 border-white/50 rounded-full flex justify-center">
+              <div className="w-1 h-3 bg-white/70 rounded-full mt-2"></div>
             </div>
           </div>
         </div>
