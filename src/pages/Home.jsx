@@ -345,62 +345,108 @@ useEffect(() => {
       </section>
 
       {/* Services Overview */}
-      <section className="py-16 lg:py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12 lg:mb-16 fade-in">
-            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4 relative inline-block">
-              What We Build
-              <span className="absolute -bottom-2 left-1/4 w-1/2 h-1 bg-blue-600 rounded-full"></span>
-            </h2>
-            <p className="text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto mt-4 lg:mt-6">
-              Comprehensive development services tailored to your business needs
-            </p>
+<section className="py-16 lg:py-20 bg-gradient-to-b from-slate-50 to-white relative overflow-hidden">
+  {/* Background decorative elements */}
+  <div className="absolute top-0 left-0 w-full h-72 bg-gradient-to-r from-blue-500/5 to-purple-500/5 transform -skew-y-3 -translate-y-32"></div>
+  <div className="absolute -top-20 -right-20 w-96 h-96 bg-blue-400 rounded-full opacity-5"></div>
+  <div className="absolute bottom-0 left-0 w-64 h-64 bg-purple-400 rounded-full opacity-5"></div>
+  
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <div className="text-center mb-12 lg:mb-16 fade-in">
+      <div className="inline-flex items-center rounded-full bg-blue-100 px-4 py-2 text-sm font-medium text-blue-700 mb-4">
+        <Code className="h-4 w-4 mr-2" />
+        Our Services
+      </div>
+      <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+        What We <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">Build</span>
+      </h2>
+      <p className="text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto mt-4 lg:mt-6">
+        Comprehensive development services tailored to elevate your digital presence and business operations
+      </p>
+    </div>
+    
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
+      {services.map((service, index) => (
+        <div
+          key={index}
+          className="fade-in group relative bg-white rounded-2xl shadow-xl p-6 lg:p-8 hover:shadow-2xl transition-all duration-500 border border-gray-100 transform hover:-translate-y-3"
+          style={{ animationDelay: `${index * 200}ms` }}
+        >
+          {/* Hover effect background */}
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-purple-50 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"></div>
+          
+          {/* Icon container with gradient border */}
+          <div className="relative mb-6 flex justify-center">
+            <div className="absolute inset-0 flex justify-center items-center">
+              <div className="w-24 h-24 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full blur-lg opacity-20 group-hover:opacity-30 transition-opacity duration-500"></div>
+            </div>
+            <div className="relative bg-white p-4 rounded-2xl shadow-md border border-gray-100 group-hover:shadow-lg transition-all duration-500 group-hover:scale-110">
+              <img
+                src={service.image}
+                alt={service.title}
+                className="w-12 h-12 lg:w-14 lg:h-14"
+              />
+            </div>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-            {services.map((service, index) => (
-              <div
-                key={index}
-                className="fade-in bg-white rounded-xl shadow-lg p-6 lg:p-8 hover:shadow-xl transition-all duration-300 border border-gray-100 transform hover:-translate-y-2 group"
-                style={{ animationDelay: `${index * 200}ms` }}
-              >
-                <div className="mb-4 lg:mb-6 flex justify-center">
-                  <div className="relative">
-                    <div className="absolute inset-0 bg-blue-100 rounded-full transform scale-75 -z-10 group-hover:scale-100 transition-transform duration-300"></div>
-                    <img
-                      src={service.image}
-                      alt={service.title}
-                      className="w-12 h-12 lg:w-16 lg:h-16 mx-auto mb-3 lg:mb-4 transition-all duration-300 group-hover:scale-110"
-                    />
-                  </div>
-                </div>
-                <h3 className="text-lg lg:text-xl font-semibold text-gray-900 mb-3 lg:mb-4 text-center">
-                  {service.title}
-                </h3>
-                <p className="text-gray-600 text-center mb-4 lg:mb-6 text-sm lg:text-base">
-                  {service.description}
-                </p>
-                
-                {/* Service metrics */}
-                <ul className="space-y-2 mb-4 lg:mb-6">
-                  {service.metrics.map((metric, i) => (
-                    <li key={i} className="flex items-center text-xs lg:text-sm text-gray-500">
-                      <CheckCircle className="h-3 w-3 lg:h-4 lg:w-4 text-green-500 mr-2 flex-shrink-0" />
-                      {metric}
-                    </li>
-                  ))}
-                </ul>
-                
-                <div className="mt-4 lg:mt-6 text-center">
-                  <div className="inline-flex items-center text-blue-600 font-medium group-hover:underline text-sm lg:text-base">
-                    Learn more
-                    <ArrowRight className="ml-2 h-3 w-3 lg:h-4 lg:w-4 transition-transform duration-300 group-hover:translate-x-1" />
-                  </div>
-                </div>
-              </div>
-            ))}
+          
+          {/* Content */}
+          <h3 className="text-xl lg:text-2xl font-bold text-gray-900 mb-4 text-center group-hover:text-blue-600 transition-colors duration-300">
+            {service.title}
+          </h3>
+          <p className="text-gray-600 text-center mb-6 text-sm lg:text-base leading-relaxed">
+            {service.description}
+          </p>
+          
+          {/* Service metrics */}
+          <div className="mb-6">
+            <div className="flex items-center mb-3">
+              <div className="h-px flex-1 bg-gradient-to-r from-transparent to-gray-200"></div>
+              <span className="px-3 text-xs font-medium text-gray-500">KEY BENEFITS</span>
+              <div className="h-px flex-1 bg-gradient-to-l from-transparent to-gray-200"></div>
+            </div>
+            
+            <ul className="space-y-3">
+              {service.metrics.map((metric, i) => (
+                <li key={i} className="flex items-start text-sm text-gray-600">
+                  <CheckCircle className="h-5 w-5 text-green-500 mr-3 flex-shrink-0 mt-0.5" />
+                  <span>{metric}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+          
+          {/* CTA */}
+          <div className="text-center mt-6">
+            <Link 
+              to="/services" 
+              className="inline-flex items-center text-blue-600 font-medium group-hover:text-purple-600 transition-colors duration-300"
+            >
+              Explore service
+              <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+            </Link>
+          </div>
+          
+          {/* Corner accent */}
+          <div className="absolute top-0 right-0 w-16 h-16 overflow-hidden">
+            <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-500 rounded-bl-2xl transform translate-x-6 -translate-y-6 rotate-45 opacity-0 group-hover:opacity-10 transition-opacity duration-500"></div>
           </div>
         </div>
-      </section>
+      ))}
+    </div>
+    
+    {/* Bottom CTA */}
+    <div className="text-center mt-16 fade-in">
+      <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
+        Don't see exactly what you need? We customize solutions for unique business challenges.
+      </p>
+      <Button asChild size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 transition-all duration-300 hover:scale-105 shadow-lg shadow-blue-500/30">
+        <Link to="/contact" className="flex items-center">
+          Discuss Your Project <ArrowRight className="ml-2 h-5 w-5" />
+        </Link>
+      </Button>
+    </div>
+  </div>
+</section>
 
       {/* Case Studies Section */}
       <section className="py-16 lg:py-20 bg-gray-50">
@@ -600,10 +646,10 @@ useEffect(() => {
 
           <div className="flex flex-wrap justify-center items-center gap-6 lg:gap-8 xl:gap-12">
             {[
-              { src: logo354, alt: "CEYLON" },
-              { src: logo369, alt: "techrar" },
-              { src: logo393, alt: "Nations" },
-              { src: logo398, alt: "MEMORIES" },
+              { src: logo354, alt: "logo354" },
+              { src: logo369, alt: "logo369" },
+              { src: logo393, alt: "logo393" },
+              { src: logo398, alt: "logo398" },
             ].map(({ src, alt }) => (
               <img
                 key={alt}
