@@ -453,95 +453,95 @@ const companyLogos = [
           </section>
 
 
-<section
-  className="relative bg-cover bg-center py-20"
-  style={{ backgroundImage: `url(${testimonialBg})` }}
->
-  {/* dark overlay for readability */}
-  <div className="absolute inset-0 bg-black/60"></div>
+        <section
+          className="relative bg-cover bg-center py-20"
+          style={{ backgroundImage: `url(${testimonialBg})` }}
+        >
+          {/* dark overlay for readability */}
+          <div className="absolute inset-0 bg-black/60"></div>
 
-  <div className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-    {/* headline */}
-    <h2 className="text-3xl lg:text-4xl font-bold text-white mb-3">
-      Loved by teams everywhere
-    </h2>
-    <p className="text-lg text-gray-200 mb-10">
-      Ship faster, look sharper, and delight users—without the extra hours.
-    </p>
+          <div className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            {/* headline */}
+            <h2 className="text-3xl lg:text-4xl font-bold text-white mb-3">
+              Loved by teams everywhere
+            </h2>
+            <p className="text-lg text-gray-200 mb-10">
+              Ship faster, look sharper, and delight users—without the extra hours.
+            </p>
 
-    {/* Carousel */}
-    <div className="relative overflow-hidden rounded-2xl bg-white/10 backdrop-blur-sm shadow-xl">
-      <div
-        className="flex transition-transform duration-700 ease-in-out"
-        style={{ transform: `translateX(-${index * 100}%)` }}
-      >
-        {testimonials.map((t, i) => (
-          <div key={i} className="w-full flex-shrink-0 p-8">
-            <blockquote className="text-xl md:text-2xl text-white italic leading-snug">
-              “{t.quote}”
-            </blockquote>
+            {/* Carousel */}
+            <div className="relative overflow-hidden rounded-2xl bg-white/10 backdrop-blur-sm shadow-xl">
+              <div
+                className="flex transition-transform duration-700 ease-in-out"
+                style={{ transform: `translateX(-${index * 100}%)` }}
+              >
+                {testimonials.map((t, i) => (
+                  <div key={i} className="w-full flex-shrink-0 p-8">
+                    <blockquote className="text-xl md:text-2xl text-white italic leading-snug">
+                      “{t.quote}”
+                    </blockquote>
 
-            <div className="mt-6 flex flex-col items-center">
-              <div className="w-16 h-16 rounded-full bg-gray-200 text-blue-600 flex items-center justify-center font-bold text-xl">
-                {t.avatar}
+                    <div className="mt-6 flex flex-col items-center">
+                      <div className="w-16 h-16 rounded-full bg-gray-200 text-blue-600 flex items-center justify-center font-bold text-xl">
+                        {t.avatar}
+                      </div>
+                      <p className="mt-3 font-semibold text-white">{t.name}</p>
+                      <p className="text-sm text-gray-300">{t.role} · {t.company}</p>
+                      <img
+                        src={t.logo}
+                        alt={t.company}
+                        className="mt-4 h-7 w-auto grayscale brightness-200 hover:grayscale-0 hover:brightness-100 transition-all"
+                      />
+                    </div>
+                  </div>
+                ))}
               </div>
-              <p className="mt-3 font-semibold text-white">{t.name}</p>
-              <p className="text-sm text-gray-300">{t.role} · {t.company}</p>
-              <img
-                src={t.logo}
-                alt={t.company}
-                className="mt-4 h-7 w-auto grayscale brightness-200 hover:grayscale-0 hover:brightness-100 transition-all"
-              />
             </div>
-          </div>
-        ))}
-      </div>
-    </div>
 
-    {/* Dots */}
-    <div className="flex justify-center space-x-2 mt-6">
-      {testimonials.map((_, i) => (
-        <button
-          key={i}
-          onClick={() => setIndex(i)}
-          className={`w-2.5 h-2.5 rounded-full transition-colors ${
-            i === index ? 'bg-blue-400' : 'bg-gray-400'
-          }`}
-          aria-label={`Go to testimonial ${i + 1}`}
-        />
-      ))}
-    </div>
-  </div>
-</section>
+              {/* Dots */}
+              <div className="flex justify-center space-x-2 mt-6">
+                {testimonials.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setIndex(i)}
+                    className={`w-2.5 h-2.5 rounded-full transition-colors ${
+                      i === index ? 'bg-blue-400' : 'bg-gray-400'
+                    }`}
+                    aria-label={`Go to testimonial ${i + 1}`}
+                  />
+                ))}
+              </div>
+            </div>
+          </section>
 
-<section className="py-16 bg-slate-900">
-  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div className="text-center mb-10">
-      <h2 className="text-3xl md:text-4xl font-bold text-white mb-2">
-        Trusted By
-      </h2>
-      <p className="text-lg text-gray-300">
-        Leading brands choose Velora Tech to power their digital success.
-      </p>
-    </div>
+            <section className="py-16 bg-slate-900">
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="text-center mb-10">
+                  <h2 className="text-3xl md:text-4xl font-bold text-white mb-2">
+                    Trusted By
+                  </h2>
+                  <p className="text-lg text-gray-300">
+                    Leading brands choose Velora Tech to power their digital success.
+                  </p>
+                </div>
 
-    <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12 lg:gap-16">
-      {[
-        { src: logo354, alt: "CEYLON" },
-        { src: logo369, alt: "techrar" },
-        { src: logo393, alt: "Nations" },
-        { src: logo398, alt: "MEMORIES" },
-      ].map(({ src, alt }) => (
-        <img
-          key={alt}
-          src={src}
-          alt={alt}
-          className="h-12 w-auto filter grayscale brightness-200 hover:grayscale-0 hover:brightness-100 transition-all duration-300 cursor-pointer"
-        />
-      ))}
-    </div>
-  </div>
-</section>
+                <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12 lg:gap-16">
+                  {[
+                    { src: logo354, alt: "CEYLON" },
+                    { src: logo369, alt: "techrar" },
+                    { src: logo393, alt: "Nations" },
+                    { src: logo398, alt: "MEMORIES" },
+                  ].map(({ src, alt }) => (
+                    <img
+                      key={alt}
+                      src={src}
+                      alt={alt}
+                      className="h-12 w-auto filter grayscale brightness-200 hover:grayscale-0 hover:brightness-100 transition-all duration-300 cursor-pointer"
+                    />
+                  ))}
+                </div>
+              </div>
+            </section>
 
       {/* CTA Section */}
       <section className="py-20 bg-slate-800 relative overflow-hidden">
