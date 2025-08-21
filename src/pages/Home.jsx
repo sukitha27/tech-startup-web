@@ -2,7 +2,9 @@ import LogoLoop from "@/blocks/Animations/LogoLoop/LogoLoop";
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, CheckCircle, Code, Database, Lightbulb, MessageCircle, X } from 'lucide-react';
-import heroImage from '../assets/hero_illustration.png';
+import heroBgImage from '../assets/hero-bg.jpg';
+import testimonialBg from '../assets/testimonial-bg.jpg';   // your file
+import ctaGif from '../assets/cta-bg.gif';   // put your .gif in src/assets
 import webDevImage from '../assets/services_web_dev.png';
 import softwareImage from '../assets/services_software.png'; // Fixed import
 import consultingImage from '../assets/services_consulting.png';
@@ -21,9 +23,16 @@ import logo393    from "@/assets/logos/logoipsum-393.svg";
 import logo398    from "@/assets/logos/logoipsum-398.svg";
 import { useEffect, useState } from 'react';
 
-
 const Home = () => {
   const [isChatOpen, setIsChatOpen] = useState(false);
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setIndex((prev) => (prev + 1) % testimonials.length);
+    }, 5000);
+    return () => clearInterval(id);
+  }, []);
   
   const services = [
     {
@@ -206,59 +215,55 @@ const companyLogos = [
       </div>
 
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-blue-50 to-indigo-100 py-20 lg:py-32 overflow-hidden">
-        <div className="absolute top-0 left-0 w-full h-full">
-          <div className="absolute top-20 left-10 w-72 h-72 bg-blue-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
-          <div className="absolute top-40 right-10 w-72 h-72 bg-indigo-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
-          <div className="absolute -bottom-8 left-20 w-72 h-72 bg-purple-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
-        </div>
-        
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="fade-in">
-              <h1 className="text-4xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
-                Transforming Ideas into{' '}
-                <span className="text-blue-600 relative">
-                  Powerful Digital Solutions
-                  <span className="absolute -bottom-2 left-0 w-full h-2 bg-blue-100 opacity-50 rounded-full"></span>
-                </span>
-              </h1>
-              <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-                Expert software development and web solutions for growing businesses. 
-                15+ projects delivered with 100% client satisfaction.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button asChild size="lg" className="bg-blue-600 hover:bg-blue-700 transition-all duration-300 hover:scale-105">
-                  <Link to="/contact">
-                    Start Your Project <ArrowRight className="ml-2 h-5 w-5" />
-                  </Link>
-                </Button>
-                <Button asChild variant="outline" size="lg" className="transition-all duration-300 hover:scale-105 border-2">
-                  <Link to="/portfolio">View Portfolio</Link>
-                </Button>
-              </div>
+      <section
+  className="relative bg-cover bg-center py-20 lg:py-32 overflow-hidden"
+  style={{ backgroundImage: `url(${heroBgImage})` }}
+>
+  {/* optional overlay for text contrast */}
+  <div className="absolute inset-0 bg-black/40"></div>
 
-              {/* Stats in hero */}
-              <div className="mt-12 grid grid-cols-2 gap-6">
-                {stats.map((stat, index) => (
-                  <div key={index} className="text-center">
-                    <div className="text-2xl lg:text-3xl font-bold text-blue-600 counter" data-target={stat.value.replace('+', '')}>{stat.value}</div>
-                    <div className="text-gray-600 text-sm mt-1">{stat.label}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className="relative fade-in">
-              <div className="absolute -inset-4 bg-gradient-to-r from-blue-400 to-purple-400 rounded-lg blur opacity-30"></div>
-              <img
-                src={heroImage}
-                alt="Tech Solutions Illustration"
-                className="w-full h-auto rounded-lg shadow-2xl relative transform transition-all duration-500 hover:scale-105"
-              />
-            </div>
-          </div>
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      {/* left text block */}
+      <div className="fade-in">
+        <h1 className="text-4xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+          Transforming Ideas into{' '}
+          <span className="text-blue-400 relative">
+            Powerful Digital Solutions
+          </span>
+        </h1>
+        <p className="text-xl text-gray-200 mb-8 leading-relaxed">
+          Expert software development and web solutions for growing businesses.
+          15+ projects delivered with 100 % client satisfaction.
+        </p>
+        <div className="flex flex-col sm:flex-row gap-4">
+          <Button asChild size="lg" className="bg-blue-600 hover:bg-blue-700 transition-all duration-300 hover:scale-105">
+            <Link to="/contact">
+              Start Your Project <ArrowRight className="ml-2 h-5 w-5" />
+            </Link>
+          </Button>
+          <Button asChild variant="outline" size="lg" className="border-white text-white hover:bg-white hover:text-blue-600">
+            <Link to="/portfolio">View Portfolio</Link>
+          </Button>
         </div>
-      </section>
+
+        {/* Stats */}
+        <div className="mt-12 grid grid-cols-2 gap-6">
+          {stats.map((stat, index) => (
+            <div key={index} className="text-center">
+              <div className="text-2xl lg:text-3xl font-bold text-blue-400 counter" data-target={stat.value.replace('+', '')}>
+                {stat.value}
+              </div>
+              <div className="text-gray-300 text-sm mt-1">{stat.label}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+    
+    </div>
+  </div>
+</section>
 
       {/* Services Overview */}
       <section className="py-20 bg-white">
@@ -312,9 +317,10 @@ const companyLogos = [
                     <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
+            </div>
+              ))}
+            </div>
+          
         </div>
       </section>
 
@@ -448,62 +454,98 @@ const companyLogos = [
           </section>
 
 
-<section className="py-20 bg-white">
-  <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-    <div className="fade-up">
-      <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-3">
-        Loved by teams everywhere
-      </h2>
-      <p className="text-lg text-gray-600 mb-10 max-w-3xl mx-auto">
-        Ship faster, look sharper, and delight users—without the extra hours.
-      </p>
+<section
+  className="relative bg-cover bg-center py-20"
+  style={{ backgroundImage: `url(${testimonialBg})` }}
+>
+  {/* dark overlay for readability */}
+  <div className="absolute inset-0 bg-black/60"></div>
 
-      {/* Testimonials */}
-      <div className="space-y-12">
+  <div className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    {/* headline */}
+    <h2 className="text-3xl lg:text-4xl font-bold text-white mb-3">
+      Loved by teams everywhere
+    </h2>
+    <p className="text-lg text-gray-200 mb-10">
+      Ship faster, look sharper, and delight users—without the extra hours.
+    </p>
+
+    {/* Carousel */}
+    <div className="relative overflow-hidden rounded-2xl bg-white/10 backdrop-blur-sm shadow-xl">
+      <div
+        className="flex transition-transform duration-700 ease-in-out"
+        style={{ transform: `translateX(-${index * 100}%)` }}
+      >
         {testimonials.map((t, i) => (
-          <div
-            key={i}
-            className="bg-gray-50 p-8 rounded-2xl shadow-sm hover:shadow-xl
-                       transition-all duration-300 transform hover:-translate-y-1 fade-in"
-            style={{ animationDelay: `${i * 150}ms` }}
-          >
-            <blockquote className="text-xl md:text-2xl text-gray-800 italic leading-snug">
+          <div key={i} className="w-full flex-shrink-0 p-8">
+            <blockquote className="text-xl md:text-2xl text-white italic leading-snug">
               “{t.quote}”
             </blockquote>
 
             <div className="mt-6 flex flex-col items-center">
-              <div className="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center text-blue-600 font-bold text-xl">
+              <div className="w-16 h-16 rounded-full bg-gray-200 text-blue-600 flex items-center justify-center font-bold text-xl">
                 {t.avatar}
               </div>
-              <p className="mt-3 font-semibold text-gray-900">{t.name}</p>
-              <p className="text-sm text-gray-500">{t.role} · {t.company}</p>
+              <p className="mt-3 font-semibold text-white">{t.name}</p>
+              <p className="text-sm text-gray-300">{t.role} · {t.company}</p>
               <img
                 src={t.logo}
                 alt={t.company}
-                className="mt-4 h-7 w-auto grayscale hover:grayscale-0 transition-all duration-300"
+                className="mt-4 h-7 w-auto grayscale brightness-200 hover:grayscale-0 hover:brightness-100 transition-all"
               />
             </div>
           </div>
         ))}
       </div>
+    </div>
 
-      {/* Hover-color logo cloud */}
-      <div className="mt-12 flex justify-center items-center gap-8 md:gap-14 flex-wrap">
-        {companyLogos.map(({ src, alt }) => (
-          <img
-            key={alt}
-            src={src}
-            alt={alt}
-            className="h-10 w-auto grayscale hover:grayscale-0 transition-all duration-300 cursor-pointer"
-          />
-        ))}
-      </div>
+    {/* Dots */}
+    <div className="flex justify-center space-x-2 mt-6">
+      {testimonials.map((_, i) => (
+        <button
+          key={i}
+          onClick={() => setIndex(i)}
+          className={`w-2.5 h-2.5 rounded-full transition-colors ${
+            i === index ? 'bg-blue-400' : 'bg-gray-400'
+          }`}
+          aria-label={`Go to testimonial ${i + 1}`}
+        />
+      ))}
+    </div>
+  </div>
+</section>
+
+<section className="py-16 bg-slate-900">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="text-center mb-10">
+      <h2 className="text-3xl md:text-4xl font-bold text-white mb-2">
+        Trusted By
+      </h2>
+      <p className="text-lg text-gray-300">
+        Leading brands choose Velora Tech to power their digital success.
+      </p>
+    </div>
+
+    <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12 lg:gap-16">
+      {[
+        { src: logo354, alt: "CEYLON" },
+        { src: logo369, alt: "techrar" },
+        { src: logo393, alt: "Nations" },
+        { src: logo398, alt: "MEMORIES" },
+      ].map(({ src, alt }) => (
+        <img
+          key={alt}
+          src={src}
+          alt={alt}
+          className="h-12 w-auto filter grayscale brightness-200 hover:grayscale-0 hover:brightness-100 transition-all duration-300 cursor-pointer"
+        />
+      ))}
     </div>
   </div>
 </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-blue-600 relative overflow-hidden">
+      <section className="py-20 bg-slate-800 relative overflow-hidden">
         <div className="absolute inset-0">
           <div className="absolute top-10 left-1/4 w-64 h-64 bg-white rounded-full opacity-10 animate-pulse"></div>
           <div className="absolute bottom-10 right-1/4 w-64 h-64 bg-white rounded-full opacity-10 animate-pulse" style={{ animationDelay: '1s' }}></div>
