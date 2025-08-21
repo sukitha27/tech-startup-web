@@ -514,7 +514,7 @@ const companyLogos = [
             </div>
           </section>
 
-            <section className="py-16 bg-slate-900">
+  <section className="py-16 bg-slate-900">
   <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div className="text-center mb-10">
       <h2 className="text-3xl md:text-4xl font-bold text-white mb-2">
@@ -527,10 +527,10 @@ const companyLogos = [
 
     <div className="flex flex-wrap justify-center items-center gap-4 md:gap-8 lg:gap-12">
       {[
-        { src: logo354, alt: "CEYLON" },
-        { src: logo369, alt: "techrar" },
-        { src: logo393, alt: "Nations" },
-        { src: logo398, alt: "MEMORIES" },
+        { src: logo354, alt: "logo354" },
+        { src: logo369, alt: "logo369" },
+        { src: logo393, alt: "logo393" },
+        { src: logo398, alt: "logo398" },
       ].map(({ src, alt }) => (
         <div
           key={alt}
