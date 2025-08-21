@@ -4,7 +4,6 @@ import { Button } from '@/components/ui/button';
 import { ArrowRight, CheckCircle, Code, Database, Lightbulb, MessageCircle, X } from 'lucide-react';
 import heroBgImage from '../assets/hero-bg.jpg';
 import testimonialBg from '../assets/testimonial-bg.jpg';   // your file
-import ctaGif from '../assets/cta-bg.gif';   // put your .gif in src/assets
 import webDevImage from '../assets/services_web_dev.png';
 import softwareImage from '../assets/services_software.png'; // Fixed import
 import consultingImage from '../assets/services_consulting.png';
