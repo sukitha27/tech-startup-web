@@ -64,7 +64,7 @@ const Footer = () => {
             <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
               Our{" "}
               <RotatingText
-                texts={["Services" , "Services"]}
+                texts={["Services" ,"Services"]}
                 mainClassName="px-2 bg-blue-400 text-black rounded-lg"
                 staggerFrom="last"
                 initial={{ y: "100%" }}
