@@ -46,7 +46,7 @@ const Home = () => {
       icon: Database,
       title: 'Software Solutions',
       description: 'Custom business applications, API development, and database optimization.',
-      image: softwareImage, // Now using the correct import
+      image: softwareImage,
       metrics: ['60% process automation', '99.9% uptime guarantee', 'Real-time analytics'],
     },
     {
@@ -64,7 +64,6 @@ const Home = () => {
     'Modern Technologies: Latest frameworks and best practices for optimal performance',
     'Client-Focused: Collaborative approach with 24/7 communication channel access',
   ];
-
 
   const caseStudies = [
     {
@@ -118,13 +117,11 @@ const Home = () => {
   },
 ];
 
-
 const companyLogos = [
   { src: logo354, alt: "3Portals" },
   { src: logo369, alt: "CD Warpspeed" },
   { src: logo393, alt: "GlobalBank" },
   { src: logo398, alt: "Ikigai Labs" },
-  
 ];
 
   useEffect(() => {
@@ -173,32 +170,36 @@ const companyLogos = [
 
   return (
     <div className="min-h-screen overflow-x-hidden">
-      {/* Live Chat Widget */}
-      <div className={`fixed bottom-6 right-6 z-50 transition-all duration-300 ${isChatOpen ? 'w-80 h-96' : 'w-14 h-14'}`}>
+      {/* Live Chat Widget - Fixed for mobile responsiveness */}
+      <div className={`fixed bottom-4 right-4 z-50 transition-all duration-300 ${
+        isChatOpen 
+          ? 'w-[calc(100vw-2rem)] max-w-sm h-96 sm:w-80' 
+          : 'w-12 h-12 sm:w-14 sm:h-14'
+      }`}>
         {isChatOpen ? (
           <div className="bg-white rounded-xl shadow-xl border border-gray-200 h-full flex flex-col">
-            <div className="bg-blue-600 text-white p-4 rounded-t-xl flex justify-between items-center">
-              <h3 className="font-semibold">Chat with us</h3>
+            <div className="bg-blue-600 text-white p-3 sm:p-4 rounded-t-xl flex justify-between items-center">
+              <h3 className="font-semibold text-sm sm:text-base">Chat with us</h3>
               <button onClick={() => setIsChatOpen(false)} className="text-white">
-                <X className="h-5 w-5" />
+                <X className="h-4 w-4 sm:h-5 sm:w-5" />
               </button>
             </div>
-            <div className="p-4 flex-grow overflow-y-auto">
-              <div className="bg-gray-100 rounded-lg p-3 mb-4">
-                <p className="text-sm">Hi there! How can we help you today?</p>
+            <div className="p-3 sm:p-4 flex-grow overflow-y-auto">
+              <div className="bg-gray-100 rounded-lg p-2 sm:p-3 mb-4">
+                <p className="text-xs sm:text-sm">Hi there! How can we help you today?</p>
               </div>
               <div className="space-y-4">
                 <p className="text-xs text-gray-500 text-center">Send us a message and we'll respond shortly</p>
               </div>
             </div>
-            <div className="p-4 border-t border-gray-200">
+            <div className="p-3 sm:p-4 border-t border-gray-200">
               <div className="flex space-x-2">
                 <input 
                   type="text" 
                   placeholder="Type your message..." 
-                  className="flex-grow border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="flex-grow border border-gray-300 rounded-lg px-2 sm:px-3 py-1.5 sm:py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
-                <button className="bg-blue-600 text-white rounded-lg px-4 py-2">
+                <button className="bg-blue-600 text-white rounded-lg px-3 sm:px-4 py-1.5 sm:py-2 text-sm">
                   Send
                 </button>
               </div>
@@ -207,81 +208,79 @@ const companyLogos = [
         ) : (
           <button 
             onClick={() => setIsChatOpen(true)}
-            className="w-14 h-14 bg-blue-600 rounded-full flex items-center justify-center shadow-lg hover:bg-blue-700 transition-all duration-300 hover:scale-110"
+            className="w-12 h-12 sm:w-14 sm:h-14 bg-blue-600 rounded-full flex items-center justify-center shadow-lg hover:bg-blue-700 transition-all duration-300 hover:scale-110"
           >
-            <MessageCircle className="h-6 w-6 text-white" />
+            <MessageCircle className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
           </button>
         )}
       </div>
 
-      {/* Hero Section */}
+      {/* Hero Section - Improved mobile responsiveness */}
       <section
-  className="relative bg-cover bg-center py-20 lg:py-32 overflow-hidden"
-  style={{ backgroundImage: `url(${heroBgImage})` }}
->
-  {/* optional overlay for text contrast */}
-  <div className="absolute inset-0 bg-black/40"></div>
+        className="relative bg-cover bg-center py-16 sm:py-20 lg:py-32 overflow-hidden"
+        style={{ backgroundImage: `url(${heroBgImage})` }}
+      >
+        {/* optional overlay for text contrast */}
+        <div className="absolute inset-0 bg-black/40"></div>
 
-  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-      {/* left text block */}
-      <div className="fade-in">
-        <h1 className="text-4xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-          Transforming Ideas into{' '}
-          <span className="text-blue-400 relative">
-            Powerful Digital Solutions
-          </span>
-        </h1>
-        <p className="text-xl text-gray-200 mb-8 leading-relaxed">
-          Expert software development and web solutions for growing businesses.
-          15+ projects delivered with 100 % client satisfaction.
-        </p>
-        <div className="flex flex-col sm:flex-row gap-4">
-          <Button asChild size="lg" className="bg-blue-600 hover:bg-blue-700 transition-all duration-300 hover:scale-105">
-            <Link to="/contact">
-              Start Your Project <ArrowRight className="ml-2 h-5 w-5" />
-            </Link>
-          </Button>
-          <Button asChild variant="outline" size="lg" className="border-white text-white hover:bg-white hover:text-blue-600">
-            <Link to="/portfolio">View Portfolio</Link>
-          </Button>
-        </div>
-
-        {/* Stats */}
-        <div className="mt-12 grid grid-cols-2 gap-6">
-          {stats.map((stat, index) => (
-            <div key={index} className="text-center">
-              <div className="text-2xl lg:text-3xl font-bold text-blue-400 counter" data-target={stat.value.replace('+', '')}>
-                {stat.value}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+            {/* left text block */}
+            <div className="fade-in text-center lg:text-left">
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-4 sm:mb-6 leading-tight">
+                Transforming Ideas into{' '}
+                <span className="text-blue-400 relative">
+                  Powerful Digital Solutions
+                </span>
+              </h1>
+              <p className="text-lg sm:text-xl text-gray-200 mb-6 sm:mb-8 leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                Expert software development and web solutions for growing businesses.
+                15+ projects delivered with 100% client satisfaction.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start">
+                <Button asChild size="lg" className="bg-blue-600 hover:bg-blue-700 transition-all duration-300 hover:scale-105 w-full sm:w-auto">
+                  <Link to="/contact">
+                    Start Your Project <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
+                  </Link>
+                </Button>
+                <Button asChild variant="outline" size="lg" className="border-white text-white hover:bg-white hover:text-blue-600 w-full sm:w-auto">
+                  <Link to="/portfolio">View Portfolio</Link>
+                </Button>
               </div>
-              <div className="text-gray-300 text-sm mt-1">{stat.label}</div>
+
+              {/* Stats - Improved mobile layout */}
+              <div className="mt-8 sm:mt-12 grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-2 xl:grid-cols-4 gap-4 sm:gap-6">
+                {stats.map((stat, index) => (
+                  <div key={index} className="text-center">
+                    <div className="text-xl sm:text-2xl lg:text-3xl font-bold text-blue-400 counter" data-target={stat.value.replace('+', '')}>
+                      {stat.value}
+                    </div>
+                    <div className="text-gray-300 text-xs sm:text-sm mt-1">{stat.label}</div>
+                  </div>
+                ))}
+              </div>
             </div>
-          ))}
+          </div>
         </div>
-      </div>
+      </section>
 
-    
-    </div>
-  </div>
-</section>
-
-      {/* Services Overview */}
-      <section className="py-20 bg-white">
+      {/* Services Overview - Enhanced mobile responsiveness */}
+      <section className="py-16 sm:py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16 fade-in">
-            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4 relative inline-block">
+          <div className="text-center mb-12 sm:mb-16 fade-in">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 relative inline-block">
               What We Build
               <span className="absolute -bottom-2 left-1/4 w-1/2 h-1 bg-blue-600 rounded-full"></span>
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto mt-6">
+            <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto mt-6">
               Comprehensive development services tailored to your business needs
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {services.map((service, index) => (
               <div
                 key={index}
-                className="fade-in bg-white rounded-xl shadow-lg p-8 hover:shadow-xl transition-all duration-300 border border-gray-100 transform hover:-translate-y-2 group"
+                className="fade-in bg-white rounded-xl shadow-lg p-6 sm:p-8 hover:shadow-xl transition-all duration-300 border border-gray-100 transform hover:-translate-y-2 group"
                 style={{ animationDelay: `${index * 200}ms` }}
               >
                 <div className="mb-6 flex justify-center">
@@ -290,71 +289,70 @@ const companyLogos = [
                     <img
                       src={service.image}
                       alt={service.title}
-                      className="w-16 h-16 mx-auto mb-4 transition-all duration-300 group-hover:scale-110"
+                      className="w-12 h-12 sm:w-16 sm:h-16 mx-auto mb-4 transition-all duration-300 group-hover:scale-110"
                     />
                   </div>
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-4 text-center">
+                <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-4 text-center">
                   {service.title}
                 </h3>
-                <p className="text-gray-600 text-center mb-6">
+                <p className="text-gray-600 text-center mb-6 text-sm sm:text-base">
                   {service.description}
                 </p>
                 
                 {/* Service metrics */}
                 <ul className="space-y-2 mb-6">
                   {service.metrics.map((metric, i) => (
-                    <li key={i} className="flex items-center text-sm text-gray-500">
-                      <CheckCircle className="h-4 w-4 text-green-500 mr-2 flex-shrink-0" />
+                    <li key={i} className="flex items-center text-xs sm:text-sm text-gray-500">
+                      <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4 text-green-500 mr-2 flex-shrink-0" />
                       {metric}
                     </li>
                   ))}
                 </ul>
                 
                 <div className="mt-6 text-center">
-                  <div className="inline-flex items-center text-blue-600 font-medium group-hover:underline">
+                  <div className="inline-flex items-center text-blue-600 font-medium group-hover:underline text-sm sm:text-base">
                     Learn more
-                    <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                    <ArrowRight className="ml-2 h-3 w-3 sm:h-4 sm:w-4 transition-transform duration-300 group-hover:translate-x-1" />
                   </div>
                 </div>
-            </div>
-              ))}
-            </div>
-          
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* Case Studies Section */}
-      <section className="py-20 bg-gray-50">
+      {/* Case Studies Section - Mobile optimized */}
+      <section className="py-16 sm:py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16 fade-in">
-            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">Proven Results</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">Real projects with measurable outcomes</p>
+          <div className="text-center mb-12 sm:mb-16 fade-in">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-4">Proven Results</h2>
+            <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">Real projects with measurable outcomes</p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
             {caseStudies.map((study, index) => (
               <div 
                 key={index} 
-                className="fade-in bg-white rounded-xl p-6 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+                className="fade-in bg-white rounded-xl p-4 sm:p-6 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
                 style={{ animationDelay: `${index * 200}ms` }}
               >
                 <div className="mb-4">
-                  <span className="inline-block px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium">
+                  <span className="inline-block px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-xs sm:text-sm font-medium">
                     Case Study
                   </span>
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">{study.title}</h3>
-                <p className="text-gray-600 mb-4">{study.description}</p>
+                <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2">{study.title}</h3>
+                <p className="text-gray-600 mb-4 text-sm sm:text-base">{study.description}</p>
                 
-                <div className="p-4 bg-blue-50 rounded-lg mb-4">
-                  <div className="text-2xl font-bold text-blue-700">{study.result}</div>
+                <div className="p-3 sm:p-4 bg-blue-50 rounded-lg mb-4">
+                  <div className="text-xl sm:text-2xl font-bold text-blue-700">{study.result}</div>
                 </div>
                 
-                <div className="grid grid-cols-3 gap-2">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                   {study.metrics.map((metric, i) => (
                     <div key={i} className="text-center p-2 bg-gray-50 rounded">
-                      <div className="text-sm font-semibold text-gray-900">{metric}</div>
+                      <div className="text-xs sm:text-sm font-semibold text-gray-900">{metric}</div>
                     </div>
                   ))}
                 </div>
@@ -363,214 +361,204 @@ const companyLogos = [
           </div>
           
           {/* Middle CTA */}
-          <div className="text-center mt-16 fade-in">
-            <h3 className="text-2xl font-semibold text-gray-900 mb-4">Ready to achieve similar results?</h3>
-            <p className="text-gray-600 mb-6 max-w-2xl mx-auto">Let's discuss how we can help you reach your business goals with a custom solution.</p>
-            <Button asChild size="lg" className="bg-blue-600 hover:bg-blue-700 transition-all duration-300 hover:scale-105">
+          <div className="text-center mt-12 sm:mt-16 fade-in">
+            <h3 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-4">Ready to achieve similar results?</h3>
+            <p className="text-gray-600 mb-6 max-w-2xl mx-auto text-sm sm:text-base">Let's discuss how we can help you reach your business goals with a custom solution.</p>
+            <Button asChild size="lg" className="bg-blue-600 hover:bg-blue-700 transition-all duration-300 hover:scale-105 w-full sm:w-auto">
               <Link to="/contact">
-                Get Your Free Consultation <ArrowRight className="ml-2 h-5 w-5" />
+                Get Your Free Consultation <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
               </Link>
             </Button>
           </div>
         </div>
       </section>
 
-      {/* Why Choose Me */}
-      <section className="py-20 bg-white relative">
+      {/* Why Choose Me - Mobile responsive improvements */}
+      <section className="py-16 sm:py-20 bg-white relative">
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute left-0 top-0 h-full w-1/4 bg-gradient-to-r from-blue-50 to-transparent"></div>
           <div className="absolute right-0 top-0 h-full w-1/4 bg-gradient-to-l from-indigo-50 to-transparent"></div>
         </div>
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="fade-in">
-              <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+            <div className="fade-in text-center lg:text-left">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 sm:mb-6">
                 Why Choose <span className="text-blue-600">Velora Tech</span>?
               </h2>
-              <p className="text-lg text-gray-600 mb-8 leading-relaxed">
+              <p className="text-base sm:text-lg text-gray-600 mb-6 sm:mb-8 leading-relaxed">
                 With a proven track record and expertise in modern technologies, 
                 I deliver solutions that not only meet your requirements but exceed your expectations.
               </p>
-              <div className="space-y-4">
+              <div className="space-y-4 sm:space-y-6">
                 {features.map((feature, index) => (
-                  <div 
-                    key={index} 
-                    className="fade-in flex items-start space-x-3 p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100"
-                    style={{ animationDelay: `${index * 150}ms` }}
-                  >
-                    <CheckCircle className="h-6 w-6 text-green-500 mt-0.5 flex-shrink-0" />
-                    <span className="text-gray-700">{feature}</span>
+                  <div key={index} className="flex items-start space-x-3">
+                    <CheckCircle className="h-5 w-5 sm:h-6 sm:w-6 text-green-500 flex-shrink-0 mt-0.5" />
+                    <p className="text-gray-700 text-sm sm:text-base">{feature}</p>
                   </div>
                 ))}
               </div>
             </div>
-            <div className="fade-in bg-white rounded-xl shadow-lg p-8 border border-blue-100 transform hover:-translate-y-1 transition-all duration-300">
-              <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-blue-600 text-white px-4 py-1 rounded-full text-sm font-semibold">
-                Let's Connect
+            
+            {/* Technology Stack - Mobile optimized */}
+            <div className="fade-in">
+              <div className="bg-gradient-to-br from-blue-50 to-indigo-100 rounded-2xl p-6 sm:p-8">
+                <h3 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-4 sm:mb-6 text-center">
+                  Technologies I Use
+                </h3>
+                <div className="grid grid-cols-3 sm:grid-cols-4 gap-4 sm:gap-6">
+                  {[
+                    { src: reactLogo, alt: "React", name: "React" },
+                    { src: nodeLogo, alt: "Node.js", name: "Node.js" },
+                    { src: tailwindLogo, alt: "Tailwind", name: "Tailwind" },
+                    { src: typesLogo, alt: "TypeScript", name: "TypeScript" },
+                    { src: phpLogo, alt: "PHP", name: "PHP" },
+                    { src: wpressLogo, alt: "WordPress", name: "WordPress" },
+                    { src: firebaseLogo, alt: "Firebase", name: "Firebase" },
+                    { src: woocomLogo, alt: "WooCommerce", name: "WooCommerce" },
+                  ].map((tech, index) => (
+                    <div
+                      key={index}
+                      className="group flex flex-col items-center p-2 sm:p-3 bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-300 transform hover:-translate-y-1"
+                    >
+                      <img
+                        src={tech.src}
+                        alt={tech.alt}
+                        className="w-8 h-8 sm:w-10 sm:h-10 mb-2 group-hover:scale-110 transition-transform duration-300"
+                      />
+                      <span className="text-xs text-gray-600 text-center font-medium">
+                        {tech.name}
+                      </span>
+                    </div>
+                  ))}
+                </div>
               </div>
-              <h3 className="text-2xl font-semibold text-gray-900 mb-6 text-center mt-4">
-                Ready to Get Started?
-              </h3>
-              <p className="text-gray-600 mb-6 text-center">
-                Let's discuss your project and create a solution that drives real results for your business.
-              </p>
-              <Button asChild className="w-full bg-blue-600 hover:bg-blue-700 transition-all duration-300 hover:scale-105 py-6 text-lg">
-                <Link to="/contact">Get Started Today</Link>
-              </Button>
-              <p className="text-sm text-gray-500 text-center mt-4">
-                Schedule a free consultation - no obligations
-              </p>
             </div>
           </div>
         </div>
       </section>
 
-          {/* Technologies Section */}
-          <section className="py-16 bg-gray-50">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="text-center mb-12">
-                <h2 className="text-3xl font-bold text-gray-900 mb-4">Technologies We Use</h2>
-                <p className="text-xl text-gray-600">Modern tools and frameworks for cutting-edge solutions</p>
-              </div>
-
-              <LogoLoop
-                speed={60}
-                direction="left"
-                logos={[
-                  { src: reactLogo,  alt: "React" },
-                  { src: nodeLogo,   alt: "Node.js" },
-                  { src: tailwindLogo,   alt: "Tailwind.js" },
-                  { src: typesLogo,   alt: "Typescript.js" },
-                  { src: phpLogo,   alt: "php" },
-                  { src: wpressLogo,   alt: "WordPress" },
-                  { src: firebaseLogo,   alt: "Firebase" },
-                  { src: woocomLogo,   alt: "WooCommerce" },
-                  { src: htmlLogo,   alt: "HTML5" },
-                  
-                ]}
-              />
-            </div>
-          </section>
-
-
-        <section
-          className="relative bg-cover bg-center py-20"
-          style={{ backgroundImage: `url(${testimonialBg})` }}
-        >
-          {/* dark overlay for readability */}
-          <div className="absolute inset-0 bg-black/60"></div>
-
-          <div className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            {/* headline */}
-            <h2 className="text-3xl lg:text-4xl font-bold text-white mb-3">
-              Loved by teams everywhere
+      {/* Testimonials Section - Mobile responsive */}
+      <section
+        className="py-16 sm:py-20 relative overflow-hidden"
+        style={{ backgroundImage: `url(${testimonialBg})` }}
+      >
+        <div className="absolute inset-0 bg-black/60"></div>
+        
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+          <div className="fade-in mb-8 sm:mb-12">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-4">
+              What Our Clients Say
             </h2>
-            <p className="text-lg text-gray-200 mb-10">
-              Ship faster, look sharper, and delight users—without the extra hours.
+            <p className="text-lg sm:text-xl text-blue-100">
+              Real feedback from satisfied customers
             </p>
+          </div>
 
-            {/* Carousel */}
-            <div className="relative overflow-hidden rounded-2xl bg-white/10 backdrop-blur-sm shadow-xl">
-              <div
-                className="flex transition-transform duration-700 ease-in-out"
-                style={{ transform: `translateX(-${index * 100}%)` }}
-              >
-                {testimonials.map((t, i) => (
-                  <div key={i} className="w-full flex-shrink-0 p-8">
-                    <blockquote className="text-xl md:text-2xl text-white italic leading-snug">
-                      “{t.quote}”
-                    </blockquote>
-
-                    <div className="mt-6 flex flex-col items-center">
-                      <div className="w-16 h-16 rounded-full bg-gray-200 text-blue-600 flex items-center justify-center font-bold text-xl">
-                        {t.avatar}
-                      </div>
-                      <p className="mt-3 font-semibold text-white">{t.name}</p>
-                      <p className="text-sm text-gray-300">{t.role} · {t.company}</p>
-                      <img
-                        src={t.logo}
-                        alt={t.company}
-                        className="mt-4 h-7 w-auto grayscale brightness-200 hover:grayscale-0 hover:brightness-100 transition-all"
-                      />
-                    </div>
+          {/* Testimonial Carousel */}
+          <div className="relative">
+            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 sm:p-8 border border-white/20">
+              <div className="mb-6">
+                <img
+                  src={testimonials[index].logo}
+                  alt={testimonials[index].company}
+                  className="h-8 sm:h-10 mx-auto mb-4 opacity-80"
+                />
+              </div>
+              
+              <blockquote className="text-lg sm:text-xl lg:text-2xl text-white mb-6 sm:mb-8 leading-relaxed">
+                "{testimonials[index].quote}"
+              </blockquote>
+              
+              <div className="flex items-center justify-center space-x-4">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-blue-600 rounded-full flex items-center justify-center text-white font-semibold text-sm sm:text-base">
+                  {testimonials[index].avatar}
+                </div>
+                <div className="text-left">
+                  <div className="text-white font-semibold text-sm sm:text-base">
+                    {testimonials[index].name}
                   </div>
-                ))}
+                  <div className="text-blue-200 text-xs sm:text-sm">
+                    {testimonials[index].role}, {testimonials[index].company}
+                  </div>
+                </div>
               </div>
             </div>
 
-              {/* Dots */}
-              <div className="flex justify-center space-x-2 mt-6">
-                {testimonials.map((_, i) => (
-                  <button
-                    key={i}
-                    onClick={() => setIndex(i)}
-                    className={`w-2.5 h-2.5 rounded-full transition-colors ${
-                      i === index ? 'bg-blue-400' : 'bg-gray-400'
-                    }`}
-                    aria-label={`Go to testimonial ${i + 1}`}
-                  />
-                ))}
-              </div>
+            {/* Dots */}
+            <div className="flex justify-center space-x-2 mt-6">
+              {testimonials.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setIndex(i)}
+                  className={`w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full transition-colors ${
+                    i === index ? 'bg-blue-400' : 'bg-gray-400'
+                  }`}
+                  aria-label={`Go to testimonial ${i + 1}`}
+                />
+              ))}
             </div>
-          </section>
-
-  <section className="py-16 bg-slate-900">
-  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div className="text-center mb-10">
-      <h2 className="text-3xl md:text-4xl font-bold text-white mb-2">
-        Trusted By Our Customers
-      </h2>
-      <p className="text-lg text-gray-300">
-        Leading brands choose Velora Tech to power their digital success.
-      </p>
-    </div>
-
-    <div className="flex flex-wrap justify-center items-center gap-4 md:gap-8 lg:gap-12">
-      {[
-        { src: logo354, alt: "logo354" },
-        { src: logo369, alt: "logo369" },
-        { src: logo393, alt: "logo393" },
-        { src: logo398, alt: "logo398" },
-      ].map(({ src, alt }) => (
-        <div
-          key={alt}
-          className="group relative overflow-hidden rounded-lg shadow-sm hover:shadow-xl transition-all duration-300"
-        >
-          <img
-            src={src}
-            alt={alt}
-            className="h-12 w-auto object-contain filter grayscale hover:grayscale-0 transition-all duration-300 cursor-pointer"
-          />
-          <span className="absolute -bottom-6 left-1/2 -translate-x-1/2 text-xs text-gray-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            {alt}
-          </span>
+          </div>
         </div>
-      ))}
-    </div>
-  </div>
-</section>
+      </section>
 
-      {/* CTA Section */}
-      <section className="py-20 bg-slate-800 relative overflow-hidden">
+      {/* Company Logos Section - Mobile responsive */}
+      <section className="py-12 sm:py-16 bg-slate-900">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-8 sm:mb-10">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-2">
+              Trusted By Our Customers
+            </h2>
+            <p className="text-base sm:text-lg text-gray-300">
+              Leading brands choose Velora Tech to power their digital success.
+            </p>
+          </div>
+
+          <div className="flex flex-wrap justify-center items-center gap-6 sm:gap-8 lg:gap-12">
+            {[
+              { src: logo354, alt: "CEYLON" },
+              { src: logo369, alt: "techrar" },
+              { src: logo393, alt: "Nations" },
+              { src: logo398, alt: "MEMORIES" },
+            ].map(({ src, alt }) => (
+              <div
+                key={alt}
+                className="group relative overflow-hidden rounded-lg shadow-sm hover:shadow-xl transition-all duration-300"
+              >
+                <img
+                  src={src}
+                  alt={alt}
+                  className="h-8 sm:h-10 lg:h-12 w-auto object-contain filter grayscale hover:grayscale-0 transition-all duration-300 cursor-pointer"
+                />
+                <span className="absolute -bottom-6 left-1/2 -translate-x-1/2 text-xs text-gray-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  {alt}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section - Mobile responsive */}
+      <section className="py-16 sm:py-20 bg-slate-800 relative overflow-hidden">
         <div className="absolute inset-0">
-          <div className="absolute top-10 left-1/4 w-64 h-64 bg-white rounded-full opacity-10 animate-pulse"></div>
-          <div className="absolute bottom-10 right-1/4 w-64 h-64 bg-white rounded-full opacity-10 animate-pulse" style={{ animationDelay: '1s' }}></div>
+          <div className="absolute top-10 left-1/4 w-32 h-32 sm:w-64 sm:h-64 bg-white rounded-full opacity-10 animate-pulse"></div>
+          <div className="absolute bottom-10 right-1/4 w-32 h-32 sm:w-64 sm:h-64 bg-white rounded-full opacity-10 animate-pulse" style={{ animationDelay: '1s' }}></div>
         </div>
         
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 fade-in">
-          <h2 className="text-3xl lg:text-4xl font-bold text-white mb-6">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-4 sm:mb-6">
             Ready to Build Something Amazing?
           </h2>
-          <p className="text-xl text-blue-100 mb-8 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-lg sm:text-xl text-blue-100 mb-6 sm:mb-8 max-w-3xl mx-auto leading-relaxed">
             Let's discuss your project and create a solution that drives real results for your business.
           </p>
-          <Button asChild size="lg" variant="secondary" className="transition-all duration-300 hover:scale-105">
+          <Button asChild size="lg" variant="secondary" className="transition-all duration-300 hover:scale-105 w-full sm:w-auto">
             <Link to="/contact">
-              Get Started Today <ArrowRight className="ml-2 h-5 w-5" />
+              Get Started Today <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
             </Link>
           </Button>
-          <p className="text-blue-100 text-sm mt-6">
+          <p className="text-blue-100 text-xs sm:text-sm mt-4 sm:mt-6">
             No obligation quote. Response within 24 hours.
           </p>
         </div>
