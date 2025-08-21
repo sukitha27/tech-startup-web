@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import LogoLoop from "@/blocks/Animations/LogoLoop/LogoLoop";
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -20,7 +21,7 @@ import logo354    from "@/assets/logos/logoipsum-354.svg";
 import logo369    from "@/assets/logos/logoipsum-369.svg";
 import logo393    from "@/assets/logos/logoipsum-393.svg";
 import logo398    from "@/assets/logos/logoipsum-398.svg";
-import { useEffect, useState } from 'react';
+
 
 const Home = () => {
   const [isChatOpen, setIsChatOpen] = useState(false);
