@@ -515,33 +515,40 @@ const companyLogos = [
           </section>
 
             <section className="py-16 bg-slate-900">
-              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="text-center mb-10">
-                  <h2 className="text-3xl md:text-4xl font-bold text-white mb-2">
-                    Trusted By
-                  </h2>
-                  <p className="text-lg text-gray-300">
-                    Leading brands choose Velora Tech to power their digital success.
-                  </p>
-                </div>
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="text-center mb-10">
+      <h2 className="text-3xl md:text-4xl font-bold text-white mb-2">
+        Trusted By Our Customers
+      </h2>
+      <p className="text-lg text-gray-300">
+        Leading brands choose Velora Tech to power their digital success.
+      </p>
+    </div>
 
-                <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12 lg:gap-16">
-                  {[
-                    { src: logo354, alt: "CEYLON" },
-                    { src: logo369, alt: "techrar" },
-                    { src: logo393, alt: "Nations" },
-                    { src: logo398, alt: "MEMORIES" },
-                  ].map(({ src, alt }) => (
-                    <img
-                      key={alt}
-                      src={src}
-                      alt={alt}
-                      className="h-12 w-auto filter grayscale brightness-200 hover:grayscale-0 hover:brightness-100 transition-all duration-300 cursor-pointer"
-                    />
-                  ))}
-                </div>
-              </div>
-            </section>
+    <div className="flex flex-wrap justify-center items-center gap-4 md:gap-8 lg:gap-12">
+      {[
+        { src: logo354, alt: "CEYLON" },
+        { src: logo369, alt: "techrar" },
+        { src: logo393, alt: "Nations" },
+        { src: logo398, alt: "MEMORIES" },
+      ].map(({ src, alt }) => (
+        <div
+          key={alt}
+          className="group relative overflow-hidden rounded-lg shadow-sm hover:shadow-xl transition-all duration-300"
+        >
+          <img
+            src={src}
+            alt={alt}
+            className="h-12 w-auto object-contain filter grayscale hover:grayscale-0 transition-all duration-300 cursor-pointer"
+          />
+          <span className="absolute -bottom-6 left-1/2 -translate-x-1/2 text-xs text-gray-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            {alt}
+          </span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
 
       {/* CTA Section */}
       <section className="py-20 bg-slate-800 relative overflow-hidden">
