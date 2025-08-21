@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Code, Mail, Phone, MapPin } from 'lucide-react';
+import RotatingText from '@/blocks/TextAnimations/RotatingText/RotatingText';
 
 const Footer = () => {
   return (
@@ -34,39 +35,47 @@ const Footer = () => {
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
+            <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+              Quick{" "}
+              <RotatingText
+                texts={["Links" , "Links"]}
+                mainClassName="px-2 bg-blue-400 text-black rounded-lg"
+                staggerFrom="last"
+                initial={{ y: "100%" }}
+                animate={{ y: 0 }}
+                exit={{ y: "-120%" }}
+                staggerDuration={0.025}
+                splitLevelClassName="overflow-hidden pb-1"
+                transition={{ type: "spring", damping: 30, stiffness: 400 }}
+                rotationInterval={2000}
+              />
+            </h3>
             <ul className="space-y-2">
-              <li>
-                <Link to="/" className="text-gray-300 hover:text-blue-400 transition-colors">
-                  Home
-                </Link>
-              </li>
-              <li>
-                <Link to="/services" className="text-gray-300 hover:text-blue-400 transition-colors">
-                  Services
-                </Link>
-              </li>
-              <li>
-                <Link to="/portfolio" className="text-gray-300 hover:text-blue-400 transition-colors">
-                  Portfolio
-                </Link>
-              </li>
-              <li>
-                <Link to="/about" className="text-gray-300 hover:text-blue-400 transition-colors">
-                  About
-                </Link>
-              </li>
-              <li>
-                <Link to="/contact" className="text-gray-300 hover:text-blue-400 transition-colors">
-                  Contact
-                </Link>
-              </li>
+              <li><Link to="/" className="text-gray-300 hover:text-blue-400 transition-colors">Home</Link></li>
+              <li><Link to="/services" className="text-gray-300 hover:text-blue-400 transition-colors">Services</Link></li>
+              <li><Link to="/portfolio" className="text-gray-300 hover:text-blue-400 transition-colors">Portfolio</Link></li>
+              <li><Link to="/about" className="text-gray-300 hover:text-blue-400 transition-colors">About</Link></li>
+              <li><Link to="/contact" className="text-gray-300 hover:text-blue-400 transition-colors">Contact</Link></li>
             </ul>
           </div>
 
           {/* Services */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">Services</h3>
+            <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+              Our{" "}
+              <RotatingText
+                texts={["Services" , "Services"]}
+                mainClassName="px-2 bg-blue-400 text-black rounded-lg"
+                staggerFrom="last"
+                initial={{ y: "100%" }}
+                animate={{ y: 0 }}
+                exit={{ y: "-120%" }}
+                staggerDuration={0.025}
+                splitLevelClassName="overflow-hidden pb-1"
+                transition={{ type: "spring", damping: 30, stiffness: 400 }}
+                rotationInterval={2000}
+              />
+            </h3>
             <ul className="space-y-2 text-gray-300">
               <li>Web Development</li>
               <li>Software Solutions</li>
@@ -78,9 +87,7 @@ const Footer = () => {
         </div>
 
         <div className="border-t border-gray-800 mt-8 pt-8 text-center">
-          <p className="text-gray-400">
-            © 2025 Velora Technologies. All rights reserved.
-          </p>
+          <p className="text-gray-400">© 2025 Velora Technologies. All rights reserved.</p>
         </div>
       </div>
     </footer>
@@ -88,4 +95,3 @@ const Footer = () => {
 };
 
 export default Footer;
-
