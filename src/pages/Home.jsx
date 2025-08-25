@@ -7,6 +7,7 @@ import testimonialBg from '../assets/testimonial-bg.jpg';
 import webDevImage from '../assets/services_web_dev.png';
 import softwareImage from '../assets/services_software.png';
 import consultingImage from '../assets/services_consulting.png';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 import reactLogo from "@/assets/logos/react.svg";
 import nodeLogo from "@/assets/logos/nodejs.svg";
 import tailwindLogo from "@/assets/logos/tailwindcss.svg";
@@ -448,58 +449,146 @@ useEffect(() => {
 </section>
 
       
-
       {/* Why Choose Me */}
-      <section className="py-16 lg:py-20 bg-white relative">
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute left-0 top-0 h-full w-1/4 bg-gradient-to-r from-blue-50 to-transparent"></div>
-          <div className="absolute right-0 top-0 h-full w-1/4 bg-gradient-to-l from-indigo-50 to-transparent"></div>
-        </div>
-        
+      <section className="py-16 lg:py-20 bg-slate-900 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+            
+            {/* Left side - Content */}
             <div className="fade-in">
-              <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4 lg:mb-6">
-                Why Choose <span className="text-blue-600">Velora Tech</span>?
-              </h2>
-              <p className="text-gray-600 mb-6 lg:mb-8 leading-relaxed text-base lg:text-lg">
-                With a proven track record and expertise in modern technologies, 
-                I deliver solutions that not only meet your requirements but exceed your expectations.
-              </p>
-              <div className="space-y-3 lg:space-y-4">
-                {features.map((feature, index) => (
-                  <div 
-                    key={index} 
-                    className="fade-in flex items-start space-x-3 p-3 lg:p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100"
-                    style={{ animationDelay: `${index * 150}ms` }}
-                  >
-                    <CheckCircle className="h-5 w-5 lg:h-6 lg:w-6 text-green-500 mt-0.5 flex-shrink-0" />
-                    <span className="text-gray-700 text-sm lg:text-base">{feature}</span>
-                  </div>
-                ))}
+              {/* Blue accent text - exactly like image */}
+              <div className="text-blue-400 font-semibold text-sm mb-4 tracking-wider uppercase">
+                WHY CHOOSE US?
               </div>
-            </div>
-            <div className="fade-in bg-white rounded-xl shadow-lg p-6 lg:p-8 border border-blue-100 transform hover:-translate-y-1 transition-all duration-300">
-              <div className="absolute -top-3 lg:-top-4 left-1/2 transform -translate-x-1/2 bg-blue-600 text-white px-3 py-1 lg:px-4 lg:py-1 rounded-full text-xs lg:text-sm font-semibold">
-                Let's Connect
-              </div>
-              <h3 className="text-xl lg:text-2xl font-semibold text-gray-900 mb-4 lg:mb-6 text-center mt-4 lg:mt-5">
-                Ready to Get Started?
-              </h3>
-              <p className="text-gray-600 mb-4 lg:mb-6 text-center text-sm lg:text-base">
-                Let's discuss your project and create a solution that drives real results for your business.
+              
+              <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
+  WE ARE A <span className="relative">
+    <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500">#1</span>
+    <span className="absolute inset-0 text-yellow-400 opacity-30 blur-sm">#1</span>
+  </span> WEB<br />
+  DEVELOPMENT COMPANY
+</h2>
+              
+              <p className="text-gray-300 mb-8 leading-relaxed text-base lg:text-lg">
+                At our core, we specialize in custom web development and 
+                tailored software solutions. We empower entrepreneurs, startups,
+                and expanding companies to turn their vision into reality 
+                and reach their business goals faster.
               </p>
-              <Button asChild className="w-full bg-blue-600 hover:bg-blue-700 transition-all duration-300 hover:scale-105 py-4 lg:py-6 text-base lg:text-lg">
-                <Link to="/contact">Get Started Today</Link>
+
+              {/* Social Media Section - exactly like image */}
+              <div className="mb-8">
+          <h3 className="text-white font-semibold text-lg mb-4">Follow Us:</h3>
+          <div className="flex space-x-4">
+            {/* Facebook */}
+            <a href="#" className="w-12 h-12 bg-gray-600 hover:bg-blue-600 rounded-full flex items-center justify-center transition-all duration-300">
+              <i className="fab fa-facebook-f text-white text-lg"></i>
+            </a>
+            {/* Instagram */}
+            <a href="#" className="w-12 h-12 bg-gray-600 hover:bg-blue-600 rounded-full flex items-center justify-center transition-all duration-300">
+              <i className="fab fa-instagram text-white text-lg"></i>
+            </a>
+            {/* Twitter */}
+            <a href="#" className="w-12 h-12 bg-gray-600 hover:bg-blue-600 rounded-full flex items-center justify-center transition-all duration-300">
+              <i className="fab fa-twitter text-white text-lg"></i>
+            </a>
+            {/* LinkedIn */}
+            <a href="#" className="w-12 h-12 bg-gray-600 hover:bg-blue-600 rounded-full flex items-center justify-center transition-all duration-300">
+              <i className="fab fa-linkedin-in text-white text-lg"></i>
+            </a>
+          </div>
+        </div>
+
+              {/* About Us Button - green like in image */}
+              <Button 
+                asChild 
+                className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-md transition-all duration-300 text-base font-semibold"
+              >
+                <Link to="/about" className="flex items-center">
+                  Discover More <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
               </Button>
-              <p className="text-xs lg:text-sm text-gray-500 text-center mt-3 lg:mt-4">
-                Schedule a free consultation - no obligations
-              </p>
+            </div>
+
+            {/* Right side - Two Images positioned exactly like the reference */}
+            <div className="fade-in relative">
+              <div className="relative h-[500px]">
+                {/* Top-left image - Development workspace */}
+                <div className="absolute top-0 left-0 w-[280px] h-[240px] rounded-2xl overflow-hidden shadow-2xl transform -rotate-2">
+                  {/* Replace this div with your actual image */}
+                  <img 
+                    src="./src/assets/webdev.jpg" 
+                    alt="Development workspace"
+                    className="w-full h-full object-cover"
+                  />
+                  {/* Fallback content if image not loaded - remove when you add real images */}
+                  <div className="w-full h-full bg-gradient-to-br from-green-400/80 via-yellow-500/60 to-orange-500/40 relative">
+                    <div className="absolute inset-4 bg-black/80 rounded-lg">
+                      <div className="p-4 space-y-2 font-mono text-xs">
+                        <div className="flex space-x-2">
+                          <div className="w-3 h-3 bg-red-500 rounded-full"></div>
+                          <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                          <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                        </div>
+                        <div className="mt-4 space-y-1">
+                          <div className="h-2 bg-green-400 rounded w-3/4"></div>
+                          <div className="h-2 bg-blue-400 rounded w-1/2"></div>
+                          <div className="h-2 bg-yellow-400 rounded w-2/3"></div>
+                          <div className="h-2 bg-purple-400 rounded w-5/6"></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="absolute bottom-2 left-2 right-2 h-8 bg-gray-800/60 rounded backdrop-blur-sm"></div>
+                  </div>
+                </div>
+
+                {/* Bottom-right image - Content/UI mockup */}
+                <div className="absolute bottom-0 right-0 w-[280px] h-[280px] rounded-2xl overflow-hidden shadow-2xl transform rotate-3">
+                  {/* Replace this div with your actual image */}
+                  <img 
+                    src="./src/assets/sketch.jpg" 
+                    alt="Content strategy and UI design"
+                    className="w-full h-full object-cover"
+                  />
+                  {/* Fallback content if image not loaded - remove when you add real images */}
+                  <div className="w-full h-full bg-white relative">
+                    <div className="absolute top-8 right-8 w-32 h-40 bg-gray-200 rounded-2xl shadow-inner">
+                      <div className="p-4 space-y-3">
+                        <div className="h-6 bg-blue-500 rounded text-white text-xs flex items-center justify-center font-bold">
+                          Content
+                        </div>
+                        <div className="space-y-2">
+                          <div className="h-2 bg-gray-300 rounded"></div>
+                          <div className="h-2 bg-gray-300 rounded w-4/5"></div>
+                          <div className="h-2 bg-gray-300 rounded w-3/5"></div>
+                        </div>
+                        <div className="grid grid-cols-2 gap-1">
+                          <div className="h-8 bg-blue-100 rounded"></div>
+                          <div className="h-8 bg-purple-100 rounded"></div>
+                          <div className="h-8 bg-green-100 rounded"></div>
+                          <div className="h-8 bg-yellow-100 rounded"></div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div className="absolute top-4 left-4 w-24 h-32 bg-white border-2 border-gray-300 rounded shadow-lg">
+                      <div className="p-2 space-y-1">
+                        <div className="h-1 bg-gray-400 rounded w-full"></div>
+                        <div className="h-1 bg-gray-400 rounded w-3/4"></div>
+                        <div className="h-1 bg-gray-400 rounded w-1/2"></div>
+                        <div className="mt-2 grid grid-cols-2 gap-1">
+                          <div className="h-4 border border-gray-300 rounded"></div>
+                          <div className="h-4 border border-gray-300 rounded"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
-
       {/* Technologies Section */}
       <section className="py-12 lg:py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
