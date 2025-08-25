@@ -1,7 +1,7 @@
 import LogoLoop from "@/blocks/Animations/LogoLoop/LogoLoop";
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, CheckCircle, Code, Database, Lightbulb, MessageCircle, X } from 'lucide-react';
+import { ArrowRight, CheckCircle, Code, Database, Lightbulb, MessageCircle, X, Palette, Smartphone, BarChart3 } from 'lucide-react';
 import heroBgImage from '../assets/hero-bg.jpg';
 import testimonialBg from '../assets/testimonial-bg.jpg';
 import webDevImage from '../assets/services_web_dev.png';
@@ -20,6 +20,7 @@ import logo354 from "@/assets/logos/logoipsum-354.svg";
 import logo369 from "@/assets/logos/logoipsum-369.svg";
 import logo393 from "@/assets/logos/logoipsum-393.svg";
 import logo398 from "@/assets/logos/logoipsum-398.svg";
+import servicesBgImage from '../assets/services-bg.jpg'; // Add your image path
 import { useEffect, useState, useRef} from 'react';
 
 const Home = () => {
@@ -72,33 +73,48 @@ const Home = () => {
   }, []);
 
   const stats = [
-    { value: '15+', label: 'Projects Completed' },
-    { value: '100%', label: 'Client Satisfaction' },
-    { value: '40%', label: 'Avg. Performance Improvement' },
-    { value: '2+', label: 'Years Experience' },
+    { value: '58+', label: 'Projects Completed' },
+    { value: '34+', label: 'Happy Customers' },
+    { value: '17+', label: 'Web Solutions' },
+    { value: '41+', label: 'Creative Designs' },
   ];
 
-  const services = [
+const servicesData = [
   {
     icon: Code,
     title: 'Custom Web Development',
     description: 'Modern, responsive websites and web applications built with the latest technologies.',
-    image: webDevImage,
     metrics: ['40% faster load times', '100% mobile responsive', '3x conversion improvement'],
   },
   {
     icon: Database,
     title: 'Software Solutions',
     description: 'Custom business applications, API development, and database optimization.',
-    image: softwareImage,
     metrics: ['60% process automation', '99.9% uptime guarantee', 'Real-time analytics'],
   },
   {
     icon: Lightbulb,
     title: 'Technical Consulting',
     description: 'Architecture planning, technology selection, and performance optimization.',
-    image: consultingImage,
     metrics: ['30% cost reduction', '2x performance boost', 'Future-proof architecture'],
+  },
+  {
+    icon: Palette, // You might need to import this icon
+    title: 'UI/UX Design',
+    description: 'Beautiful, intuitive user interfaces that enhance user experience and engagement.',
+    metrics: ['50% better user engagement', '75% faster task completion', 'Higher user satisfaction'],
+  },
+  {
+    icon: Smartphone, // You might need to import this icon
+    title: 'Mobile Development',
+    description: 'Native and cross-platform mobile apps for iOS and Android.',
+    metrics: ['Native performance', 'Offline capability', 'App store optimization'],
+  },
+  {
+    icon: BarChart3, // You might need to import this icon
+    title: 'Digital Marketing',
+    description: 'SEO, content strategy, and digital marketing to grow your online presence.',
+    metrics: ['3x more traffic', 'Higher conversion rates', 'Better ROI on ads'],
   },
 ];
 
@@ -239,8 +255,8 @@ useEffect(() => {
         )}
       </div>
 
-      {/* Enhanced Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* Hero Section with Stats Bar */}
+     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
         {/* Background with overlay */}
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat z-0"
@@ -256,79 +272,51 @@ useEffect(() => {
         <div className="absolute bottom-20 left-1/3 w-80 h-80 bg-indigo-500 rounded-full mix-blend-soft-light filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
         
         {/* Content */}
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center lg:text-left">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="fade-in">
-              {/* Badge */}
-              <div className="inline-flex items-center px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 mb-8">
-                <div className="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></div>
-                <span className="text-white text-sm font-medium">Currently accepting new projects</span>
-              </div>
-              
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-6 leading-tight">
-                Transforming Ideas Into <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">
-                  Powerful Digital Solutions
-                </span>
-              </h1>
-              
-              {/* Typewriter text */}
-              <div className="text-xl lg:text-2xl text-gray-200 mb-8">
-                We build exceptional <span className="typewriter-text font-semibold text-blue-300 border-r-2 border-blue-400">{currentText}</span>
-              </div>
-              
-              <p className="text-lg lg:text-xl text-gray-300 mb-10 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
-                Expert software development and web solutions for growing businesses. 
-                15+ projects delivered with 100% client satisfaction.
-              </p>
-              
-              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                <Button asChild size="lg" className="bg-blue-600 hover:bg-blue-700 transition-all duration-300 hover:scale-105 shadow-lg shadow-blue-500/30">
-                  <Link to="/contact" className="flex items-center">
-                    Start Your Project <ArrowRight className="ml-2 h-5 w-5" />
-                  </Link>
-                </Button>
-                <Button asChild variant="outline" size="lg" className="border-white text-white hover:bg-white hover:text-blue-600 backdrop-blur-sm">
-                  <Link to="/portfolio" className="flex items-center">
-                    View Portfolio
-                  </Link>
-                </Button>
-              </div>
-
-              {/* Stats */}
-              <div className="mt-16 grid grid-cols-2 lg:grid-cols-4 gap-6 max-w-2xl">
-                {stats.map((stat, index) => (
-                  <div key={index} className="text-center lg:text-left">
-                    <div className="text-3xl lg:text-4xl font-bold text-white mb-2 counter" data-target={stat.value.replace('+', '')}>
-                      {stat.value}
-                    </div>
-                    <div className="text-gray-300 text-sm">{stat.label}</div>
-                  </div>
-                ))}
-              </div>
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="flex flex-col items-center justify-center min-h-screen py-16">
+            
+            
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-6 leading-tight">
+              Transforming Ideas Into <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">
+                Powerful Digital Solutions
+              </span>
+            </h1>
+            
+            {/* Typewriter text */}
+            <div className="text-xl lg:text-2xl text-gray-200 mb-8">
+              We build exceptional <span className="typewriter-text font-semibold text-blue-300 border-r-2 border-blue-400">{currentText}</span>
             </div>
             
-            {/* Testimonial card on the right */}
-            <div className="hidden lg:block fade-in">
-              <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 shadow-xl">
-                <div className="flex items-start mb-4">
-                  <div className="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold text-lg mr-4">
-                    {testimonials[index].avatar}
+            <p className="text-lg lg:text-xl text-gray-300 mb-10 max-w-2xl mx-auto leading-relaxed">
+              Expert software development and web solutions for growing businesses. 
+              15+ projects delivered with 100% client satisfaction.
+            </p>
+            
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
+              <Button asChild size="lg" className="bg-blue-600 hover:bg-blue-700 transition-all duration-300 hover:scale-105 shadow-lg shadow-blue-500/30">
+                <Link to="/contact" className="flex items-center">
+                  Start Your Project <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
+              </Button>
+              <Button asChild variant="outline" size="lg" className="bg-slate-900 text-white hover:bg-slate-700 hover:text-white backdrop-blur-sm">
+                <Link to="/portfolio" className="flex items-center">
+                  View Portfolio
+                </Link>
+              </Button>
+            </div>
+
+            {/* Stats Bar - Positioned at the bottom of the hero section */}
+            <div className="w-full max-w-5xl mt-auto mb-8">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-6 bg-white/10 backdrop-blur-xl rounded-2xl p-8 border border-white/20 shadow-2xl">
+                {stats.map((stat, index) => (
+                  <div key={index} className="text-center p-4">
+                    <div className="text-4xl md:text-5xl font-bold text-white mb-3">
+                      {stat.value}
+                    </div>
+                    <div className="text-gray-300 text-sm md:text-base font-medium">{stat.label}</div>
                   </div>
-                  <div>
-                    <h4 className="text-white font-semibold">{testimonials[index].name}</h4>
-                    <p className="text-gray-300 text-sm">{testimonials[index].role}, {testimonials[index].company}</p>
-                  </div>
-                </div>
-                <p className="text-gray-200 italic">"{testimonials[index].quote}"</p>
-                <div className="flex mt-4">
-                  {testimonials.map((_, i) => (
-                    <div
-                      key={i}
-                      className={`h-1 rounded-full mr-1 transition-all duration-300 ${i === index ? 'w-6 bg-blue-400' : 'w-3 bg-white/30'}`}
-                    ></div>
-                  ))}
-                </div>
+                ))}
               </div>
             </div>
           </div>
@@ -344,160 +332,122 @@ useEffect(() => {
         </div>
       </section>
 
-      {/* Services Overview */}
-<section className="py-16 lg:py-20 bg-gradient-to-b from-slate-50 to-white relative overflow-hidden">
-  {/* Background decorative elements */}
-  <div className="absolute top-0 left-0 w-full h-72 bg-gradient-to-r from-blue-500/5 to-purple-500/5 transform -skew-y-3 -translate-y-32"></div>
-  <div className="absolute -top-20 -right-20 w-96 h-96 bg-blue-400 rounded-full opacity-5"></div>
-  <div className="absolute bottom-0 left-0 w-64 h-64 bg-purple-400 rounded-full opacity-5"></div>
+{/* Services Overview */}
+<section 
+  className="py-16 lg:py-20 relative overflow-hidden"
+  style={{ 
+    backgroundImage: `url(${servicesBgImage})`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    backgroundAttachment: 'fixed'
+  }}
+>
+  {/* Dark overlay for better text readability */}
+  <div className="absolute inset-0 bg-slate-900/90"></div>
+  
+  {/* Animated background elements */}
+  <div className="absolute top-0 left-0 w-full h-full">
+    <div className="absolute top-20 left-10 w-72 h-72 bg-blue-500/20 rounded-full mix-blend-soft-light filter blur-3xl animate-pulse"></div>
+    <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-purple-500/20 rounded-full mix-blend-soft-light filter blur-3xl animate-pulse animation-delay-2000"></div>
+    <div className="absolute bottom-20 left-1/3 w-80 h-80 bg-red-500/20 rounded-full mix-blend-soft-light filter blur-3xl animate-pulse animation-delay-4000"></div>
+  </div>
   
   <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-    <div className="text-center mb-12 lg:mb-16 fade-in">
-      <div className="inline-flex items-center rounded-full bg-blue-100 px-4 py-2 text-sm font-medium text-blue-700 mb-4">
-        <Code className="h-4 w-4 mr-2" />
-        Our Services
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start mb-16">
+      {/* Left side - Main heading */}
+      <div className="fade-in">
+        <h2 className="text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-6 leading-tight">
+          WE SHAPE THE PERFECT{' '}
+          <span className="text-white">SOLUTIONS</span>
+          <span className="text-blue-500 text-6xl lg:text-7xl">.</span>
+        </h2>
       </div>
-      <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-        What We <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">Build</span>
-      </h2>
-      <p className="text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto mt-4 lg:mt-6">
-        Comprehensive development services tailored to elevate your digital presence and business operations
-      </p>
+      
+      {/* Right side - Description */}
+      <div className="fade-in">
+        <p className="text-gray-300 text-lg lg:text-xl leading-relaxed">
+          We are committed to provide web design Sri Lanka service to our customers 
+          with the full potential of our web design Sri Lanka team.
+        </p>
+      </div>
     </div>
     
+    {/* Services Grid */}
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
-      {services.map((service, index) => (
-        <div
+      {servicesData.map((service, index) => (
+        <div 
           key={index}
-          className="fade-in group relative bg-white rounded-2xl shadow-xl p-6 lg:p-8 hover:shadow-2xl transition-all duration-500 border border-gray-100 transform hover:-translate-y-3"
+          className="fade-in group relative bg-white/5 backdrop-blur-xl rounded-2xl p-8 hover:bg-white/10 transition-all duration-500 border border-white/10 hover:border-red-400/30 transform hover:-translate-y-2 hover:shadow-2xl hover:shadow-red-500/10"
           style={{ animationDelay: `${index * 200}ms` }}
         >
-          {/* Hover effect background */}
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-purple-50 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"></div>
-          
-          {/* Icon container with gradient border */}
-          <div className="relative mb-6 flex justify-center">
-            <div className="absolute inset-0 flex justify-center items-center">
-              <div className="w-24 h-24 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full blur-lg opacity-20 group-hover:opacity-30 transition-opacity duration-500"></div>
-            </div>
-            <div className="relative bg-white p-4 rounded-2xl shadow-md border border-gray-100 group-hover:shadow-lg transition-all duration-500 group-hover:scale-110">
-              <img
-                src={service.image}
-                alt={service.title}
-                className="w-12 h-12 lg:w-14 lg:h-14"
-              />
-            </div>
+          {/* Service number */}
+          <div className="absolute top-6 right-6 text-white/10 text-6xl font-bold">
+            {(index + 1).toString().padStart(2, '0')}
           </div>
           
-          {/* Content */}
-          <h3 className="text-xl lg:text-2xl font-bold text-gray-900 mb-4 text-center group-hover:text-blue-600 transition-colors duration-300">
-            {service.title}
-          </h3>
-          <p className="text-gray-600 text-center mb-6 text-sm lg:text-base leading-relaxed">
-            {service.description}
-          </p>
-          
-          {/* Service metrics */}
-          <div className="mb-6">
-            <div className="flex items-center mb-3">
-              <div className="h-px flex-1 bg-gradient-to-r from-transparent to-gray-200"></div>
-              <span className="px-3 text-xs font-medium text-gray-500">KEY BENEFITS</span>
-              <div className="h-px flex-1 bg-gradient-to-l from-transparent to-gray-200"></div>
+          {/* Icon container with gradient */}
+          <div className="mb-8">
+            <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-800 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-blue-500/25 transition-all duration-300">
+              <service.icon className="w-8 h-8 text-white" />
             </div>
+
+            <h3 className="text-xl lg:text-2xl font-bold text-white mb-4 group-hover:text-blue-400 transition-colors duration-300">
+              {service.title}
+            </h3>
             
-            <ul className="space-y-3">
-              {service.metrics.map((metric, i) => (
-                <li key={i} className="flex items-start text-sm text-gray-600">
-                  <CheckCircle className="h-5 w-5 text-green-500 mr-3 flex-shrink-0 mt-0.5" />
-                  <span>{metric}</span>
-                </li>
-              ))}
-            </ul>
+            <p className="text-gray-300 text-sm lg:text-base leading-relaxed mb-6">
+              {service.description}
+            </p>
           </div>
-          
-          {/* CTA */}
-          <div className="text-center mt-6">
-            <Link 
-              to="/services" 
-              className="inline-flex items-center text-blue-600 font-medium group-hover:text-purple-600 transition-colors duration-300"
-            >
-              Explore service
-              <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-            </Link>
+
+          {/* Metrics list */}
+          <div className="space-y-3">
+            {service.metrics.map((metric, metricIndex) => (
+              <div key={metricIndex} className="flex items-center space-x-3">
+                <div className="w-2 h-2 bg-blue-500 rounded-full flex-shrink-0"></div>
+                <span className="text-gray-300 text-sm lg:text-base">{metric}</span>
+              </div>
+            ))}
           </div>
-          
-          {/* Corner accent */}
-          <div className="absolute top-0 right-0 w-16 h-16 overflow-hidden">
-            <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-500 rounded-bl-2xl transform translate-x-6 -translate-y-6 rotate-45 opacity-0 group-hover:opacity-10 transition-opacity duration-500"></div>
+
+          {/* Hover effect line */}
+          <div className="absolute bottom-0 left-0 w-0 h-1 bg-gradient-to-r from-blue-500 to-blue-600 group-hover:w-full transition-all duration-500"></div>
+
+          {/* Learn more link */}
+          <div className="mt-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <div className="flex items-center text-blue-400 text-sm font-medium">
+              <span>Learn more</span>
+              <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform duration-300" />
+            </div>
           </div>
         </div>
       ))}
     </div>
-    
-    {/* Bottom CTA */}
+
+    {/* CTA Section */}
     <div className="text-center mt-16 fade-in">
-      <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
-        Don't see exactly what you need? We customize solutions for unique business challenges.
-      </p>
-      <Button asChild size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 transition-all duration-300 hover:scale-105 shadow-lg shadow-blue-500/30">
-        <Link to="/contact" className="flex items-center">
-          Discuss Your Project <ArrowRight className="ml-2 h-5 w-5" />
-        </Link>
-      </Button>
+      <div className="bg-gradient-to-r from-red-500/10 to-blue-500/10 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
+        <h3 className="text-2xl lg:text-3xl font-bold text-white mb-4">
+          Ready to Transform Your Business?
+        </h3>
+        <p className="text-gray-300 mb-6 max-w-2xl mx-auto">
+          Let's discuss your project and create a custom solution that drives real results.
+        </p>
+        <Button 
+          asChild 
+          size="lg" 
+          className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white transition-all duration-300 hover:scale-105 shadow-lg shadow-blue-500/25"
+        >
+          <Link to="/contact" className="flex items-center justify-center">
+            Start Your Project <ArrowRight className="ml-2 h-5 w-5" />
+          </Link>
+        </Button>
+      </div>
     </div>
   </div>
 </section>
 
-      {/* Case Studies Section */}
-      <section className="py-16 lg:py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12 lg:mb-16 fade-in">
-            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">Proven Results</h2>
-            <p className="text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto">Real projects with measurable outcomes</p>
-          </div>
-          
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
-            {caseStudies.map((study, index) => (
-              <div 
-                key={index} 
-                className="fade-in bg-white rounded-xl p-4 lg:p-6 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
-                style={{ animationDelay: `${index * 200}ms` }}
-              >
-                <div className="mb-3 lg:mb-4">
-                  <span className="inline-block px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs lg:text-sm font-medium">
-                    Case Study
-                  </span>
-                </div>
-                <h3 className="text-lg lg:text-xl font-semibold text-gray-900 mb-2">{study.title}</h3>
-                <p className="text-gray-600 mb-3 lg:mb-4 text-sm lg:text-base">{study.description}</p>
-                
-                <div className="p-3 lg:p-4 bg-blue-50 rounded-lg mb-3 lg:mb-4">
-                  <div className="text-xl lg:text-2xl font-bold text-blue-700">{study.result}</div>
-                </div>
-                
-                <div className="grid grid-cols-3 gap-2">
-                  {study.metrics.map((metric, i) => (
-                    <div key={i} className="text-center p-1 lg:p-2 bg-gray-50 rounded text-xs lg:text-sm">
-                      <div className="font-semibold text-gray-900">{metric}</div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-          
-          {/* Middle CTA */}
-          <div className="text-center mt-12 lg:mt-16 fade-in">
-            <h3 className="text-xl lg:text-2xl font-semibold text-gray-900 mb-3 lg:mb-4">Ready to achieve similar results?</h3>
-            <p className="text-gray-600 mb-4 lg:mb-6 max-w-2xl mx-auto text-sm lg:text-base">Let's discuss how we can help you reach your business goals with a custom solution.</p>
-            <Button asChild size="lg" className="bg-blue-600 hover:bg-blue-700 transition-all duration-300 hover:scale-105">
-              <Link to="/contact">
-                Get Your Free Consultation <ArrowRight className="ml-2 h-4 w-4 lg:h-5 lg:w-5" />
-              </Link>
-            </Button>
-          </div>
-        </div>
-      </section>
+      
 
       {/* Why Choose Me */}
       <section className="py-16 lg:py-20 bg-white relative">
@@ -661,6 +611,36 @@ useEffect(() => {
           </div>
         </div>
       </section>
+
+      {/* Blog Section */}
+<section className="py-20 bg-gray-50">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="text-center mb-16">
+      <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">From Our Blog</h2>
+      <p className="text-xl text-gray-600">Insights and tips on web development and digital strategy</p>
+    </div>
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {[1, 2, 3].map((item) => (
+        <div key={item} className="bg-white rounded-xl shadow-lg overflow-hidden">
+          <div className="h-48 bg-gray-200"></div>
+          <div className="p-6">
+            <span className="text-sm text-blue-600 font-semibold">Web Development</span>
+            <h3 className="text-xl font-semibold text-gray-900 mt-2 mb-3">10 Trends Shaping Web Development in 2023</h3>
+            <p className="text-gray-600 mb-4">Discover the latest technologies and approaches that are transforming how websites are built.</p>
+            <a href="#" className="text-blue-600 font-semibold flex items-center">
+              Read More <ArrowRight className="ml-2 h-4 w-4" />
+            </a>
+          </div>
+        </div>
+      ))}
+    </div>
+    <div className="text-center mt-12">
+      <Button asChild variant="outline">
+        <Link to="/blog">View All Articles</Link>
+      </Button>
+    </div>
+  </div>
+</section>
 
       {/* CTA Section */}
       <section className="py-16 lg:py-20 bg-slate-800 relative overflow-hidden">

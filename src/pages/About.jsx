@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { 
@@ -5,259 +6,355 @@ import {
   Users, 
   Target, 
   Award, 
-  Clock, 
   CheckCircle,
   ArrowRight,
   Lightbulb,
-  Heart,
-  Zap
+  Zap,
+  Globe,
+  Shield,
+  BarChart3,
+  Rocket,
+  Calendar,
+  Cpu,
+  Database,
+  Cloud,
+  Palette,
+  Smartphone,
+  Server
 } from 'lucide-react';
 
 const About = () => {
-  const skills = [
-    { name: 'Frontend Development', level: 95 },
-    { name: 'Backend Development', level: 90 },
-    { name: 'Database Design', level: 85 },
-    { name: 'API Development', level: 90 },
-    { name: 'Cloud Deployment', level: 80 },
-    { name: 'Project Management', level: 85 }
+  const [activeTab, setActiveTab] = useState('mission');
+  const [counterValues, setCounterValues] = useState({
+    projects: 0,
+    clients: 0,
+    solutions: 0,
+    designs: 0
+  });
+
+  useEffect(() => {
+    // Animate counters
+    const interval = setInterval(() => {
+      setCounterValues(prev => ({
+        projects: Math.min(prev.projects + 2, 58),
+        clients: Math.min(prev.clients + 1, 34),
+        solutions: Math.min(prev.solutions + 1, 17),
+        designs: Math.min(prev.designs + 2, 41)
+      }));
+    }, 50);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const companyStats = [
+    { value: `${counterValues.projects}+`, label: 'Projects Completed', icon: Code },
+    { value: `${counterValues.clients}+`, label: 'Happy Clients', icon: Users },
+    { value: `${counterValues.solutions}+`, label: 'Web Solutions', icon: Globe },
+    { value: `${counterValues.designs}+`, label: 'Creative Designs', icon: Award }
   ];
 
   const values = [
     {
       icon: Target,
-      title: 'Quality First',
-      description: 'I believe in writing clean, maintainable, and scalable code that stands the test of time.'
+      title: 'Excellence in Execution',
+      description: 'We deliver superior quality solutions with attention to detail and commitment to exceeding client expectations.'
     },
     {
       icon: Users,
       title: 'Client Partnership',
-      description: 'Your success is my success. I work collaboratively with regular communication and transparency.'
+      description: 'We view our clients as partners, working collaboratively to achieve their business objectives through technology.'
     },
     {
       icon: Zap,
-      title: 'Results-Driven',
-      description: 'Every project focuses on delivering measurable business outcomes and real value.'
+      title: 'Innovation & Agility',
+      description: 'We embrace cutting-edge technologies and agile methodologies to deliver solutions faster and more effectively.'
     },
     {
-      icon: Lightbulb,
-      title: 'Innovation',
-      description: 'I stay current with the latest technologies and apply them appropriately to solve real problems.'
+      icon: Shield,
+      title: 'Reliability & Security',
+      description: 'We build secure, scalable solutions with robust architecture and comprehensive testing protocols.'
     }
   ];
 
-  const experience = [
+  const services = [
     {
-      year: '2023-Present',
-      title: 'Freelance Software Developer',
-      description: 'Building custom web applications and software solutions for growing businesses.',
+      icon: Cpu,
+      title: 'Custom Web Development',
+      technologies: ['React', 'Next.js', 'Vue.js', 'Angular'],
+      description: 'Enterprise-grade web applications with modern frameworks'
+    },
+    {
+      icon: Smartphone,
+      title: 'Mobile App Development',
+      technologies: ['React Native', 'Flutter', 'iOS', 'Android'],
+      description: 'Cross-platform and native mobile applications'
+    },
+    {
+      icon: Cloud,
+      title: 'Cloud Solutions',
+      technologies: ['AWS', 'Azure', 'Google Cloud', 'Docker'],
+      description: 'Scalable cloud infrastructure and deployment'
+    },
+    {
+      icon: Palette,
+      title: 'UI/UX Design',
+      technologies: ['Figma', 'Adobe XD', 'User Research', 'Prototyping'],
+      description: 'User-centered design that enhances engagement'
+    },
+    {
+      icon: Database,
+      title: 'E-commerce Solutions',
+      technologies: ['Shopify', 'WooCommerce', 'Magento', 'Custom'],
+      description: 'Complete online store development and optimization'
+    },
+    {
+      icon: Server,
+      title: 'DevOps & Automation',
+      technologies: ['CI/CD', 'Kubernetes', 'Testing', 'Monitoring'],
+      description: 'Streamlined development processes and automation'
+    }
+  ];
+
+  const timeline = [
+    {
+      year: '2023',
+      title: 'Global Expansion',
+      description: 'Expanded our team internationally and served clients across 12 countries',
       achievements: [
-        'Delivered 2+ successful client projects',
-        'Achieved 100% client satisfaction rate',
-        'Specialized in React, Node.js, and cloud deployment'
+        'Opened European office',
+        'Added 15 new team members',
+        'Served clients in 12+ countries'
       ]
     },
     {
-      year: '2021-2023',
-      title: 'Full-Stack Developer',
-      description: 'Developed and maintained web applications using modern technologies.',
+      year: '2022',
+      title: 'Specialization Growth',
+      description: 'Developed specialized practices in AI/ML and cloud-native applications',
       achievements: [
-        'Built scalable web applications serving thousands of users',
-        'Improved application performance by 40% on average',
-        'Mentored junior developers and led code reviews'
+        'Launched AI/ML division',
+        'Achieved AWS Advanced Tier partnership',
+        'Grew revenue by 150%'
       ]
     },
     {
-      year: '2019-2021',
-      title: 'Frontend Developer',
-      description: 'Focused on creating responsive and user-friendly web interfaces.',
+      year: '2021',
+      title: 'Company Foundation',
+      description: 'Founded Velora Tech with a vision to deliver exceptional digital solutions',
       achievements: [
-        'Converted designs into pixel-perfect, responsive websites',
-        'Implemented modern JavaScript frameworks and libraries',
-        'Collaborated with designers and backend developers'
+        'Secured first 10 clients',
+        'Built core development team',
+        'Established development processes'
       ]
     }
   ];
 
   const certifications = [
-    'AWS Certified Solutions Architect',
-    'Google Cloud Professional Developer',
-    'MongoDB Certified Developer',
-    'React Advanced Certification'
+    'AWS Advanced Consulting Partner',
+    'Google Cloud Premier Partner',
+    'Microsoft Gold Partner',
+    'React Certified Development',
+    'ISO 27001 Certified',
+    'Agile Scrum Certified Team'
   ];
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-gradient-to-b from-slate-900 to-slate-800 text-white">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-blue-50 to-indigo-100 py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h1 className="text-4xl lg:text-6xl font-bold text-gray-900 mb-6">
-                Building Digital Solutions{' '}
-                <span className="text-blue-600">That Matter</span>
-              </h1>
-              <p className="text-xl text-gray-600 mb-8">
-                I'm a passionate software developer with a mission to help businesses 
-                thrive through innovative technology solutions. With expertise in modern 
-                web technologies and a client-focused approach, I turn ideas into reality.
-              </p>
-              <Button asChild size="lg" className="bg-blue-600 hover:bg-blue-700">
-                <Link to="/contact">
-                  Let's Work Together <ArrowRight className="ml-2 h-5 w-5" />
-                </Link>
-              </Button>
-            </div>
-            <div className="relative">
-              <div className="bg-white rounded-xl shadow-2xl p-8">
-                <div className="grid grid-cols-2 gap-6">
-                  <div className="text-center">
-                    <div className="text-3xl font-bold text-blue-600 mb-2">2+</div>
-                    <div className="text-gray-600 text-sm">Projects Completed</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-3xl font-bold text-blue-600 mb-2">100%</div>
-                    <div className="text-gray-600 text-sm">Client Satisfaction</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-3xl font-bold text-blue-600 mb-2">5+</div>
-                    <div className="text-gray-600 text-sm">Years Experience</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-3xl font-bold text-blue-600 mb-2">24/7</div>
-                    <div className="text-gray-600 text-sm">Support Available</div>
+      <section className="relative py-24 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-blue-900/20 to-slate-900/80"></div>
+        <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl"></div>
+        
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h1 className="text-5xl lg:text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
+              About Velora Tech
+            </h1>
+            <p className="text-xl lg:text-2xl text-slate-300 max-w-3xl mx-auto">
+              We're a forward-thinking technology company crafting digital experiences 
+              that transform businesses and empower growth.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
+            {companyStats.map((stat, index) => (
+              <div 
+                key={index} 
+                className="bg-slate-800/50 backdrop-blur-md rounded-2xl p-6 text-center border border-slate-700 hover:border-blue-500 transition-all duration-300 hover:-translate-y-1"
+              >
+                <div className="flex justify-center mb-4">
+                  <div className="p-3 bg-blue-500/10 rounded-xl">
+                    <stat.icon className="h-8 w-8 text-blue-400" />
                   </div>
                 </div>
+                <div className="text-3xl font-bold text-white mb-2">{stat.value}</div>
+                <div className="text-slate-400 text-sm">{stat.label}</div>
+              </div>
+            ))}
+          </div>
+
+          <div className="flex justify-center">
+            <Button asChild size="lg" className="bg-blue-600 hover:bg-blue-700 px-8 py-3 rounded-xl">
+              <Link to="/contact">
+                Start a Project <ArrowRight className="ml-2 h-5 w-5" />
+              </Link>
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Mission & Vision */}
+      <section className="py-20 relative">
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-800/50 to-slate-900/80"></div>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-wrap border-b border-slate-700 mb-12">
+            <button
+              className={`px-6 py-3 text-lg font-medium ${activeTab === 'mission' ? 'text-blue-400 border-b-2 border-blue-400' : 'text-slate-400'}`}
+              onClick={() => setActiveTab('mission')}
+            >
+              Our Mission
+            </button>
+            <button
+              className={`px-6 py-3 text-lg font-medium ${activeTab === 'vision' ? 'text-blue-400 border-b-2 border-blue-400' : 'text-slate-400'}`}
+              onClick={() => setActiveTab('vision')}
+            >
+              Our Vision
+            </button>
+            <button
+              className={`px-6 py-3 text-lg font-medium ${activeTab === 'approach' ? 'text-blue-400 border-b-2 border-blue-400' : 'text-slate-400'}`}
+              onClick={() => setActiveTab('approach')}
+            >
+              Our Approach
+            </button>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+              {activeTab === 'mission' && (
+                <>
+                  <h2 className="text-3xl lg:text-4xl font-bold mb-6">Driving Digital Transformation</h2>
+                  <p className="text-slate-300 mb-6 text-lg">
+                    Our mission is to empower businesses with innovative technology solutions that solve complex 
+                    challenges, drive growth, and create sustainable competitive advantages in an increasingly digital world.
+                  </p>
+                  <p className="text-slate-300 text-lg">
+                    We believe that technology should be an enabler, not a barrier. Our team works tirelessly to ensure 
+                    that every solution we deliver not only meets technical requirements but also delivers tangible business value.
+                  </p>
+                </>
+              )}
+              {activeTab === 'vision' && (
+                <>
+                  <h2 className="text-3xl lg:text-4xl font-bold mb-6">Shaping the Future of Technology</h2>
+                  <p className="text-slate-300 mb-6 text-lg">
+                    Our vision is to be the most trusted technology partner for businesses seeking to innovate, 
+                    transform, and lead in their respective industries through cutting-edge digital solutions.
+                  </p>
+                  <p className="text-slate-300 text-lg">
+                    We aspire to create a world where technology seamlessly integrates with business strategy to 
+                    create exceptional value and unforgettable user experiences.
+                  </p>
+                </>
+              )}
+              {activeTab === 'approach' && (
+                <>
+                  <h2 className="text-3xl lg:text-4xl font-bold mb-6">Collaborative & Agile Development</h2>
+                  <p className="text-slate-300 mb-6 text-lg">
+                    We follow an agile, collaborative approach that puts our clients at the center of every decision. 
+                    Our process is transparent, iterative, and focused on delivering measurable results.
+                  </p>
+                  <p className="text-slate-300 text-lg">
+                    From discovery to deployment and beyond, we work as an extension of your team to ensure 
+                    alignment with your business goals and objectives at every stage of the project.
+                  </p>
+                </>
+              )}
+            </div>
+            <div className="bg-gradient-to-br from-blue-600/10 to-purple-600/10 rounded-3xl p-8 border border-slate-700">
+              <div className="grid grid-cols-2 gap-6">
+                {values.map((value, index) => (
+                  <div key={index} className="bg-slate-800/50 rounded-2xl p-6 text-center">
+                    <div className="flex justify-center mb-4">
+                      <value.icon className="h-10 w-10 text-blue-400" />
+                    </div>
+                    <h3 className="font-semibold mb-2">{value.title}</h3>
+                    <p className="text-slate-400 text-sm">{value.description}</p>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Values Section */}
-      <section className="py-20 bg-white">
+      {/* Services */}
+      <section className="py-20 bg-slate-800/30 relative">
+        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-purple-500"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-              My Values & Approach
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              The principles that guide every project and client relationship
+            <h2 className="text-3xl lg:text-4xl font-bold mb-4">Our Services</h2>
+            <p className="text-xl text-slate-400 max-w-3xl mx-auto">
+              Comprehensive technology services powered by cutting-edge tools and frameworks
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {values.map((value, index) => (
-              <div key={index} className="text-center">
-                <div className="flex items-center justify-center w-16 h-16 bg-blue-100 rounded-lg mb-4 mx-auto">
-                  <value.icon className="h-8 w-8 text-blue-600" />
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {services.map((service, index) => (
+              <div 
+                key={index} 
+                className="bg-gradient-to-b from-slate-800 to-slate-900 rounded-2xl p-6 border border-slate-700 hover:border-blue-500 transition-all duration-300 hover:-translate-y-2 group"
+              >
+                <div className="flex items-center mb-4">
+                  <div className="p-3 bg-blue-500/10 rounded-xl mr-4 group-hover:bg-blue-500/20 transition-colors">
+                    <service.icon className="h-8 w-8 text-blue-400" />
+                  </div>
+                  <h3 className="text-xl font-semibold">{service.title}</h3>
                 </div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                  {value.title}
-                </h3>
-                <p className="text-gray-600 text-sm">
-                  {value.description}
-                </p>
+                <p className="text-slate-400 mb-4 text-sm">{service.description}</p>
+                <div className="flex flex-wrap gap-2">
+                  {service.technologies.map((tech, techIndex) => (
+                    <span 
+                      key={techIndex} 
+                      className="bg-slate-700/50 text-slate-300 text-xs px-3 py-1 rounded-full group-hover:bg-blue-500/20 transition-colors"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Skills Section */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-6">
-                Technical Expertise
-              </h2>
-              <p className="text-lg text-gray-600 mb-8">
-                With years of experience in software development, I've mastered 
-                the technologies needed to build robust, scalable applications 
-                that drive business growth.
-              </p>
-              <div className="space-y-6">
-                {skills.map((skill, index) => (
-                  <div key={index}>
-                    <div className="flex justify-between mb-2">
-                      <span className="text-gray-700 font-medium">{skill.name}</span>
-                      <span className="text-gray-600">{skill.level}%</span>
-                    </div>
-                    <div className="w-full bg-gray-200 rounded-full h-2">
-                      <div
-                        className="bg-blue-600 h-2 rounded-full transition-all duration-1000"
-                        style={{ width: `${skill.level}%` }}
-                      ></div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className="bg-white rounded-xl shadow-lg p-8">
-              <h3 className="text-2xl font-semibold text-gray-900 mb-6">
-                Certifications & Achievements
-              </h3>
-              <div className="space-y-4">
-                {certifications.map((cert, index) => (
-                  <div key={index} className="flex items-center space-x-3">
-                    <Award className="h-5 w-5 text-blue-600 flex-shrink-0" />
-                    <span className="text-gray-700">{cert}</span>
-                  </div>
-                ))}
-              </div>
-              <div className="mt-8 pt-6 border-t border-gray-200">
-                <h4 className="font-semibold text-gray-900 mb-4">Key Achievements</h4>
-                <div className="space-y-2">
-                  <div className="flex items-center space-x-2">
-                    <CheckCircle className="h-4 w-4 text-green-500" />
-                    <span className="text-gray-600 text-sm">2+ successful client projects delivered</span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <CheckCircle className="h-4 w-4 text-green-500" />
-                    <span className="text-gray-600 text-sm">100% client satisfaction rate</span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <CheckCircle className="h-4 w-4 text-green-500" />
-                    <span className="text-gray-600 text-sm">50% average performance improvement</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Experience Timeline */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Timeline */}
+      <section className="py-20 relative">
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-900 to-slate-800"></div>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-              Professional Journey
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              A timeline of my growth and experience in software development
+            <h2 className="text-3xl lg:text-4xl font-bold mb-4">Our Journey</h2>
+            <p className="text-xl text-slate-400 max-w-3xl mx-auto">
+              From startup to trusted technology partner for businesses worldwide
             </p>
           </div>
-          <div className="space-y-8">
-            {experience.map((exp, index) => (
-              <div key={index} className="flex flex-col md:flex-row gap-8">
-                <div className="md:w-1/4">
-                  <div className="bg-blue-100 text-blue-800 px-4 py-2 rounded-lg text-center font-semibold">
-                    {exp.year}
+          
+          <div className="space-y-12">
+            {timeline.map((item, index) => (
+              <div key={index} className="flex flex-col md:flex-row items-start relative">
+                <div className="md:w-1/4 mb-6 md:mb-0">
+                  <div className="bg-blue-500 text-white px-4 py-2 rounded-lg font-semibold inline-block">
+                    {item.year}
                   </div>
                 </div>
-                <div className="md:w-3/4 bg-gray-50 rounded-xl p-6">
-                  <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                    {exp.title}
-                  </h3>
-                  <p className="text-gray-600 mb-4">
-                    {exp.description}
-                  </p>
+                <div className="md:w-3/4 bg-slate-800/50 backdrop-blur-sm rounded-2xl p-6 border border-slate-700 relative">
+                  <div className="absolute -left-3 top-6 w-6 h-6 bg-blue-500 rounded-full border-4 border-slate-900"></div>
+                  <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
+                  <p className="text-slate-400 mb-4">{item.description}</p>
                   <ul className="space-y-2">
-                    {exp.achievements.map((achievement, achIndex) => (
+                    {item.achievements.map((achievement, achIndex) => (
                       <li key={achIndex} className="flex items-start space-x-2">
-                        <CheckCircle className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
-                        <span className="text-gray-600 text-sm">{achievement}</span>
+                        <CheckCircle className="h-5 w-5 text-green-400 mt-0.5 flex-shrink-0" />
+                        <span className="text-slate-300">{achievement}</span>
                       </li>
                     ))}
                   </ul>
@@ -268,44 +365,39 @@ const About = () => {
         </div>
       </section>
 
-      {/* Personal Touch */}
-      <section className="py-20 bg-gray-50">
+      {/* Certifications */}
+      <section className="py-20 bg-slate-800/30 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-white rounded-xl shadow-lg p-8 lg:p-12">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <div>
-                <h2 className="text-3xl font-bold text-gray-900 mb-6">
-                  Why I Love What I Do
-                </h2>
-                <p className="text-gray-600 mb-6">
-                  Technology has the power to transform businesses and improve lives. 
-                  Every line of code I write is an opportunity to solve real problems 
-                  and create meaningful impact.
-                </p>
-                <p className="text-gray-600 mb-6">
-                  When I'm not coding, you'll find me exploring new technologies, 
-                  contributing to open-source projects, or mentoring aspiring developers. 
-                  I believe in continuous learning and sharing knowledge with the community.
-                </p>
-                <div className="flex items-center space-x-4">
-                  <Heart className="h-6 w-6 text-red-500" />
-                  <span className="text-gray-700">Passionate about creating solutions that matter</span>
-                </div>
+          <div className="text-center mb-16">
+            <h2 className="text-3xl lg:text-4xl font-bold mb-4">Certifications & Partnerships</h2>
+            <p className="text-xl text-slate-400 max-w-3xl mx-auto">
+              Our commitment to excellence is validated by industry recognition and partnerships
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {certifications.map((cert, index) => (
+              <div 
+                key={index} 
+                className="bg-slate-800/50 rounded-2xl p-6 border border-slate-700 flex items-center hover:border-blue-500 transition-colors"
+              >
+                <Award className="h-8 w-8 text-blue-400 mr-4 flex-shrink-0" />
+                <span className="text-slate-200 font-medium">{cert}</span>
               </div>
-              <div className="bg-gradient-to-br from-blue-50 to-indigo-100 rounded-xl p-8">
-                <h3 className="text-xl font-semibold text-gray-900 mb-4">
-                  Let's Build Something Great Together
-                </h3>
-                <p className="text-gray-600 mb-6">
-                  Ready to turn your ideas into reality? I'd love to hear about 
-                  your project and discuss how we can create a solution that 
-                  drives real results for your business.
-                </p>
-                <Button asChild className="w-full bg-blue-600 hover:bg-blue-700">
-                  <Link to="/contact">Start a Conversation</Link>
-                </Button>
-              </div>
-            </div>
+            ))}
+          </div>
+          
+          <div className="mt-16 bg-gradient-to-r from-blue-600/10 to-purple-600/10 rounded-2xl p-8 text-center border border-slate-700">
+            <h3 className="text-2xl font-semibold mb-4">Ready to Start Your Project?</h3>
+            <p className="text-slate-400 mb-6 max-w-2xl mx-auto">
+              Partner with Velora Tech and experience the difference that expertise, 
+              dedication, and cutting-edge technology can make for your business.
+            </p>
+            <Button asChild size="lg" className="bg-blue-600 hover:bg-blue-700 rounded-xl">
+              <Link to="/contact">
+                Get Started Today <ArrowRight className="ml-2 h-5 w-5" />
+              </Link>
+            </Button>
           </div>
         </div>
       </section>
@@ -314,4 +406,3 @@ const About = () => {
 };
 
 export default About;
-
