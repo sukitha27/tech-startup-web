@@ -21,6 +21,8 @@ import logo354 from "@/assets/logos/logoipsum-354.svg";
 import logo369 from "@/assets/logos/logoipsum-369.svg";
 import logo393 from "@/assets/logos/logoipsum-393.svg";
 import logo398 from "@/assets/logos/logoipsum-398.svg";
+import webdevImage from '../assets/webdev.jpg';
+import sketchImage from '../assets/sketch.jpg';
 import servicesBgImage from '../assets/services-bg.jpg'; // Add your image path
 import { useEffect, useState, useRef} from 'react';
 
@@ -450,34 +452,34 @@ useEffect(() => {
 
       
       {/* Why Choose Me */}
-      <section className="py-16 lg:py-20 bg-slate-900 relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
-            
-            {/* Left side - Content */}
-            <div className="fade-in">
-              {/* Blue accent text - exactly like image */}
-              <div className="text-blue-400 font-semibold text-sm mb-4 tracking-wider uppercase">
-                WHY CHOOSE US?
-              </div>
-              
-              <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
-  WE ARE A <span className="relative">
-    <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500">#1</span>
-    <span className="absolute inset-0 text-yellow-400 opacity-30 blur-sm">#1</span>
-  </span> WEB<br />
-  DEVELOPMENT COMPANY
-</h2>
-              
-              <p className="text-gray-300 mb-8 leading-relaxed text-base lg:text-lg">
-                At our core, we specialize in custom web development and 
-                tailored software solutions. We empower entrepreneurs, startups,
-                and expanding companies to turn their vision into reality 
-                and reach their business goals faster.
-              </p>
+<section className="py-16 lg:py-20 bg-slate-900 relative overflow-hidden">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+      
+      {/* Left side - Content */}
+      <div className="fade-in">
+        {/* Blue accent text - exactly like image */}
+        <div className="text-blue-400 font-semibold text-sm mb-4 tracking-wider uppercase">
+          WHY CHOOSE US?
+        </div>
+        
+        <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
+          WE ARE A <span className="relative">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500">#1</span>
+            <span className="absolute inset-0 text-yellow-400 opacity-30 blur-sm">#1</span>
+          </span> WEB<br />
+          DEVELOPMENT COMPANY
+        </h2>
+        
+        <p className="text-gray-300 mb-8 leading-relaxed text-base lg:text-lg">
+          At our core, we specialize in custom web development and 
+          tailored software solutions. We empower entrepreneurs, startups,
+          and expanding companies to turn their vision into reality 
+          and reach their business goals faster.
+        </p>
 
-              {/* Social Media Section - exactly like image */}
-              <div className="mb-8">
+        {/* Social Media Section - exactly like image */}
+        <div className="mb-8">
           <h3 className="text-white font-semibold text-lg mb-4">Follow Us:</h3>
           <div className="flex space-x-4">
             {/* Facebook */}
@@ -499,96 +501,44 @@ useEffect(() => {
           </div>
         </div>
 
-              {/* About Us Button - green like in image */}
-              <Button 
-                asChild 
-                className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-md transition-all duration-300 text-base font-semibold"
-              >
-                <Link to="/about" className="flex items-center">
-                  Discover More <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-              </Button>
-            </div>
+        {/* About Us Button - green like in image */}
+        <Button 
+          asChild 
+          className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-md transition-all duration-300 text-base font-semibold"
+        >
+          <Link to="/about" className="flex items-center">
+            Discover More <ArrowRight className="ml-2 h-4 w-4" />
+          </Link>
+        </Button>
+      </div>
 
-            {/* Right side - Two Images positioned exactly like the reference */}
-            <div className="fade-in relative">
-              <div className="relative h-[500px]">
-                {/* Top-left image - Development workspace */}
-                <div className="absolute top-0 left-0 w-[280px] h-[240px] rounded-2xl overflow-hidden shadow-2xl transform -rotate-2">
-                  {/* Replace this div with your actual image */}
-                  <img 
-                    src="./src/assets/webdev.jpg" 
-                    alt="Development workspace"
-                    className="w-full h-full object-cover"
-                  />
-                  {/* Fallback content if image not loaded - remove when you add real images */}
-                  <div className="w-full h-full bg-gradient-to-br from-green-400/80 via-yellow-500/60 to-orange-500/40 relative">
-                    <div className="absolute inset-4 bg-black/80 rounded-lg">
-                      <div className="p-4 space-y-2 font-mono text-xs">
-                        <div className="flex space-x-2">
-                          <div className="w-3 h-3 bg-red-500 rounded-full"></div>
-                          <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
-                          <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                        </div>
-                        <div className="mt-4 space-y-1">
-                          <div className="h-2 bg-green-400 rounded w-3/4"></div>
-                          <div className="h-2 bg-blue-400 rounded w-1/2"></div>
-                          <div className="h-2 bg-yellow-400 rounded w-2/3"></div>
-                          <div className="h-2 bg-purple-400 rounded w-5/6"></div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="absolute bottom-2 left-2 right-2 h-8 bg-gray-800/60 rounded backdrop-blur-sm"></div>
-                  </div>
-                </div>
+      {/* Right side - Two Images positioned exactly like the reference */}
+      <div className="fade-in relative">
+        <div className="relative h-[500px]">
+          {/* Top-left image - Development workspace */}
+          <div className="absolute top-0 left-0 w-[280px] h-[240px] rounded-2xl overflow-hidden shadow-2xl transform -rotate-2">
+            {/* Use the imported image */}
+            <img 
+              src={webdevImage} 
+              alt="Development workspace"
+              className="w-full h-full object-cover"
+            />
+          </div>
 
-                {/* Bottom-right image - Content/UI mockup */}
-                <div className="absolute bottom-0 right-0 w-[280px] h-[280px] rounded-2xl overflow-hidden shadow-2xl transform rotate-3">
-                  {/* Replace this div with your actual image */}
-                  <img 
-                    src="./src/assets/sketch.jpg" 
-                    alt="Content strategy and UI design"
-                    className="w-full h-full object-cover"
-                  />
-                  {/* Fallback content if image not loaded - remove when you add real images */}
-                  <div className="w-full h-full bg-white relative">
-                    <div className="absolute top-8 right-8 w-32 h-40 bg-gray-200 rounded-2xl shadow-inner">
-                      <div className="p-4 space-y-3">
-                        <div className="h-6 bg-blue-500 rounded text-white text-xs flex items-center justify-center font-bold">
-                          Content
-                        </div>
-                        <div className="space-y-2">
-                          <div className="h-2 bg-gray-300 rounded"></div>
-                          <div className="h-2 bg-gray-300 rounded w-4/5"></div>
-                          <div className="h-2 bg-gray-300 rounded w-3/5"></div>
-                        </div>
-                        <div className="grid grid-cols-2 gap-1">
-                          <div className="h-8 bg-blue-100 rounded"></div>
-                          <div className="h-8 bg-purple-100 rounded"></div>
-                          <div className="h-8 bg-green-100 rounded"></div>
-                          <div className="h-8 bg-yellow-100 rounded"></div>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    <div className="absolute top-4 left-4 w-24 h-32 bg-white border-2 border-gray-300 rounded shadow-lg">
-                      <div className="p-2 space-y-1">
-                        <div className="h-1 bg-gray-400 rounded w-full"></div>
-                        <div className="h-1 bg-gray-400 rounded w-3/4"></div>
-                        <div className="h-1 bg-gray-400 rounded w-1/2"></div>
-                        <div className="mt-2 grid grid-cols-2 gap-1">
-                          <div className="h-4 border border-gray-300 rounded"></div>
-                          <div className="h-4 border border-gray-300 rounded"></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+          {/* Bottom-right image - Content/UI mockup */}
+          <div className="absolute bottom-0 right-0 w-[280px] h-[280px] rounded-2xl overflow-hidden shadow-2xl transform rotate-3">
+            {/* Use the imported image */}
+            <img 
+              src={sketchImage} 
+              alt="Content strategy and UI design"
+              className="w-full h-full object-cover"
+            />
           </div>
         </div>
-      </section>
+      </div>
+    </div>
+  </div>
+</section>
       {/* Technologies Section */}
       <section className="py-12 lg:py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
