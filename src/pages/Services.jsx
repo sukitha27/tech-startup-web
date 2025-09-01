@@ -15,6 +15,9 @@ import {
   CheckCircle
 } from 'lucide-react';
 
+// Import a background image - make sure to add your image to the assets folder
+import servicesHeroBg from '../assets/shero-bg.jpg';
+
 const Services = () => {
   const webServices = [
     {
@@ -162,14 +165,38 @@ const Services = () => {
 
   return (
     <div className="min-h-screen">
-      {/* Hero Section */}
-      <section className="bg-gradient-to-br from-blue-50 to-indigo-100 py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl lg:text-6xl font-bold text-gray-900 mb-6">
+      {/* Hero Section with Background Image */}
+      <section 
+        className="relative py-20 min-h-[60vh] flex items-center justify-center"
+        style={{
+          backgroundImage: `url(${servicesHeroBg})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}
+      >
+        {/* Dark overlay for better text readability */}
+        <div className="absolute inset-0 bg-black/40"></div>
+        
+        {/* Navigation Breadcrumb */}
+        <div className="absolute top-8 left-0 right-0">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <nav className="text-white text-sm">
+              <ul className="flex space-x-4">
+                <li><Link to="/" className="hover:text-blue-300 transition-colors">HOME</Link></li>
+                <li className="before:content-['/'] before:mx-2 before:text-gray-300">
+                  <Link to="/services" className="text-blue-300 font-semibold">OUR SERVICES</Link>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+        
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h1 className="text-4xl lg:text-6xl font-bold text-white mb-6">
             Software & Web Solutions{' '}
-            <span className="text-blue-600">That Scale</span>
+            <span className="text-blue-400">That Scale</span>
           </h1>
-          <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+          <p className="text-xl text-gray-200 mb-8 max-w-3xl mx-auto">
             Comprehensive development services tailored to your business needs. 
             From custom websites to complex software applications, I deliver solutions that drive growth.
           </p>
@@ -247,7 +274,7 @@ const Services = () => {
             <Button asChild size="lg" variant="secondary">
               <Link to="/contact">Get Free Consultation</Link>
             </Button>
-            <Button asChild size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-blue-600">
+            <Button asChild size="lg" variant="outline" className="bg-slate-800 border-slate-800 text-white hover:bg-white hover:text-blue-600">
               <Link to="/portfolio">View Our Work</Link>
             </Button>
           </div>
@@ -258,4 +285,3 @@ const Services = () => {
 };
 
 export default Services;
-

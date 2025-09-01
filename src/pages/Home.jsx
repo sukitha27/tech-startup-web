@@ -25,6 +25,7 @@ import webdevImage from '../assets/webdev.jpg';
 import sketchImage from '../assets/sketch.jpg';
 import servicesBgImage from '../assets/services-bg.jpg'; // Add your image path
 import authorimg from '../assets/author1.jpg'; 
+import blogBg from "../assets/blog-bg.jpg";
 import { useEffect, useState, useRef} from 'react';
 
 const Home = () => {
@@ -653,43 +654,42 @@ useEffect(() => {
       </section>
 
       
-{/* Blog Section */}
-<section className="py-20 bg-gray-50">
-  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<section className="relative py-20 bg-gray-900">
+  {/* Background Image */}
+  <div className="absolute inset-0">
+    <img
+      src={blogBg}
+      alt="Background"
+      className="w-full h-full object-cover"
+    />
+    {/* Dark Overlay */}
+    <div className="absolute inset-0 bg-black/60"></div>
+  </div>
+
+  {/* Content */}
+  <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div className="text-center mb-16">
-      <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">From Our Blog</h2>
-      <p className="text-xl text-gray-600">Insights and tips on web development and digital strategy</p>
+      <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">From Our Blog</h2>
+      <p className="text-xl text-gray-200">Insights and tips on web development and digital strategy</p>
     </div>
 
     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
       {[1, 2, 3].map((item) => (
         <div key={item} className="bg-white rounded-xl shadow-md overflow-hidden flex flex-col">
           <div className="p-6 flex-1 flex flex-col">
-            {/* Category */}
             <span className="text-sm font-semibold text-orange-600 uppercase tracking-wide">
               Web Development
             </span>
-
-            {/* Title */}
             <h3 className="text-lg font-bold text-gray-900 mt-3 mb-3">
               10 Trends Shaping Web Development in 2023
             </h3>
-
-            {/* Description */}
             <p className="text-gray-600 text-sm flex-1">
               Discover the latest technologies and approaches that are transforming how websites are built.
             </p>
           </div>
-
-          {/* Footer (Author + Read More) */}
           <div className="border-t border-gray-200 px-6 py-4 flex items-center justify-between">
             <div className="flex items-center space-x-3">
-              {/* Author avatar */}
-              <img
-                src={authorimg}
-                alt="Author"
-                className="w-9 h-9 rounded-full object-cover"
-              />
+              <img src={authorimg} alt="Author" className="w-9 h-9 rounded-full object-cover" />
               <span className="text-sm font-medium text-gray-800">Wade Warren</span>
             </div>
             <a href="#" className="flex items-center text-blue-600 font-medium text-sm">
@@ -707,7 +707,6 @@ useEffect(() => {
     </div>
   </div>
 </section>
-
 
       {/* CTA Section */}
       <section className="py-16 lg:py-20 bg-slate-800 relative overflow-hidden">
