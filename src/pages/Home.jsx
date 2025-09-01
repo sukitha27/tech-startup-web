@@ -26,6 +26,8 @@ import sketchImage from '../assets/sketch.jpg';
 import servicesBgImage from '../assets/services-bg.jpg'; // Add your image path
 import authorimg from '../assets/author1.jpg'; 
 import blogBg from "../assets/blog-bg.jpg";
+import WhatsAppWidget from "react-whatsapp-chat-widget";
+import "react-whatsapp-chat-widget/index.css";
 import { useEffect, useState, useRef} from 'react';
 
 const Home = () => {
@@ -218,50 +220,9 @@ useEffect(() => {
   };
 
   return (
-    <div className="min-h-screen overflow-x-hidden">
-      {/* Live Chat Widget */}
-      <div className={`fixed bottom-6 right-6 z-50 transition-all duration-300 ${isChatOpen ? 'w-80 h-96' : 'w-14 h-14'}`}>
-        {isChatOpen ? (
-          <div className="bg-white rounded-xl shadow-xl border border-gray-200 h-full flex flex-col">
-            <div className="bg-blue-600 text-white p-4 rounded-t-xl flex justify-between items-center">
-              <h3 className="font-semibold">Chat with us</h3>
-              <button onClick={() => setIsChatOpen(false)} className="text-white">
-                <X className="h-5 w-5" />
-              </button>
-            </div>
-            <div className="p-4 flex-grow overflow-y-auto">
-              <div className="bg-gray-100 rounded-lg p-3 mb-4">
-                <p className="text-sm">Hi there! How can we help you today?</p>
-              </div>
-              <div className="space-y-4">
-                <p className="text-xs text-gray-500 text-center">Send us a message and we'll respond shortly</p>
-              </div>
-            </div>
-            <div className="p-4 border-t border-gray-200">
-              <div className="flex space-x-2">
-                <input 
-                  type="text" 
-                  placeholder="Type your message..." 
-                  className="flex-grow border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
-                <button className="bg-blue-600 text-white rounded-lg px-4 py-2">
-                  Send
-                </button>
-              </div>
-            </div>
-          </div>
-        ) : (
-          <button 
-            onClick={() => setIsChatOpen(true)}
-            className="w-14 h-14 bg-blue-600 rounded-full flex items-center justify-center shadow-lg hover:bg-blue-700 transition-all duration-300 hover:scale-110"
-          >
-            <MessageCircle className="h-6 w-6 text-white" />
-          </button>
-        )}
-      </div>
-
+    <div>
       {/* Hero Section with Stats Bar */}
-     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
         {/* Background with overlay */}
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat z-0"
@@ -732,6 +693,39 @@ useEffect(() => {
           </p>
         </div>
       </section>
+
+      <WhatsAppWidget
+        phoneNo="94761148054" // replace with your WhatsApp number
+        position="right"
+        widgetWidth="300px"
+        widgetWidthMobile="260px"
+        autoOpen={false} // set to true if you want it to pop open automatically
+        autoOpenTimer={5000}
+        messageBox={true}
+        messageBoxTxt="Hi Team, is there any related service available ?"
+        iconSize="45"
+        iconColor="white"
+        iconBgColor="green"
+        headerIcon="/logo.png" // your app logo
+        headerIconColor="white"
+        headerTxtColor="white"
+        headerBgColor="green"
+        headerTitle="Velora Tech"
+        headerCaption="Typically replies in minutes"
+        bodyBgColor="#f0f0f0"
+        chatPersonName="Tech Support"
+        chatMessage={
+          <>
+            Hi there 👋 <br />
+            How can we help you today?
+          </>
+        }
+        footerBgColor="#ddd"
+        placeholder="Type a message..."
+        btnBgColor="green"
+        btnTxt="Start Chat"
+        btnTxtColor="white"
+      />
     </div>
   );
 };
