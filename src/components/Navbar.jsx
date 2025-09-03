@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Menu, X, Code } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
+import logoImage from '@/assets/logo.png'; // Import your logo image
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -40,8 +41,13 @@ const Navbar = () => {
           {/* Logo */}
           <div className="flex items-center">
             <Link to="/" className="flex items-center space-x-2 group">
-              <Code className="h-6 w-6 text-white" />
-              <span className="text-xl font-bold text-white">Velora Tech</span>
+              {/* Replace Code icon with your logo image */}
+              <img 
+                src={logoImage} 
+                alt="Velora Tech Logo" 
+                className="h-10 w-auto" // Adjust height as needed
+              />
+              
             </Link>
           </div>
 
@@ -68,30 +74,28 @@ const Navbar = () => {
               </div>
             ))}
 
-
             {/* CTA Button */}
-                <Button
-                asChild
-                className="relative overflow-hidden rounded-full border-2 border-blue-500 bg-blue-500 px-8 py-3 font-extrabold uppercase text-white group"
-              >
-                <Link to="/contact">
-                  <span className="relative z-10">Request a Quote</span>
+            <Button
+              asChild
+              className="relative overflow-hidden rounded-full border-2 border-blue-500 bg-blue-500 px-8 py-3 font-extrabold uppercase text-white group"
+            >
+              <Link to="/contact">
+                <span className="relative z-10">Request a Quote</span>
 
-                  {/* Gray swipe overlay */}
-                  <span
-                    className="
-                      absolute top-0 left-0 h-full 
-                      w-[calc(100%+1.2rem)] 
-                      -translate-x-[calc(100%+1.2rem)]
-                      bg-gray-700
-                      [clip-path:polygon(0_0,calc(100%-1.2rem)_0,100%_100%,0_100%)]
-                      transition-transform duration-500 ease-out
-                      group-hover:translate-x-0
-                    "
-                  />
-                </Link>
-              </Button>
-
+                {/* Gray swipe overlay */}
+                <span
+                  className="
+                    absolute top-0 left-0 h-full 
+                    w-[calc(100%+1.2rem)] 
+                    -translate-x-[calc(100%+1.2rem)]
+                    bg-gray-700
+                    [clip-path:polygon(0_0,calc(100%-1.2rem)_0,100%_100%,0_100%)]
+                    transition-transform duration-500 ease-out
+                    group-hover:translate-x-0
+                  "
+                />
+              </Link>
+            </Button>
           </div>
 
           {/* Mobile Menu Toggle */}

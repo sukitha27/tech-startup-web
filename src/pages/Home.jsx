@@ -219,6 +219,56 @@ useEffect(() => {
     }, duration / steps);
   };
 
+  // Add this state for animated stats
+const [animatedStats, setAnimatedStats] = useState([0, 0, 0, 0]);
+
+// Add this useEffect for the counter animation
+useEffect(() => {
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          // Start counting when the stats bar is in view
+          stats.forEach((stat, index) => {
+            const targetValue = parseInt(stat.value);
+            const duration = 2000; // 2 seconds for all counters
+            const steps = 60;
+            const increment = targetValue / steps;
+            let currentValue = 0;
+            
+            const timer = setInterval(() => {
+              currentValue += increment;
+              if (currentValue >= targetValue) {
+                setAnimatedStats(prev => {
+                  const newStats = [...prev];
+                  newStats[index] = targetValue;
+                  return newStats;
+                });
+                clearInterval(timer);
+              } else {
+                setAnimatedStats(prev => {
+                  const newStats = [...prev];
+                  newStats[index] = Math.floor(currentValue);
+                  return newStats;
+                });
+              }
+            }, duration / steps);
+          });
+        }
+      });
+    },
+    { threshold: 0.5 }
+  );
+
+  // Observe the stats bar container
+  const statsBar = document.querySelector('.stats-bar');
+  if (statsBar) {
+    observer.observe(statsBar);
+  }
+
+  return () => observer.disconnect();
+}, []);
+
   return (
     <div>
       {/* Hero Section with Stats Bar */}
@@ -273,18 +323,18 @@ useEffect(() => {
             </div>
 
             {/* Stats Bar - Positioned at the bottom of the hero section */}
-            <div className="w-full max-w-5xl mt-auto mb-8">
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-6 bg-white/10 backdrop-blur-xl rounded-2xl p-8 border border-white/20 shadow-2xl">
-                {stats.map((stat, index) => (
-                  <div key={index} className="text-center p-4">
-                    <div className="text-4xl md:text-5xl font-bold text-white mb-3">
-                      {stat.value}
-                    </div>
-                    <div className="text-gray-300 text-sm md:text-base font-medium">{stat.label}</div>
+            <div className="w-full max-w-5xl mt-auto mb-8 stats-bar">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 bg-white/10 backdrop-blur-xl rounded-2xl p-8 border border-white/20 shadow-2xl">
+              {stats.map((stat, index) => (
+                <div key={index} className="text-center p-4">
+                  <div className="text-4xl md:text-5xl font-bold text-white mb-3">
+                    {animatedStats[index]}+
                   </div>
-                ))}
-              </div>
+                  <div className="text-gray-300 text-sm md:text-base font-medium">{stat.label}</div>
+                </div>
+              ))}
             </div>
+          </div>
           </div>
         </div>
         
