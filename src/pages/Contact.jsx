@@ -59,26 +59,26 @@ const Contact = () => {
     {
       icon: Mail,
       title: 'Email',
-      value: 'hello@techsolutionspro.com',
-      description: 'Send me an email anytime'
+      value: 'hello@veloratech.com',
+      description: 'Send us an email anytime'
     },
     {
       icon: Phone,
       title: 'Phone',
-      value: '+1 (555) 123-4567',
+      value: '+94 (076) 114-8054',
       description: 'Call for urgent inquiries'
     },
     {
       icon: MapPin,
       title: 'Location',
-      value: 'San Francisco, CA',
-      description: 'Available for remote work worldwide'
+      value: 'Nagollagama, Sri Lanka',
+      description: 'Available for worldwide'
     },
     {
       icon: Clock,
       title: 'Response Time',
       value: '< 24 hours',
-      description: 'I typically respond within 24 hours'
+      description: 'Our team typically responds within 24 hours'
     }
   ];
 
@@ -181,7 +181,7 @@ const Contact = () => {
                 Get In Touch
               </h2>
               <p className="text-gray-600 mb-8">
-                I'm here to help bring your ideas to life. Reach out through any 
+                We're here to help bring your ideas to life. Reach out through any
                 of these channels, and let's start the conversation.
               </p>
               
@@ -323,7 +323,7 @@ const Contact = () => {
                       value={formData.description}
                       onChange={handleInputChange}
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                      placeholder="Tell me about your project, goals, and any specific requirements..."
+                      placeholder="Tell us about your project, goals, and any specific requirements..."
                     />
                   </div>
 
@@ -383,7 +383,7 @@ const Contact = () => {
               <p className="text-gray-600">
                 Project timelines vary based on complexity and scope. A simple website 
                 might take 2-4 weeks, while a complex web application could take 2-6 months. 
-                I'll provide a detailed timeline during our initial consultation.
+                We'll provide a detailed timeline during our initial consultation.
               </p>
             </div>
             <div className="bg-gray-50 rounded-xl p-6">
@@ -391,7 +391,7 @@ const Contact = () => {
                 Do you provide ongoing support after launch?
               </h3>
               <p className="text-gray-600">
-                Yes! I offer various support packages including bug fixes, updates, 
+                Yes! We offer various support packages including bug fixes, updates, 
                 performance monitoring, and feature enhancements. We can discuss the 
                 best support plan for your needs.
               </p>
@@ -401,8 +401,8 @@ const Contact = () => {
                 What technologies do you work with?
               </h3>
               <p className="text-gray-600">
-                I specialize in modern web technologies including React, Vue.js, Node.js, 
-                Python, and various databases. I choose the best technology stack based 
+                We specialize in modern web technologies including React, Vue.js, Node.js, 
+                Python, and Wordpress. We choose the best technology stack based 
                 on your specific requirements and goals.
               </p>
             </div>
@@ -411,8 +411,8 @@ const Contact = () => {
                 How do you handle project communication?
               </h3>
               <p className="text-gray-600">
-                I believe in transparent communication with regular updates. We'll have 
-                scheduled check-ins, and I'm always available for questions via email 
+                We believe in transparent communication with regular updates. We'll have 
+                scheduled check-ins, and we're always available for questions via email 
                 or phone. You'll have full visibility into the project progress.
               </p>
             </div>
