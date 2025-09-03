@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
-import { Code, Mail, Phone, MapPin } from 'lucide-react';
+import { Mail, Phone, MapPin } from 'lucide-react';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 import RotatingText from '@/blocks/TextAnimations/RotatingText/RotatingText';
+import logoImage from '@/assets/logo.png'; // Import your logo image
 
 const Footer = () => {
   return (
@@ -10,8 +12,12 @@ const Footer = () => {
           {/* Company Info */}
           <div className="col-span-1 md:col-span-2">
             <div className="flex items-center space-x-2 mb-4">
-              <Code className="h-8 w-8 text-blue-400" />
-              <span className="text-xl font-bold">Velora Tech</span>
+              {/* Replace Code icon with your logo image */}
+              <img 
+                src={logoImage} 
+                alt="Velora Tech Logo" 
+                className="h-10 w-auto" // Adjust height as needed
+              />
             </div>
             <p className="text-gray-300 mb-4 max-w-md">
               Expert software development and web solutions for growing businesses. 
@@ -20,15 +26,15 @@ const Footer = () => {
             <div className="space-y-2">
               <div className="flex items-center space-x-2 text-gray-300">
                 <Mail className="h-4 w-4" />
-                <span>hello@techsolutionspro.com</span>
+                <span>hello@veloratech.com</span>
               </div>
               <div className="flex items-center space-x-2 text-gray-300">
                 <Phone className="h-4 w-4" />
-                <span>+1 (555) 123-4567</span>
+                <span>+94 (076) 114-8054</span>
               </div>
               <div className="flex items-center space-x-2 text-gray-300">
                 <MapPin className="h-4 w-4" />
-                <span>San Francisco, CA</span>
+                <span>Nagollagama, Sri Lanka</span>
               </div>
             </div>
           </div>
@@ -59,8 +65,8 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Services */}
-          <div>
+          {/* Services & Follow Us Combined */}
+          <div className="col-span-1 md:col-span-1">
             <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
               Our{" "}
               <RotatingText
@@ -76,12 +82,70 @@ const Footer = () => {
                 rotationInterval={2000}
               />
             </h3>
-            <ul className="space-y-2 text-gray-300">
+            <ul className="space-y-2 text-gray-300 mb-6">
               <li>Web Development</li>
               <li>Software Solutions</li>
               <li>E-commerce Platforms</li>
               <li>API Development</li>
               <li>Technical Consulting</li>
+            </ul>
+            
+            {/* Follow Us Section - Added to Services */}
+            <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+              Follow{" "}
+              <RotatingText
+                texts={["Us", "Us"]}
+                mainClassName="px-2 bg-blue-400 text-black rounded-lg"
+                staggerFrom="last"
+                initial={{ y: "100%" }}
+                animate={{ y: 0 }}
+                exit={{ y: "-120%" }}
+                staggerDuration={0.025}
+                splitLevelClassName="overflow-hidden pb-1"
+                transition={{ type: "spring", damping: 30, stiffness: 400 }}
+                rotationInterval={2000}
+              />
+            </h3>
+            <p className="text-gray-300 mb-4 text-sm">
+              Stay connected with us on social media.
+            </p>
+            <ul className="flex space-x-4">
+              <li>
+                <a 
+                  href="#" 
+                  className="text-gray-300 hover:text-blue-400 transition-colors"
+                  aria-label="Facebook"
+                >
+                  <i className="fab fa-facebook-f text-xl"></i>
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="#" 
+                  className="text-gray-300 hover:text-blue-400 transition-colors"
+                  aria-label="Instagram"
+                >
+                  <i className="fab fa-instagram text-xl"></i>
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="#" 
+                  className="text-gray-300 hover:text-blue-400 transition-colors"
+                  aria-label="Twitter"
+                >
+                  <i className="fab fa-twitter text-xl"></i>
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="#" 
+                  className="text-gray-300 hover:text-blue-400 transition-colors"
+                  aria-label="LinkedIn"
+                >
+                  <i className="fab fa-linkedin-in text-xl"></i>
+                </a>
+              </li>
             </ul>
           </div>
         </div>
