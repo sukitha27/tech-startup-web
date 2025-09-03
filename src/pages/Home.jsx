@@ -26,6 +26,7 @@ import sketchImage from '../assets/sketch.jpg';
 import servicesBgImage from '../assets/services-bg.jpg'; // Add your image path
 import authorimg from '../assets/author1.jpg'; 
 import blogBg from "../assets/blog-bg.jpg";
+import profilepic from '@/assets/pro_pic.png'
 import WhatsAppWidget from "react-whatsapp-chat-widget";
 import "react-whatsapp-chat-widget/index.css";
 import { useEffect, useState, useRef} from 'react';
@@ -751,18 +752,18 @@ useEffect(() => {
         widgetWidthMobile="260px"
         autoOpen={false} // set to true if you want it to pop open automatically
         autoOpenTimer={5000}
-        messageBox={true}
+        messageBox={false}
         messageBoxTxt="Hi Team, is there any related service available ?"
-        iconSize="45"
-        iconColor="white"
-        iconBgColor="green"
-        headerIcon="/logo.png" // your app logo
-        headerIconColor="white"
-        headerTxtColor="white"
-        headerBgColor="green"
+        iconSize="52"
+        iconColor="#ffffff"
+        iconBgColor="rgb(79, 206, 93)"
+        headerIcon={profilepic}// your app logo
+        headerIconColor="rgb(100, 100, 100)"
+        headerTxtColor="rgb(255, 255, 255)"
+        headerBgColor="rgb(7, 94, 84)"
         headerTitle="Velora Tech"
         headerCaption="Typically replies in minutes"
-        bodyBgColor="#f0f0f0"
+        bodyBgColor="rgb(227, 220, 213)"
         chatPersonName="Tech Support"
         chatMessage={
           <>
@@ -770,11 +771,11 @@ useEffect(() => {
             How can we help you today?
           </>
         }
-        footerBgColor="#ddd"
+        footerBgColor="rgb(255, 255, 255)"
         placeholder="Type a message..."
-        btnBgColor="green"
+        btnBgColor="rgb(79, 206, 93)"
         btnTxt="Start Chat"
-        btnTxtColor="white"
+        btnTxtColor="rgb(255, 255, 255)"
       />
     </div>
   );
