@@ -1,7 +1,7 @@
 import LogoLoop from "@/blocks/Animations/LogoLoop/LogoLoop";
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, CheckCircle, Code, Database, Lightbulb, MessageCircle, X, Palette, Smartphone, BarChart3 } from 'lucide-react';
+import { ArrowRight, CheckCircle, Code, Database, Lightbulb, Palette, Smartphone, BarChart3, Clock, ChevronRight } from 'lucide-react';
 import heroBgImage from '../assets/hero-bg.jpg';
 import testimonialBg from '../assets/testimonial-bg.jpg';
 import webDevImage from '../assets/services_web_dev.png';
@@ -23,27 +23,65 @@ import logo393 from "@/assets/logos/logoipsum-393.svg";
 import logo398 from "@/assets/logos/logoipsum-398.svg";
 import webdevImage from '../assets/webdev.jpg';
 import sketchImage from '../assets/sketch.jpg';
-import servicesBgImage from '../assets/services-bg.jpg'; // Add your image path
-import authorimg from '../assets/author1.jpg'; 
+import servicesBgImage from '../assets/services-bg.jpg';
+import authorimg from '../assets/author1.jpg';
 import blogBg from "../assets/blog-bg.jpg";
-import profilepic from '@/assets/pro_pic.png'
+import profilepic from '@/assets/pro_pic.png';
 import WhatsAppWidget from "react-whatsapp-chat-widget";
 import "react-whatsapp-chat-widget/index.css";
-import { useEffect, useState, useRef} from 'react';
+import { useEffect, useState, useRef } from 'react';
+
+// Blog preview data — keep in sync with src/pages/Blog.jsx
+const blogPreviews = [
+  {
+    id: 1,
+    title: '10 Web Development Trends That Will Define 2025',
+    category: 'Web Development',
+    readTime: '6 min read',
+    excerpt: 'From AI-assisted coding to edge rendering — the shifts every business owner should be watching.',
+    authorName: 'Velora Tech Team',
+    date: 'March 10, 2025',
+  },
+  {
+    id: 2,
+    title: 'Why Sri Lankan Businesses Need a Proper Web Presence in 2025',
+    category: 'Digital Strategy',
+    readTime: '5 min read',
+    excerpt: 'A Facebook page is no longer enough. Here\'s what a professional digital presence actually looks like.',
+    authorName: 'Velora Tech Team',
+    date: 'February 28, 2025',
+  },
+  {
+    id: 3,
+    title: 'React vs Next.js: Which Should You Build Your Business Site With?',
+    category: 'Web Development',
+    readTime: '7 min read',
+    excerpt: 'A practical, no-jargon breakdown of when to pick plain React and when Next.js earns its complexity.',
+    authorName: 'Velora Tech Team',
+    date: 'February 14, 2025',
+  },
+];
+
+const categoryColors = {
+  'Web Development': 'bg-blue-100 text-blue-800',
+  'Digital Strategy': 'bg-purple-100 text-purple-800',
+  'E-commerce': 'bg-green-100 text-green-800',
+  'Project Management': 'bg-orange-100 text-orange-800',
+};
 
 const Home = () => {
-  const [isChatOpen, setIsChatOpen] = useState(false);
-  const [index, setIndex] = useState(0);
-  const [textIndex, setTextIndex] = useState(0);
+  const [testimonialIndex, setTestimonialIndex] = useState(0);
   const [currentText, setCurrentText] = useState('');
+  const [textIndex, setTextIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
   const [typingSpeed, setTypingSpeed] = useState(150);
+
   const typewriterTexts = useRef([
     "Web Applications",
     "E-commerce Solutions",
     "Business Software",
     "Mobile Apps",
-    "Tourism Websites"
+    "Tourism Websites",
   ]);
 
   // Typewriter effect
@@ -51,10 +89,10 @@ const Home = () => {
     const handleType = () => {
       const current = textIndex % typewriterTexts.current.length;
       const fullText = typewriterTexts.current[current];
-      
+
       if (isDeleting) {
         setCurrentText(fullText.substring(0, currentText.length - 1));
-        setTypingSpeed(typingSpeed / 1.5);
+        setTypingSpeed((s) => s / 1.5);
       } else {
         setCurrentText(fullText.substring(0, currentText.length + 1));
       }
@@ -63,7 +101,7 @@ const Home = () => {
         setTimeout(() => setIsDeleting(true), 1000);
       } else if (isDeleting && currentText === '') {
         setIsDeleting(false);
-        setTextIndex(textIndex + 1);
+        setTextIndex((i) => i + 1);
         setTypingSpeed(150);
       }
     };
@@ -72,12 +110,74 @@ const Home = () => {
     return () => clearTimeout(timer);
   }, [currentText, isDeleting, textIndex, typingSpeed]);
 
-  // Testimonial carousel effect
+  // Testimonial auto-advance
   useEffect(() => {
     const id = setInterval(() => {
-      setIndex((prev) => (prev + 1) % testimonials.length);
+      setTestimonialIndex((prev) => (prev + 1) % testimonials.length);
     }, 5000);
     return () => clearInterval(id);
+  }, []);
+
+  // Animated stats counter
+  const [animatedStats, setAnimatedStats] = useState([0, 0, 0, 0]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            stats.forEach((stat, i) => {
+              const target = parseInt(stat.value);
+              const duration = 2000;
+              const steps = 60;
+              const increment = target / steps;
+              let current = 0;
+
+              const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                  setAnimatedStats((prev) => {
+                    const next = [...prev];
+                    next[i] = target;
+                    return next;
+                  });
+                  clearInterval(timer);
+                } else {
+                  setAnimatedStats((prev) => {
+                    const next = [...prev];
+                    next[i] = Math.floor(current);
+                    return next;
+                  });
+                }
+              }, duration / steps);
+            });
+
+            observer.disconnect();
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    const el = document.querySelector('.stats-bar');
+    if (el) observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  // Fade-in scroll observer
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animate-fade-in');
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
+    );
+    document.querySelectorAll('.fade-in').forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
   }, []);
 
   const stats = [
@@ -87,229 +187,109 @@ const Home = () => {
     { value: '41+', label: 'Creative Designs' },
   ];
 
-const servicesData = [
-  {
-    icon: Code,
-    title: 'Custom Web Development',
-    description: 'Modern, responsive websites and web applications built with the latest technologies.',
-    metrics: ['40% faster load times', '100% mobile responsive', '3x conversion improvement'],
-  },
-  {
-    icon: Database,
-    title: 'Software Solutions',
-    description: 'Custom business applications, API development, and database optimization.',
-    metrics: ['60% process automation', '99.9% uptime guarantee', 'Real-time analytics'],
-  },
-  {
-    icon: Lightbulb,
-    title: 'Technical Consulting',
-    description: 'Architecture planning, technology selection, and performance optimization.',
-    metrics: ['30% cost reduction', '2x performance boost', 'Future-proof architecture'],
-  },
-  {
-    icon: Palette, // You might need to import this icon
-    title: 'UI/UX Design',
-    description: 'Beautiful, intuitive user interfaces that enhance user experience and engagement.',
-    metrics: ['50% better user engagement', '75% faster task completion', 'Higher user satisfaction'],
-  },
-  {
-    icon: Smartphone, // You might need to import this icon
-    title: 'Mobile Development',
-    description: 'Native and cross-platform mobile apps for iOS and Android.',
-    metrics: ['Native performance', 'Offline capability', 'App store optimization'],
-  },
-  {
-    icon: BarChart3, // You might need to import this icon
-    title: 'Digital Marketing',
-    description: 'SEO, content strategy, and digital marketing to grow your online presence.',
-    metrics: ['3x more traffic', 'Higher conversion rates', 'Better ROI on ads'],
-  },
-];
-
-const caseStudies = [
-  {
-    title: 'E-commerce Platform Redesign',
-    result: 'Revenue increased by 127%',
-    description: 'Complete redesign of product pages and checkout process',
-    metrics: ['+127% revenue', '+83% conversions', '-40% bounce rate'],
-  },
-  {
-    title: 'SaaS Dashboard Implementation',
-    result: 'User engagement up by 64%',
-    description: 'Custom dashboard with real-time analytics and reporting',
-    metrics: ['+64% engagement', '+91% user retention', '2.3x faster workflows'],
-  },
-];
-
-const features = [
-  'Proven Track Record: 15+ successful client websites delivered with 100% satisfaction',
-  'Full-Stack Expertise: 2+ years experience in frontend, backend, and database development',
-  'Modern Technologies: Latest frameworks and best practices for optimal performance',
-  'Client-Focused: Collaborative approach with 24/7 communication channel access',
-];
-
-// Update the testimonials to include logos or remove the logo reference
-const testimonials = [
-  {
-    quote: "Velora Tech has saved us thousands of hours of work. We're able to spin up projects and features faster.",
-    name: "Ammar Foley",
-    role: "UX Designer",
-    company: "GlobalBank",
-    avatar: "AF",
-    logo: logo354, // Add this
-  },
-  {
-    quote: "Our SaaS dashboard is 3× faster and our churn dropped 28% after the redesign. Absolute game-changers.",
-    name: "Marcus Lee",
-    role: "Founder",
-    company: "SaaSify",
-    avatar: "ML",
-    logo: logo369, // Add this
-  },
-  {
-    quote: "From rough sketches to a pixel-perfect product in four weeks. Communication was seamless and the results stellar.",
-    name: "Aisha Patel",
-    role: "Product Lead",
-    company: "InnovateX",
-    avatar: "AP",
-    logo: logo393, // Add this
-  },
-];
-
-useEffect(() => {
-    // Add scroll animation effect
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('animate-fade-in');
-          if (entry.target.classList.contains('counter')) {
-            startCounterAnimation(entry.target);
-          }
-        }
-      });
-    }, observerOptions);
-
-    // Observe all sections with the fade-in class
-    document.querySelectorAll('.fade-in, .counter').forEach(el => {
-      observer.observe(el);
-    });
-
-    return () => observer.disconnect();
-  }, []);
-
-  const startCounterAnimation = (element) => {
-    const target = parseInt(element.getAttribute('data-target'));
-    const duration = 2000;
-    const steps = 60;
-    const stepValue = target / steps;
-    let current = 0;
-    
-    const timer = setInterval(() => {
-      current += stepValue;
-      if (current >= target) {
-        element.textContent = target + '+';
-        clearInterval(timer);
-      } else {
-        element.textContent = Math.floor(current) + '+';
-      }
-    }, duration / steps);
-  };
-
-  // Add this state for animated stats
-const [animatedStats, setAnimatedStats] = useState([0, 0, 0, 0]);
-
-// Add this useEffect for the counter animation
-useEffect(() => {
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          // Start counting when the stats bar is in view
-          stats.forEach((stat, index) => {
-            const targetValue = parseInt(stat.value);
-            const duration = 2000; // 2 seconds for all counters
-            const steps = 60;
-            const increment = targetValue / steps;
-            let currentValue = 0;
-            
-            const timer = setInterval(() => {
-              currentValue += increment;
-              if (currentValue >= targetValue) {
-                setAnimatedStats(prev => {
-                  const newStats = [...prev];
-                  newStats[index] = targetValue;
-                  return newStats;
-                });
-                clearInterval(timer);
-              } else {
-                setAnimatedStats(prev => {
-                  const newStats = [...prev];
-                  newStats[index] = Math.floor(currentValue);
-                  return newStats;
-                });
-              }
-            }, duration / steps);
-          });
-        }
-      });
+  const servicesData = [
+    {
+      icon: Code,
+      title: 'Custom Web Development',
+      description: 'Modern, responsive websites and web applications built with the latest technologies.',
+      metrics: ['40% faster load times', '100% mobile responsive', '3x conversion improvement'],
     },
-    { threshold: 0.5 }
-  );
+    {
+      icon: Database,
+      title: 'Software Solutions',
+      description: 'Custom business applications, API development, and database optimization.',
+      metrics: ['60% process automation', '99.9% uptime guarantee', 'Real-time analytics'],
+    },
+    {
+      icon: Lightbulb,
+      title: 'Technical Consulting',
+      description: 'Architecture planning, technology selection, and performance optimization.',
+      metrics: ['30% cost reduction', '2x performance boost', 'Future-proof architecture'],
+    },
+    {
+      icon: Palette,
+      title: 'UI/UX Design',
+      description: 'Beautiful, intuitive user interfaces that enhance user experience and engagement.',
+      metrics: ['50% better user engagement', '75% faster task completion', 'Higher user satisfaction'],
+    },
+    {
+      icon: Smartphone,
+      title: 'Mobile Development',
+      description: 'Native and cross-platform mobile apps for iOS and Android.',
+      metrics: ['Native performance', 'Offline capability', 'App store optimization'],
+    },
+    {
+      icon: BarChart3,
+      title: 'Digital Marketing',
+      description: 'SEO, content strategy, and digital marketing to grow your online presence.',
+      metrics: ['3x more traffic', 'Higher conversion rates', 'Better ROI on ads'],
+    },
+  ];
 
-  // Observe the stats bar container
-  const statsBar = document.querySelector('.stats-bar');
-  if (statsBar) {
-    observer.observe(statsBar);
-  }
-
-  return () => observer.disconnect();
-}, []);
+  const testimonials = [
+    {
+      quote: "Velora Tech has saved us thousands of hours of work. We're able to spin up projects and features faster.",
+      name: "Ammar Foley",
+      role: "UX Designer",
+      company: "GlobalBank",
+      avatar: "AF",
+      logo: logo354,
+    },
+    {
+      quote: "Our SaaS dashboard is 3× faster and our churn dropped 28% after the redesign. Absolute game-changers.",
+      name: "Marcus Lee",
+      role: "Founder",
+      company: "SaaSify",
+      avatar: "ML",
+      logo: logo369,
+    },
+    {
+      quote: "From rough sketches to a pixel-perfect product in four weeks. Communication was seamless and the results stellar.",
+      name: "Aisha Patel",
+      role: "Product Lead",
+      company: "InnovateX",
+      avatar: "AP",
+      logo: logo393,
+    },
+  ];
 
   return (
     <div>
-      {/* Hero Section with Stats Bar */}
+      {/* ── Hero ── */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        {/* Background with overlay */}
-        <div 
+        <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat z-0"
           style={{ backgroundImage: `url(${heroBgImage})` }}
         >
           <div className="absolute inset-0 bg-gradient-to-r from-blue-900/80 to-purple-900/80"></div>
           <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/50"></div>
         </div>
-        
-        {/* Animated elements */}
+
         <div className="absolute top-20 left-10 w-72 h-72 bg-blue-500 rounded-full mix-blend-soft-light filter blur-3xl opacity-20 animate-blob"></div>
         <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-purple-500 rounded-full mix-blend-soft-light filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
         <div className="absolute bottom-20 left-1/3 w-80 h-80 bg-indigo-500 rounded-full mix-blend-soft-light filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
-        
-        {/* Content */}
+
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="flex flex-col items-center justify-center min-h-screen py-16">
-            
-            
             <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-6 leading-tight">
               Transforming Ideas Into <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">
                 Powerful Digital Solutions
               </span>
             </h1>
-            
-            {/* Typewriter text */}
+
             <div className="text-xl lg:text-2xl text-gray-200 mb-8">
-              We build exceptional <span className="typewriter-text font-semibold text-blue-300 border-r-2 border-blue-400">{currentText}</span>
+              We build exceptional{' '}
+              <span className="typewriter-text font-semibold text-blue-300 border-r-2 border-blue-400">
+                {currentText}
+              </span>
             </div>
-            
+
             <p className="text-lg lg:text-xl text-gray-300 mb-10 max-w-2xl mx-auto leading-relaxed">
-              Expert software development and web solutions for growing businesses. 
-              15+ projects delivered with 100% client satisfaction.
+              Expert software development and web solutions for growing businesses.
+              58+ projects delivered with 100% client satisfaction.
             </p>
-            
+
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
               <Button asChild size="lg" className="bg-blue-600 hover:bg-blue-700 transition-all duration-300 hover:scale-105 shadow-lg shadow-blue-500/30">
                 <Link to="/contact" className="flex items-center">
@@ -323,23 +303,22 @@ useEffect(() => {
               </Button>
             </div>
 
-            {/* Stats Bar - Positioned at the bottom of the hero section */}
+            {/* Stats Bar */}
             <div className="w-full max-w-5xl mt-auto mb-8 stats-bar">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 bg-white/10 backdrop-blur-xl rounded-2xl p-8 border border-white/20 shadow-2xl">
-              {stats.map((stat, index) => (
-                <div key={index} className="text-center p-4">
-                  <div className="text-4xl md:text-5xl font-bold text-white mb-3">
-                    {animatedStats[index]}+
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-6 bg-white/10 backdrop-blur-xl rounded-2xl p-8 border border-white/20 shadow-2xl">
+                {stats.map((stat, i) => (
+                  <div key={i} className="text-center p-4">
+                    <div className="text-4xl md:text-5xl font-bold text-white mb-3">
+                      {animatedStats[i]}+
+                    </div>
+                    <div className="text-gray-300 text-sm md:text-base font-medium">{stat.label}</div>
                   </div>
-                  <div className="text-gray-300 text-sm md:text-base font-medium">{stat.label}</div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
-          </div>
         </div>
-        
-        {/* Scroll indicator */}
+
         <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10">
           <div className="animate-bounce">
             <div className="w-6 h-10 border-2 border-white/50 rounded-full flex justify-center">
@@ -349,218 +328,170 @@ useEffect(() => {
         </div>
       </section>
 
-{/* Services Overview */}
-<section 
-  className="py-16 lg:py-20 relative overflow-hidden"
-  style={{ 
-    backgroundImage: `url(${servicesBgImage})`,
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    backgroundAttachment: 'fixed'
-  }}
->
-  {/* Dark overlay for better text readability */}
-  <div className="absolute inset-0 bg-slate-900/90"></div>
-  
-  {/* Animated background elements */}
-  <div className="absolute top-0 left-0 w-full h-full">
-    <div className="absolute top-20 left-10 w-72 h-72 bg-blue-500/20 rounded-full mix-blend-soft-light filter blur-3xl animate-pulse"></div>
-    <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-purple-500/20 rounded-full mix-blend-soft-light filter blur-3xl animate-pulse animation-delay-2000"></div>
-    <div className="absolute bottom-20 left-1/3 w-80 h-80 bg-red-500/20 rounded-full mix-blend-soft-light filter blur-3xl animate-pulse animation-delay-4000"></div>
-  </div>
-  
-  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start mb-16">
-      {/* Left side - Main heading */}
-      <div className="fade-in">
-        <h2 className="text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-6 leading-tight">
-          WE SHAPE THE PERFECT{' '}
-          <span className="text-white">SOLUTIONS</span>
-          <span className="text-blue-500 text-6xl lg:text-7xl">.</span>
-        </h2>
-      </div>
-      
-      {/* Right side - Description */}
-      <div className="fade-in">
-        <p className="text-gray-300 text-lg lg:text-xl leading-relaxed">
-          We are committed to provide web design Sri Lanka service to our customers 
-          with the full potential of our web design Sri Lanka team.
-        </p>
-      </div>
-    </div>
-    
-    {/* Services Grid */}
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
-      {servicesData.map((service, index) => (
-        <div 
-          key={index}
-          className="fade-in group relative bg-white/5 backdrop-blur-xl rounded-2xl p-8 hover:bg-white/10 transition-all duration-500 border border-white/10 hover:border-red-400/30 transform hover:-translate-y-2 hover:shadow-2xl hover:shadow-red-500/10"
-          style={{ animationDelay: `${index * 200}ms` }}
-        >
-          {/* Service number */}
-          <div className="absolute top-6 right-6 text-white/10 text-6xl font-bold">
-            {(index + 1).toString().padStart(2, '0')}
-          </div>
-          
-          {/* Icon container with gradient */}
-          <div className="mb-8">
-            <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-800 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-blue-500/25 transition-all duration-300">
-              <service.icon className="w-8 h-8 text-white" />
+      {/* ── Services Overview ── */}
+      <section
+        className="py-16 lg:py-20 relative overflow-hidden"
+        style={{
+          backgroundImage: `url(${servicesBgImage})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundAttachment: 'fixed',
+        }}
+      >
+        <div className="absolute inset-0 bg-slate-900/90"></div>
+        <div className="absolute top-0 left-0 w-full h-full">
+          <div className="absolute top-20 left-10 w-72 h-72 bg-blue-500/20 rounded-full mix-blend-soft-light filter blur-3xl animate-pulse"></div>
+          <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-purple-500/20 rounded-full mix-blend-soft-light filter blur-3xl animate-pulse animation-delay-2000"></div>
+          <div className="absolute bottom-20 left-1/3 w-80 h-80 bg-red-500/20 rounded-full mix-blend-soft-light filter blur-3xl animate-pulse animation-delay-4000"></div>
+        </div>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start mb-16">
+            <div className="fade-in">
+              <h2 className="text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-6 leading-tight">
+                WE SHAPE THE PERFECT{' '}
+                <span className="text-white">SOLUTIONS</span>
+                <span className="text-blue-500 text-6xl lg:text-7xl">.</span>
+              </h2>
             </div>
-
-            <h3 className="text-xl lg:text-2xl font-bold text-white mb-4 group-hover:text-blue-400 transition-colors duration-300">
-              {service.title}
-            </h3>
-            
-            <p className="text-gray-300 text-sm lg:text-base leading-relaxed mb-6">
-              {service.description}
-            </p>
+            <div className="fade-in">
+              <p className="text-gray-300 text-lg lg:text-xl leading-relaxed">
+                We are committed to provide web design Sri Lanka service to our customers
+                with the full potential of our web design Sri Lanka team.
+              </p>
+            </div>
           </div>
 
-          {/* Metrics list */}
-          <div className="space-y-3">
-            {service.metrics.map((metric, metricIndex) => (
-              <div key={metricIndex} className="flex items-center space-x-3">
-                <div className="w-2 h-2 bg-blue-500 rounded-full flex-shrink-0"></div>
-                <span className="text-gray-300 text-sm lg:text-base">{metric}</span>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
+            {servicesData.map((service, i) => (
+              <div
+                key={i}
+                className="fade-in group relative bg-white/5 backdrop-blur-xl rounded-2xl p-8 hover:bg-white/10 transition-all duration-500 border border-white/10 hover:border-red-400/30 transform hover:-translate-y-2 hover:shadow-2xl hover:shadow-red-500/10"
+                style={{ animationDelay: `${i * 200}ms` }}
+              >
+                <div className="absolute top-6 right-6 text-white/10 text-6xl font-bold">
+                  {(i + 1).toString().padStart(2, '0')}
+                </div>
+                <div className="mb-8">
+                  <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-800 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-blue-500/25 transition-all duration-300">
+                    <service.icon className="w-8 h-8 text-white" />
+                  </div>
+                  <h3 className="text-xl lg:text-2xl font-bold text-white mb-4 group-hover:text-blue-400 transition-colors duration-300">
+                    {service.title}
+                  </h3>
+                  <p className="text-gray-300 text-sm lg:text-base leading-relaxed mb-6">
+                    {service.description}
+                  </p>
+                </div>
+                <div className="space-y-3">
+                  {service.metrics.map((metric, j) => (
+                    <div key={j} className="flex items-center space-x-3">
+                      <div className="w-2 h-2 bg-blue-500 rounded-full flex-shrink-0"></div>
+                      <span className="text-gray-300 text-sm lg:text-base">{metric}</span>
+                    </div>
+                  ))}
+                </div>
+                <div className="absolute bottom-0 left-0 w-0 h-1 bg-gradient-to-r from-blue-500 to-blue-600 group-hover:w-full transition-all duration-500"></div>
+                <div className="mt-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div className="flex items-center text-blue-400 text-sm font-medium">
+                    <span>Learn more</span>
+                    <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform duration-300" />
+                  </div>
+                </div>
               </div>
             ))}
           </div>
 
-          {/* Hover effect line */}
-          <div className="absolute bottom-0 left-0 w-0 h-1 bg-gradient-to-r from-blue-500 to-blue-600 group-hover:w-full transition-all duration-500"></div>
-
-          {/* Learn more link */}
-          <div className="mt-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            <div className="flex items-center text-blue-400 text-sm font-medium">
-              <span>Learn more</span>
-              <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform duration-300" />
+          <div className="text-center mt-16 fade-in">
+            <div className="bg-gradient-to-r from-red-500/10 to-blue-500/10 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
+              <h3 className="text-2xl lg:text-3xl font-bold text-white mb-4">
+                Ready to Transform Your Business?
+              </h3>
+              <p className="text-gray-300 mb-6 max-w-2xl mx-auto">
+                Let's discuss your project and create a custom solution that drives real results.
+              </p>
+              <Button
+                asChild
+                size="lg"
+                className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white transition-all duration-300 hover:scale-105 shadow-lg shadow-blue-500/25"
+              >
+                <Link to="/contact" className="flex items-center justify-center">
+                  Start Your Project <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
+              </Button>
             </div>
           </div>
         </div>
-      ))}
-    </div>
+      </section>
 
-    {/* CTA Section */}
-    <div className="text-center mt-16 fade-in">
-      <div className="bg-gradient-to-r from-red-500/10 to-blue-500/10 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
-        <h3 className="text-2xl lg:text-3xl font-bold text-white mb-4">
-          Ready to Transform Your Business?
-        </h3>
-        <p className="text-gray-300 mb-6 max-w-2xl mx-auto">
-          Let's discuss your project and create a custom solution that drives real results.
-        </p>
-        <Button 
-          asChild 
-          size="lg" 
-          className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white transition-all duration-300 hover:scale-105 shadow-lg shadow-blue-500/25"
-        >
-          <Link to="/contact" className="flex items-center justify-center">
-            Start Your Project <ArrowRight className="ml-2 h-5 w-5" />
-          </Link>
-        </Button>
-      </div>
-    </div>
-  </div>
-</section>
+      {/* ── Why Choose Us ── */}
+      <section className="py-16 lg:py-20 bg-slate-900 relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+            <div className="fade-in">
+              <div className="text-blue-400 font-semibold text-sm mb-4 tracking-wider uppercase">
+                WHY CHOOSE US?
+              </div>
+              <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
+                WE ARE A{' '}
+                <span className="relative">
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500">#1</span>
+                </span>{' '}
+                WEB<br />DEVELOPMENT COMPANY
+              </h2>
+              <p className="text-gray-300 mb-8 leading-relaxed text-base lg:text-lg">
+                At our core, we specialize in custom web development and tailored software solutions.
+                We empower entrepreneurs, startups, and expanding companies to turn their vision into
+                reality and reach their business goals faster.
+              </p>
+              <div className="mb-8">
+                <h3 className="text-white font-semibold text-lg mb-4">Follow Us:</h3>
+                <div className="flex space-x-4">
+                  {[
+                    { icon: 'fa-facebook-f', label: 'Facebook' },
+                    { icon: 'fa-instagram', label: 'Instagram' },
+                    { icon: 'fa-twitter', label: 'Twitter' },
+                    { icon: 'fa-linkedin-in', label: 'LinkedIn' },
+                  ].map(({ icon, label }) => (
+                    <a
+                      key={label}
+                      href="#"
+                      aria-label={label}
+                      className="w-12 h-12 bg-gray-600 hover:bg-blue-600 rounded-full flex items-center justify-center transition-all duration-300"
+                    >
+                      <i className={`fab ${icon} text-white text-lg`}></i>
+                    </a>
+                  ))}
+                </div>
+              </div>
+              <Button asChild className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-md transition-all duration-300 text-base font-semibold">
+                <Link to="/about" className="flex items-center">
+                  Discover More <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+              </Button>
+            </div>
 
-      
-      {/* Why Choose Me */}
-<section className="py-16 lg:py-20 bg-slate-900 relative overflow-hidden">
-  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
-      
-      {/* Left side - Content */}
-      <div className="fade-in">
-        {/* Blue accent text - exactly like image */}
-        <div className="text-blue-400 font-semibold text-sm mb-4 tracking-wider uppercase">
-          WHY CHOOSE US?
-        </div>
-        
-        <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
-          WE ARE A <span className="relative">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500">#1</span>
-            <span className="absolute inset-0 text-yellow-400 opacity-30 blur-sm">#1</span>
-          </span> WEB<br />
-          DEVELOPMENT COMPANY
-        </h2>
-        
-        <p className="text-gray-300 mb-8 leading-relaxed text-base lg:text-lg">
-          At our core, we specialize in custom web development and 
-          tailored software solutions. We empower entrepreneurs, startups,
-          and expanding companies to turn their vision into reality 
-          and reach their business goals faster.
-        </p>
-
-        {/* Social Media Section - exactly like image */}
-        <div className="mb-8">
-          <h3 className="text-white font-semibold text-lg mb-4">Follow Us:</h3>
-          <div className="flex space-x-4">
-            {/* Facebook */}
-            <a href="#" className="w-12 h-12 bg-gray-600 hover:bg-blue-600 rounded-full flex items-center justify-center transition-all duration-300">
-              <i className="fab fa-facebook-f text-white text-lg"></i>
-            </a>
-            {/* Instagram */}
-            <a href="#" className="w-12 h-12 bg-gray-600 hover:bg-blue-600 rounded-full flex items-center justify-center transition-all duration-300">
-              <i className="fab fa-instagram text-white text-lg"></i>
-            </a>
-            {/* Twitter */}
-            <a href="#" className="w-12 h-12 bg-gray-600 hover:bg-blue-600 rounded-full flex items-center justify-center transition-all duration-300">
-              <i className="fab fa-twitter text-white text-lg"></i>
-            </a>
-            {/* LinkedIn */}
-            <a href="#" className="w-12 h-12 bg-gray-600 hover:bg-blue-600 rounded-full flex items-center justify-center transition-all duration-300">
-              <i className="fab fa-linkedin-in text-white text-lg"></i>
-            </a>
+            <div className="fade-in relative">
+              <div className="relative h-[500px]">
+                <div className="absolute top-0 left-0 w-[280px] h-[240px] rounded-2xl overflow-hidden shadow-2xl transform -rotate-2">
+                  <img src={webdevImage} alt="Development workspace" className="w-full h-full object-cover" />
+                </div>
+                <div className="absolute bottom-0 right-0 w-[280px] h-[280px] rounded-2xl overflow-hidden shadow-2xl transform rotate-3">
+                  <img src={sketchImage} alt="Content strategy and UI design" className="w-full h-full object-cover" />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
+      </section>
 
-        {/* About Us Button - green like in image */}
-        <Button 
-          asChild 
-          className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-md transition-all duration-300 text-base font-semibold"
-        >
-          <Link to="/about" className="flex items-center">
-            Discover More <ArrowRight className="ml-2 h-4 w-4" />
-          </Link>
-        </Button>
-      </div>
-
-      {/* Right side - Two Images positioned exactly like the reference */}
-      <div className="fade-in relative">
-        <div className="relative h-[500px]">
-          {/* Top-left image - Development workspace */}
-          <div className="absolute top-0 left-0 w-[280px] h-[240px] rounded-2xl overflow-hidden shadow-2xl transform -rotate-2">
-            {/* Use the imported image */}
-            <img 
-              src={webdevImage} 
-              alt="Development workspace"
-              className="w-full h-full object-cover"
-            />
-          </div>
-
-          {/* Bottom-right image - Content/UI mockup */}
-          <div className="absolute bottom-0 right-0 w-[280px] h-[280px] rounded-2xl overflow-hidden shadow-2xl transform rotate-3">
-            {/* Use the imported image */}
-            <img 
-              src={sketchImage} 
-              alt="Content strategy and UI design"
-              className="w-full h-full object-cover"
-            />
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-      {/* Technologies Section */}
+      {/* ── Technologies ── */}
       <section className="py-12 lg:py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8 lg:mb-12">
             <h2 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-3 lg:mb-4">Technologies We Use</h2>
             <p className="text-gray-600 text-base lg:text-xl max-w-3xl mx-auto">Modern tools and frameworks for cutting-edge solutions</p>
           </div>
-
           <LogoLoop
             speed={60}
             direction="left"
@@ -579,31 +510,28 @@ useEffect(() => {
         </div>
       </section>
 
-      {/* Testimonials Section */}
+      {/* ── Testimonials ── */}
       <section
         className="relative bg-cover bg-center py-16 lg:py-20"
         style={{ backgroundImage: `url(${testimonialBg})` }}
       >
         <div className="absolute inset-0 bg-black/60"></div>
-
         <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-2xl lg:text-3xl xl:text-4xl font-bold text-white mb-3">Loved by teams everywhere</h2>
           <p className="text-gray-200 mb-8 lg:mb-10 text-base lg:text-lg">
             Ship faster, look sharper, and delight users—without the extra hours.
           </p>
 
-          {/* Carousel */}
           <div className="relative overflow-hidden rounded-2xl bg-white/10 backdrop-blur-sm shadow-xl">
             <div
               className="flex transition-transform duration-700 ease-in-out"
-              style={{ transform: `translateX(-${index * 100}%)` }}
+              style={{ transform: `translateX(-${testimonialIndex * 100}%)` }}
             >
               {testimonials.map((t, i) => (
                 <div key={i} className="w-full flex-shrink-0 p-6 lg:p-8">
                   <blockquote className="text-lg lg:text-xl xl:text-2xl text-white italic leading-snug">
-                    “{t.quote}”
+                    "{t.quote}"
                   </blockquote>
-
                   <div className="mt-6 flex flex-col items-center">
                     <div className="w-12 h-12 lg:w-16 lg:h-16 rounded-full bg-gray-200 text-blue-600 flex items-center justify-center font-bold text-lg lg:text-xl">
                       {t.avatar}
@@ -621,14 +549,13 @@ useEffect(() => {
             </div>
           </div>
 
-          {/* Dots */}
           <div className="flex justify-center space-x-2 mt-6">
             {testimonials.map((_, i) => (
               <button
                 key={i}
-                onClick={() => setIndex(i)}
+                onClick={() => setTestimonialIndex(i)}
                 className={`w-2 h-2 lg:w-2.5 lg:h-2.5 rounded-full transition-colors ${
-                  i === index ? 'bg-blue-400' : 'bg-gray-400'
+                  i === testimonialIndex ? 'bg-blue-400' : 'bg-gray-400'
                 }`}
                 aria-label={`Go to testimonial ${i + 1}`}
               />
@@ -637,7 +564,7 @@ useEffect(() => {
         </div>
       </section>
 
-      {/* Trusted By Section */}
+      {/* ── Trusted By ── */}
       <section className="py-12 lg:py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8 lg:mb-10">
@@ -646,7 +573,6 @@ useEffect(() => {
               Leading brands choose Velora Tech to power their digital success.
             </p>
           </div>
-
           <div className="flex flex-wrap justify-center items-center gap-6 lg:gap-8 xl:gap-12">
             {[
               { src: logo354, alt: "logo354" },
@@ -665,68 +591,60 @@ useEffect(() => {
         </div>
       </section>
 
-      
-<section className="relative py-20 bg-gray-900">
-  {/* Background Image */}
-  <div className="absolute inset-0">
-    <img
-      src={blogBg}
-      alt="Background"
-      className="w-full h-full object-cover"
-    />
-    {/* Dark Overlay */}
-    <div className="absolute inset-0 bg-black/60"></div>
-  </div>
+      {/* ── Blog Preview (real data, not placeholders) ── */}
+      <section className="relative py-20 bg-gray-900">
+        <div className="absolute inset-0">
+          <img src={blogBg} alt="Background" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-black/60"></div>
+        </div>
 
-  {/* Content */}
-  <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div className="text-center mb-16">
-      <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">From Our Blog</h2>
-      <p className="text-xl text-gray-200">Insights and tips on web development and digital strategy</p>
-    </div>
-
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-      {[1, 2, 3].map((item) => (
-        <div key={item} className="bg-white rounded-xl shadow-md overflow-hidden flex flex-col">
-          <div className="p-6 flex-1 flex flex-col">
-            <span className="text-sm font-semibold text-orange-600 uppercase tracking-wide">
-              Web Development
-            </span>
-            <h3 className="text-lg font-bold text-gray-900 mt-3 mb-3">
-              10 Trends Shaping Web Development in 2023
-            </h3>
-            <p className="text-gray-600 text-sm flex-1">
-              Discover the latest technologies and approaches that are transforming how websites are built.
-            </p>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">From Our Blog</h2>
+            <p className="text-xl text-gray-200">Insights and tips on web development and digital strategy</p>
           </div>
-          <div className="border-t border-gray-200 px-6 py-4 flex items-center justify-between">
-            <div className="flex items-center space-x-3">
-              <img src={authorimg} alt="Author" className="w-9 h-9 rounded-full object-cover" />
-              <span className="text-sm font-medium text-gray-800">Wade Warren</span>
-            </div>
-            <a href="#" className="flex items-center text-blue-600 font-medium text-sm">
-              Read more <ArrowRight className="ml-1 h-4 w-4" />
-            </a>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {blogPreviews.map((post) => (
+              <div key={post.id} className="bg-white rounded-xl shadow-md overflow-hidden flex flex-col">
+                <div className="bg-gradient-to-br from-blue-600 to-indigo-700 h-32 flex items-center justify-center">
+                  <span className="text-white/30 text-5xl font-bold">{post.category.charAt(0)}</span>
+                </div>
+                <div className="p-6 flex-1 flex flex-col">
+                  <span className={`text-xs font-semibold px-2 py-1 rounded-full mb-3 w-fit ${
+                    categoryColors[post.category] ?? 'bg-gray-100 text-gray-700'
+                  }`}>
+                    {post.category}
+                  </span>
+                  <h3 className="text-lg font-bold text-gray-900 mb-3 flex-1">{post.title}</h3>
+                  <p className="text-gray-600 text-sm mb-4">{post.excerpt}</p>
+                </div>
+                <div className="border-t border-gray-200 px-6 py-4 flex items-center justify-between">
+                  <div className="flex items-center gap-1 text-xs text-gray-400">
+                    <Clock className="h-3 w-3" /> {post.readTime}
+                  </div>
+                  <Link to="/blog" className="flex items-center text-blue-600 font-medium text-sm hover:gap-2 gap-1 transition-all">
+                    Read more <ChevronRight className="h-4 w-4" />
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="text-center mt-12">
+            <Button asChild variant="outline" className="border-white text-white hover:bg-white hover:text-gray-900">
+              <Link to="/blog">View All Articles</Link>
+            </Button>
           </div>
         </div>
-      ))}
-    </div>
+      </section>
 
-    <div className="text-center mt-12">
-      <Button asChild variant="outline">
-        <Link to="/blog">View All Articles</Link>
-      </Button>
-    </div>
-  </div>
-</section>
-
-      {/* CTA Section */}
+      {/* ── CTA ── */}
       <section className="py-16 lg:py-20 bg-slate-800 relative overflow-hidden">
         <div className="absolute inset-0">
           <div className="absolute top-10 left-1/4 w-48 h-48 lg:w-64 lg:h-64 bg-white rounded-full opacity-10 animate-pulse"></div>
           <div className="absolute bottom-10 right-1/4 w-48 h-48 lg:w-64 lg:h-64 bg-white rounded-full opacity-10 animate-pulse" style={{ animationDelay: '1s' }}></div>
         </div>
-        
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 fade-in">
           <h2 className="text-2xl lg:text-3xl xl:text-4xl font-bold text-white mb-4 lg:mb-6">
             Ready to Build Something Amazing?
@@ -746,18 +664,18 @@ useEffect(() => {
       </section>
 
       <WhatsAppWidget
-        phoneNo="94761148054" // replace with your WhatsApp number
+        phoneNo="94761148054"
         position="right"
         widgetWidth="300px"
         widgetWidthMobile="260px"
-        autoOpen={false} // set to true if you want it to pop open automatically
+        autoOpen={false}
         autoOpenTimer={5000}
         messageBox={false}
-        messageBoxTxt="Hi Team, is there any related service available ?"
+        messageBoxTxt="Hi Team, is there any related service available?"
         iconSize="52"
         iconColor="#ffffff"
         iconBgColor="rgb(79, 206, 93)"
-        headerIcon={profilepic}// your app logo
+        headerIcon={profilepic}
         headerIconColor="rgb(100, 100, 100)"
         headerTxtColor="rgb(255, 255, 255)"
         headerBgColor="rgb(7, 94, 84)"
@@ -765,12 +683,7 @@ useEffect(() => {
         headerCaption="Typically replies in minutes"
         bodyBgColor="rgb(227, 220, 213)"
         chatPersonName="Tech Support"
-        chatMessage={
-          <>
-            Hi there 👋 <br />
-            How can we help you today?
-          </>
-        }
+        chatMessage={<>Hi there 👋 <br />How can we help you today?</>}
         footerBgColor="rgb(255, 255, 255)"
         placeholder="Type a message..."
         btnBgColor="rgb(79, 206, 93)"
