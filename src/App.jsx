@@ -7,6 +7,7 @@ import Portfolio from './pages/Portfolio';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import Blog from './pages/Blog';
+import PrivacyPolicy from './pages/PrivacyPolicy';
 import NotFound from './pages/NotFound';
 import Footer from './components/Footer';
 import './App.css';
@@ -19,13 +20,14 @@ function App() {
           <Navbar />
           <main className="flex-grow">
             <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/services" element={<Services />} />
-              <Route path="/portfolio" element={<Portfolio />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/blog" element={<Blog />} />
-              <Route path="*" element={<NotFound />} />
+              <Route path="/"              element={<Home />} />
+              <Route path="/services"      element={<Services />} />
+              <Route path="/portfolio"     element={<Portfolio />} />
+              <Route path="/about"         element={<About />} />
+              <Route path="/contact"       element={<Contact />} />
+              <Route path="/blog"          element={<Blog />} />
+              <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+              <Route path="*"              element={<NotFound />} />
             </Routes>
           </main>
           <Footer />
