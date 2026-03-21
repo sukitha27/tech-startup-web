@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Menu, X } from 'lucide-react';
-import logoImage from '@/assets/logo.png'; // Import your logo image
+import logoImage from '@/assets/logo.png';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,13 +20,22 @@ const Navbar = () => {
 
   const isActive = (path) => location.pathname === path;
 
+  // Close mobile menu whenever route changes
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
-    };
+    setIsOpen(false);
+  }, [location.pathname]);
+
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 10);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [isOpen]);
 
   return (
     <nav
@@ -41,13 +50,11 @@ const Navbar = () => {
           {/* Logo */}
           <div className="flex items-center">
             <Link to="/" className="flex items-center space-x-2 group">
-              {/* Replace Code icon with your logo image */}
-              <img 
-                src={logoImage} 
-                alt="Velora Tech Logo" 
-                className="h-10 w-auto" // Adjust height as needed
+              <img
+                src={logoImage}
+                alt="Velora Tech Logo"
+                className="h-10 w-auto"
               />
-              
             </Link>
           </div>
 
@@ -63,7 +70,6 @@ const Navbar = () => {
                   `}
                 >
                   {item.name}
-                  {/* Underline */}
                   <span
                     className={`
                       absolute left-0 -bottom-0.5 h-0.5 bg-blue-500 transition-all duration-400
@@ -74,19 +80,16 @@ const Navbar = () => {
               </div>
             ))}
 
-            {/* CTA Button */}
             <Button
               asChild
               className="relative overflow-hidden rounded-full border-2 border-blue-500 bg-blue-500 px-8 py-3 font-extrabold uppercase text-white group"
             >
               <Link to="/contact">
                 <span className="relative z-10">Request a Quote</span>
-
-                {/* Gray swipe overlay */}
                 <span
                   className="
-                    absolute top-0 left-0 h-full 
-                    w-[calc(100%+1.2rem)] 
+                    absolute top-0 left-0 h-full
+                    w-[calc(100%+1.2rem)]
                     -translate-x-[calc(100%+1.2rem)]
                     bg-gray-700
                     [clip-path:polygon(0_0,calc(100%-1.2rem)_0,100%_100%,0_100%)]
@@ -101,9 +104,10 @@ const Navbar = () => {
           {/* Mobile Menu Toggle */}
           <div className="md:hidden flex items-center">
             <button
-              onClick={() => setIsOpen(!isOpen)}
+              onClick={() => setIsOpen((prev) => !prev)}
               className="p-2 rounded-lg text-gray-300 hover:text-white hover:bg-gray-800 transition-all duration-200"
               aria-label="Toggle menu"
+              aria-expanded={isOpen}
             >
               {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
@@ -114,7 +118,7 @@ const Navbar = () => {
         <div
           className={`
             md:hidden transition-all duration-300 ease-in-out
-            ${isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0 overflow-hidden'}
+            ${isOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0 overflow-hidden'}
           `}
         >
           <div className="pt-2 pb-4 space-y-1 bg-black border-t border-gray-800">
@@ -124,11 +128,14 @@ const Navbar = () => {
                 to={item.href}
                 className={`
                   block px-4 py-3 text-base font-semibold transition-all duration-200 relative
-                  ${isActive(item.href)
-                    ? 'text-white bg-gray-900'
-                    : 'text-gray-300 hover:text-white hover:bg-gray-800'
+                  ${
+                    isActive(item.href)
+                      ? 'text-white bg-gray-900'
+                      : 'text-gray-300 hover:text-white hover:bg-gray-800'
                   }
                 `}
+                // onClick closes via the useEffect on location change,
+                // but we also close immediately for same-page taps
                 onClick={() => setIsOpen(false)}
               >
                 {item.name}
