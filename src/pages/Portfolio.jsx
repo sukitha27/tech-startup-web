@@ -4,6 +4,7 @@ import SEO from '@/components/SEO';
 import { ExternalLink, Github, ArrowRight } from 'lucide-react';
 import portfolioMockup1 from '../assets/portfolio_mockup1.png';
 import portfolioMockup2 from '../assets/portfolio_mockup2.png';
+import portfolioHeroBg from '../assets/shero-bg.jpg';
 
 const Portfolio = () => {
   const projects = [
@@ -11,12 +12,20 @@ const Portfolio = () => {
       id: 1,
       title: 'E-commerce Platform',
       category: 'Web Development',
-      description: 'A modern e-commerce platform built for a growing retail business. Features include product catalog, shopping cart, payment processing, and admin dashboard.',
+      description:
+        'A modern e-commerce platform built for a growing retail business. Features include product catalog, shopping cart, payment processing, and admin dashboard.',
       image: portfolioMockup1,
       technologies: ['React', 'Node.js', 'MySQL', 'Stripe', 'AWS'],
-      challenge: 'The client needed a scalable online store that could handle high traffic and integrate with their existing inventory management system.',
-      solution: 'Built a custom e-commerce platform with real-time inventory sync, optimized for performance and SEO.',
-      results: ['40% increase in online sales', '60% improvement in page load speed', '25% reduction in cart abandonment', 'Seamless inventory management integration'],
+      challenge:
+        'The client needed a scalable online store that could handle high traffic and integrate with their existing inventory management system.',
+      solution:
+        'Built a custom e-commerce platform with real-time inventory sync, optimized for performance and SEO.',
+      results: [
+        '40% increase in online sales',
+        '60% improvement in page load speed',
+        '25% reduction in cart abandonment',
+        'Seamless inventory management integration',
+      ],
       liveUrl: '#',
       githubUrl: '#',
     },
@@ -24,26 +33,45 @@ const Portfolio = () => {
       id: 2,
       title: 'Business Management System',
       category: 'Software Development',
-      description: 'A comprehensive web application for managing business operations, including project tracking, client management, and automated reporting.',
+      description:
+        'A comprehensive web application for managing business operations, including project tracking, client management, and automated reporting.',
       image: portfolioMockup2,
       technologies: ['Vue.js', 'Python', 'PostgreSQL', 'Docker', 'Redis'],
-      challenge: 'Manual processes were slowing down operations and causing data inconsistencies across different departments.',
-      solution: 'Developed a centralized web application with role-based access, automated workflows, and real-time reporting.',
-      results: ['60% reduction in processing time', '90% improvement in data accuracy', '50% decrease in manual errors', 'Real-time collaboration across teams'],
+      challenge:
+        'Manual processes were slowing down operations and causing data inconsistencies across different departments.',
+      solution:
+        'Developed a centralized web application with role-based access, automated workflows, and real-time reporting.',
+      results: [
+        '60% reduction in processing time',
+        '90% improvement in data accuracy',
+        '50% decrease in manual errors',
+        'Real-time collaboration across teams',
+      ],
       liveUrl: '#',
       githubUrl: '#',
     },
   ];
 
   const testimonials = [
-    { name: 'Sarah Johnson', company: 'RetailCorp',       project: 'E-commerce Platform',    quote: 'The new platform exceeded our expectations. Sales increased significantly, and our customers love the smooth shopping experience.', rating: 5 },
-    { name: 'Michael Chen',  company: 'BusinessFlow Inc', project: 'Management System',      quote: 'This system transformed how we operate. Everything is now streamlined and we have real-time visibility into our operations.',     rating: 5 },
+    {
+      name: 'Sarah Johnson',
+      company: 'RetailCorp',
+      project: 'E-commerce Platform',
+      quote: 'The new platform exceeded our expectations. Sales increased significantly, and our customers love the smooth shopping experience.',
+      rating: 5,
+    },
+    {
+      name: 'Michael Chen',
+      company: 'BusinessFlow Inc',
+      project: 'Management System',
+      quote: 'This system transformed how we operate. Everything is now streamlined and we have real-time visibility into our operations.',
+      rating: 5,
+    },
   ];
 
-  // Consistent with Home page
   const stats = [
-    { number: '58+', label: 'Projects Completed' },
-    { number: '34+', label: 'Happy Clients' },
+    { number: '58+',  label: 'Projects Completed' },
+    { number: '34+',  label: 'Happy Clients' },
     { number: '100%', label: 'Client Satisfaction' },
     { number: '24/7', label: 'Support Available' },
   ];
@@ -55,35 +83,74 @@ const Portfolio = () => {
         description="Explore Velora Tech's project portfolio — e-commerce platforms, business management systems, and custom web applications with measurable results."
       />
 
-      {/* Hero */}
-      <section className="bg-gradient-to-br from-blue-50 to-indigo-100 py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl lg:text-6xl font-bold text-gray-900 mb-6">
-            Projects That <span className="text-blue-600">Drive Results</span>
+      {/* ── Hero with background image ── */}
+      <section
+        className="relative py-20 min-h-[60vh] flex items-center justify-center"
+        style={{
+          backgroundImage: `url(${portfolioHeroBg})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}
+      >
+        {/* Indigo-tinted overlay — distinct from services (black/40) */}
+        <div className="absolute inset-0 bg-indigo-900/70" />
+
+        {/* Breadcrumb */}
+        <div className="absolute top-8 left-0 right-0 z-10">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <nav className="text-white text-sm">
+              <ul className="flex space-x-2">
+                <li>
+                  <Link to="/" className="hover:text-blue-300 transition-colors uppercase tracking-wide">
+                    Home
+                  </Link>
+                </li>
+                <li className="text-gray-400 before:content-['/'] before:mr-2">
+                  <Link to="/portfolio" className="text-blue-300 font-semibold uppercase tracking-wide">
+                    Portfolio
+                  </Link>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+
+        {/* Content */}
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          {/* Decorative accent */}
+          <div className="flex justify-center mb-6">
+            <span className="inline-block w-12 h-1 bg-blue-400 rounded-full mr-2" />
+            <span className="inline-block w-4 h-1 bg-blue-300 rounded-full" />
+          </div>
+
+          <h1 className="text-4xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+            Projects That{' '}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-cyan-300">
+              Drive Results
+            </span>
           </h1>
-          <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+          <p className="text-xl text-gray-200 mb-10 max-w-3xl mx-auto leading-relaxed">
             Explore successful websites and applications we've built for clients. Each project
             showcases innovative solutions and measurable business impact.
           </p>
-        </div>
-      </section>
 
-      {/* Stats */}
-      <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+          {/* Inline stats in the hero */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
             {stats.map((stat, i) => (
-              <div key={i} className="text-center">
-                <div className="text-3xl lg:text-4xl font-bold text-blue-600 mb-2">{stat.number}</div>
-                <div className="text-gray-600">{stat.label}</div>
+              <div key={i} className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
+                <div className="text-2xl md:text-3xl font-bold text-white">{stat.number}</div>
+                <div className="text-gray-300 text-xs mt-1">{stat.label}</div>
               </div>
             ))}
           </div>
         </div>
+
+        {/* Bottom fade into white */}
+        <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-white to-transparent" />
       </section>
 
-      {/* Projects */}
-      <section className="py-20 bg-gray-50">
+      {/* ── Featured Projects ── */}
+      <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">Featured Projects</h2>
@@ -94,44 +161,47 @@ const Portfolio = () => {
 
           <div className="space-y-20">
             {projects.map((project, index) => (
-              <div key={project.id} className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${index % 2 === 1 ? 'lg:grid-flow-col-dense' : ''}`}>
+              <div
+                key={project.id}
+                className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${
+                  index % 2 === 1 ? 'lg:grid-flow-col-dense' : ''
+                }`}
+              >
                 <div className={index % 2 === 1 ? 'lg:col-start-2' : ''}>
                   <div className="bg-white rounded-xl shadow-lg overflow-hidden">
                     <img src={project.image} alt={project.title} className="w-full h-64 object-cover" />
                   </div>
                 </div>
                 <div className={index % 2 === 1 ? 'lg:col-start-1' : ''}>
-                  <div className="bg-white rounded-xl shadow-lg p-8">
-                    <div className="mb-4">
-                      <span className="inline-block px-3 py-1 bg-blue-100 text-blue-800 text-sm rounded-full mb-2">{project.category}</span>
-                      <h3 className="text-2xl font-bold text-gray-900 mb-2">{project.title}</h3>
-                      <p className="text-gray-600 mb-4">{project.description}</p>
+                  <div className="bg-white rounded-xl shadow-lg p-8 border border-gray-100">
+                    <span className="inline-block px-3 py-1 bg-blue-100 text-blue-800 text-sm rounded-full mb-3">
+                      {project.category}
+                    </span>
+                    <h3 className="text-2xl font-bold text-gray-900 mb-3">{project.title}</h3>
+                    <p className="text-gray-600 mb-6">{project.description}</p>
+
+                    <h4 className="font-semibold text-gray-900 mb-2">Technologies Used:</h4>
+                    <div className="flex flex-wrap gap-2 mb-6">
+                      {project.technologies.map((tech, i) => (
+                        <span key={i} className="px-2 py-1 bg-gray-100 text-gray-700 text-sm rounded">{tech}</span>
+                      ))}
                     </div>
-                    <div className="mb-6">
-                      <h4 className="font-semibold text-gray-900 mb-2">Technologies Used:</h4>
-                      <div className="flex flex-wrap gap-2">
-                        {project.technologies.map((tech, i) => (
-                          <span key={i} className="px-2 py-1 bg-gray-100 text-gray-700 text-sm rounded">{tech}</span>
-                        ))}
-                      </div>
-                    </div>
-                    <div className="mb-6">
-                      <h4 className="font-semibold text-gray-900 mb-2">Challenge:</h4>
-                      <p className="text-gray-600 text-sm mb-4">{project.challenge}</p>
-                      <h4 className="font-semibold text-gray-900 mb-2">Solution:</h4>
-                      <p className="text-gray-600 text-sm mb-4">{project.solution}</p>
-                    </div>
-                    <div className="mb-6">
-                      <h4 className="font-semibold text-gray-900 mb-2">Results:</h4>
-                      <ul className="space-y-1">
-                        {project.results.map((result, i) => (
-                          <li key={i} className="flex items-center space-x-2">
-                            <ArrowRight className="h-4 w-4 text-green-500" />
-                            <span className="text-gray-600 text-sm">{result}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
+
+                    <h4 className="font-semibold text-gray-900 mb-2">Challenge:</h4>
+                    <p className="text-gray-600 text-sm mb-4">{project.challenge}</p>
+                    <h4 className="font-semibold text-gray-900 mb-2">Solution:</h4>
+                    <p className="text-gray-600 text-sm mb-6">{project.solution}</p>
+
+                    <h4 className="font-semibold text-gray-900 mb-3">Results:</h4>
+                    <ul className="space-y-2 mb-6">
+                      {project.results.map((result, i) => (
+                        <li key={i} className="flex items-center space-x-2">
+                          <ArrowRight className="h-4 w-4 text-green-500 flex-shrink-0" />
+                          <span className="text-gray-600 text-sm">{result}</span>
+                        </li>
+                      ))}
+                    </ul>
+
                     <div className="flex space-x-4">
                       <Button asChild variant="outline" size="sm">
                         <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
@@ -152,16 +222,18 @@ const Portfolio = () => {
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="py-20 bg-white">
+      {/* ── Testimonials ── */}
+      <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">What Clients Say</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">Real feedback from satisfied clients who've seen measurable results</p>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Real feedback from satisfied clients who've seen measurable results
+            </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {testimonials.map((t, i) => (
-              <div key={i} className="bg-gray-50 rounded-xl p-8">
+              <div key={i} className="bg-white rounded-xl p-8 shadow-md border border-gray-100">
                 <div className="flex mb-4">
                   {[...Array(t.rating)].map((_, j) => (
                     <svg key={j} className="h-5 w-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
@@ -169,10 +241,10 @@ const Portfolio = () => {
                     </svg>
                   ))}
                 </div>
-                <blockquote className="text-gray-700 mb-4">"{t.quote}"</blockquote>
+                <blockquote className="text-gray-700 mb-4 italic">"{t.quote}"</blockquote>
                 <div>
                   <div className="font-semibold text-gray-900">{t.name}</div>
-                  <div className="text-gray-600 text-sm">{t.company}</div>
+                  <div className="text-gray-500 text-sm">{t.company}</div>
                   <div className="text-blue-600 text-sm">{t.project}</div>
                 </div>
               </div>
@@ -181,10 +253,12 @@ const Portfolio = () => {
         </div>
       </section>
 
-      {/* CTA */}
+      {/* ── CTA ── */}
       <section className="py-20 bg-blue-600">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl lg:text-4xl font-bold text-white mb-6">Ready to Create Your Success Story?</h2>
+          <h2 className="text-3xl lg:text-4xl font-bold text-white mb-6">
+            Ready to Create Your Success Story?
+          </h2>
           <p className="text-xl text-blue-100 mb-8 max-w-3xl mx-auto">
             Let's discuss your project and create a solution that delivers measurable results.
           </p>

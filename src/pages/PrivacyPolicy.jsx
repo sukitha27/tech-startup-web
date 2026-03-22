@@ -32,7 +32,7 @@ const PrivacyPolicy = () => {
 
           <p className="text-gray-600 leading-relaxed mb-10">
             Velora Technologies ("we", "us", or "our") operates the website{' '}
-            <a href="https://veloratech.com" className="text-blue-600 hover:underline">veloratech.com</a>.
+            <a href="https://veloratech.com.lk" className="text-blue-600 hover:underline">veloratech.com.lk</a>.
             This Privacy Policy explains how we collect, use, and protect your personal information when
             you use our website or contact us about our services. By using our site you agree to the
             practices described here.
