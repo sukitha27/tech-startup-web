@@ -7,7 +7,7 @@ import {
   Mail, Phone, MapPin, Clock, Send, CheckCircle,
   MessageSquare, Calendar, FileText, Rocket, Loader2, AlertCircle,
 } from 'lucide-react';
-import contactHeroBg from '../assets/hero-bg.jpg';
+import contactHeroBg from '../assets/contact-bg.jpg';
 
 // ─── EmailJS config ───────────────────────────────────────────────────────────
 const EMAILJS_SERVICE_ID       = 'service_o3s43jb';       // e.g. service_o3s43jb
