@@ -6,6 +6,7 @@ import {
   Mail, Phone, MapPin, Clock, Send, CheckCircle,
   MessageSquare, Calendar, FileText, Rocket, Loader2, AlertCircle,
 } from 'lucide-react';
+import contactHeroBg from '../assets/hero-bg.jpg';
 
 // ─── EmailJS config ───────────────────────────────────────────────────────────
 const EMAILJS_SERVICE_ID       = 'service_o3s43jb';       // e.g. service_o3s43jb
@@ -22,7 +23,7 @@ const INITIAL_FORM = {
 const Contact = () => {
   const formRef = useRef(null);
   const [formData, setFormData] = useState(INITIAL_FORM);
-  const [status, setStatus] = useState('idle'); // idle | loading | success | error
+  const [status, setStatus] = useState('idle');
 
   const handleChange = (e) =>
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -30,26 +31,11 @@ const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setStatus('loading');
-
     try {
-      // Send both emails simultaneously
       await Promise.all([
-        // 1. Notify Velora Tech of new enquiry
-        emailjs.sendForm(
-          EMAILJS_SERVICE_ID,
-          EMAILJS_TEMPLATE_ID,
-          formRef.current,
-          EMAILJS_PUBLIC_KEY
-        ),
-        // 2. Send auto-reply to the client
-        emailjs.sendForm(
-          EMAILJS_SERVICE_ID,
-          EMAILJS_AUTOREPLY_ID,
-          formRef.current,
-          EMAILJS_PUBLIC_KEY
-        ),
+        emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID,  formRef.current, EMAILJS_PUBLIC_KEY),
+        emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_AUTOREPLY_ID, formRef.current, EMAILJS_PUBLIC_KEY),
       ]);
-
       setStatus('success');
       setFormData(INITIAL_FORM);
     } catch (err) {
@@ -59,10 +45,10 @@ const Contact = () => {
   };
 
   const contactInfo = [
-    { icon: Mail,  title: 'Email',         value: 'hello@veloratech.com.lk', description: 'Send us an email anytime' },
-    { icon: Phone, title: 'Phone',         value: '+94 (076) 114-8054',       description: 'Call for urgent inquiries' },
-    { icon: MapPin,title: 'Location',      value: 'Nagollagama, Sri Lanka',   description: 'Available for worldwide projects' },
-    { icon: Clock, title: 'Response Time', value: '< 24 hours',              description: 'We typically respond within 24 hours' },
+    { icon: Mail,   title: 'Email',         value: 'hello@veloratech.com.lk', description: 'Send us an email anytime' },
+    { icon: Phone,  title: 'Phone',         value: '+94 (076) 114-8054',       description: 'Call for urgent inquiries' },
+    { icon: MapPin, title: 'Location',      value: 'Nagollagama, Sri Lanka',   description: 'Available for worldwide projects' },
+    { icon: Clock,  title: 'Response Time', value: '< 24 hours',              description: 'We typically respond within 24 hours' },
   ];
 
   const processSteps = [
@@ -73,21 +59,15 @@ const Contact = () => {
     { icon: Rocket,        title: 'Launch',               description: 'Testing, deployment, and go-live support' },
   ];
 
-  const projectTypes = [
-    'Website Development', 'Web Application', 'E-commerce Platform',
-    'Software Solution', 'API Development', 'Technical Consulting', 'Other',
-  ];
-  const budgetRanges = [
-    '$5,000 - $10,000', '$10,000 - $25,000', '$25,000 - $50,000',
-    '$50,000+', "Let's discuss",
-  ];
-  const timelines = ['ASAP', '1-3 months', '3-6 months', '6+ months', 'Flexible'];
+  const projectTypes = ['Website Development','Web Application','E-commerce Platform','Software Solution','API Development','Technical Consulting','Other'];
+  const budgetRanges = ['$5,000 - $10,000','$10,000 - $25,000','$25,000 - $50,000','$50,000+',"Let's discuss"];
+  const timelines    = ['ASAP','1-3 months','3-6 months','6+ months','Flexible'];
 
   const faqs = [
-    { q: 'How long does a typical project take?',         a: "Timelines vary by scope. A simple website might take 2–4 weeks, while a complex web application could take 2–6 months. We'll provide a detailed timeline during our initial consultation." },
-    { q: 'Do you provide ongoing support after launch?',  a: 'Yes! We offer support packages covering bug fixes, updates, performance monitoring, and feature enhancements.' },
-    { q: 'What technologies do you work with?',           a: 'We specialise in React, Vue.js, Node.js, Python, PHP, and WordPress. We choose the best stack based on your specific goals.' },
-    { q: 'How do you handle project communication?',      a: "We believe in transparent communication with regular updates, scheduled check-ins, and full visibility into project progress via email or phone." },
+    { q: 'How long does a typical project take?',        a: "Timelines vary by scope. A simple website might take 2–4 weeks, while a complex web application could take 2–6 months. We'll provide a detailed timeline during our initial consultation." },
+    { q: 'Do you provide ongoing support after launch?', a: 'Yes! We offer support packages covering bug fixes, updates, performance monitoring, and feature enhancements.' },
+    { q: 'What technologies do you work with?',          a: 'We specialise in React, Vue.js, Node.js, Python, PHP, and WordPress. We choose the best stack based on your specific goals.' },
+    { q: 'How do you handle project communication?',     a: "We believe in transparent communication with regular updates, scheduled check-ins, and full visibility into project progress." },
   ];
 
   // ── Success screen ──────────────────────────────────────────────────────────
@@ -98,9 +78,7 @@ const Contact = () => {
         <div className="bg-white rounded-xl shadow-lg p-8 text-center max-w-md mx-4">
           <CheckCircle className="h-16 w-16 text-green-500 mx-auto mb-4" />
           <h2 className="text-2xl font-bold text-gray-900 mb-2">Message Sent!</h2>
-          <p className="text-gray-600 mb-2">
-            Thanks for reaching out. We'll get back to you within 24 hours.
-          </p>
+          <p className="text-gray-600 mb-2">Thanks for reaching out. We'll get back to you within 24 hours.</p>
           <p className="text-gray-500 text-sm mb-6">
             A confirmation email has been sent to <strong>{formData.from_email || 'your email'}</strong>.
           </p>
@@ -112,7 +90,6 @@ const Contact = () => {
     );
   }
 
-  // ── Main form ───────────────────────────────────────────────────────────────
   return (
     <div className="min-h-screen">
       <SEO
@@ -120,21 +97,75 @@ const Contact = () => {
         description="Get in touch with Velora Tech to start your web or software project. Free initial consultation. Response within 24 hours."
       />
 
-      {/* Hero */}
-      <section className="bg-gradient-to-br from-blue-50 to-indigo-100 py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl lg:text-6xl font-bold text-gray-900 mb-6">
+      {/* ── Hero with background image ── */}
+      <section
+        className="relative min-h-[60vh] flex items-center justify-center"
+        style={{
+          backgroundImage: `url(${contactHeroBg})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}
+      >
+        {/* Blue-purple gradient overlay — distinct feel */}
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-900/85 to-purple-900/85" />
+
+        {/* Decorative orbs */}
+        <div className="absolute top-20 right-10 w-64 h-64 bg-blue-400/20 rounded-full blur-3xl" />
+        <div className="absolute bottom-10 left-10 w-64 h-64 bg-purple-400/20 rounded-full blur-3xl" />
+
+        {/* Breadcrumb */}
+        <div className="absolute top-8 left-0 right-0 z-10">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <nav className="text-white text-sm">
+              <ul className="flex space-x-2">
+                <li><Link to="/" className="hover:text-blue-300 transition-colors uppercase tracking-wide">Home</Link></li>
+                <li className="text-gray-400 before:content-['/'] before:mr-2">
+                  <Link to="/contact" className="text-blue-300 font-semibold uppercase tracking-wide">Contact Us</Link>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+
+        {/* Content */}
+        <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-24">
+          <div className="flex justify-center mb-6">
+            <span className="inline-block w-12 h-1 bg-blue-400 rounded-full mr-2" />
+            <span className="inline-block w-4 h-1 bg-purple-400 rounded-full" />
+          </div>
+          <h1 className="text-4xl lg:text-6xl font-bold text-white mb-6 leading-tight">
             Let's Build Something{' '}
-            <span className="text-blue-600">Great Together</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-purple-300">
+              Great Together
+            </span>
           </h1>
-          <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+          <p className="text-xl text-gray-200 mb-10 max-w-2xl mx-auto leading-relaxed">
             Ready to start your project? Let's discuss your needs and create a solution
             that drives real results for your business.
           </p>
+
+          {/* Quick contact pills */}
+          <div className="flex flex-wrap justify-center gap-4">
+            <a
+              href="mailto:hello@veloratech.com.lk"
+              className="flex items-center gap-2 bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/20 text-white px-5 py-2.5 rounded-full transition-all text-sm font-medium"
+            >
+              <Mail className="h-4 w-4" /> hello@veloratech.com.lk
+            </a>
+            <a
+              href="tel:+94761148054"
+              className="flex items-center gap-2 bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/20 text-white px-5 py-2.5 rounded-full transition-all text-sm font-medium"
+            >
+              <Phone className="h-4 w-4" /> +94 (076) 114-8054
+            </a>
+          </div>
         </div>
+
+        {/* Bottom fade */}
+        <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-white to-transparent" />
       </section>
 
-      {/* Form + Info */}
+      {/* ── Form + Info ── */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
@@ -163,18 +194,17 @@ const Contact = () => {
 
             {/* Form */}
             <div className="lg:col-span-2">
-              <div className="bg-gray-50 rounded-xl p-8">
+              <div className="bg-gray-50 rounded-xl p-8 border border-gray-100">
                 <h2 className="text-2xl font-bold text-gray-900 mb-2">Start Your Project</h2>
                 <p className="text-gray-500 text-sm mb-6">
                   Fill in your details and we'll send you a confirmation email right away.
                 </p>
 
-                {/* Error banner */}
                 {status === 'error' && (
                   <div className="flex items-start gap-3 bg-red-50 border border-red-200 text-red-700 rounded-lg px-4 py-3 mb-6">
                     <AlertCircle className="h-5 w-5 mt-0.5 flex-shrink-0" />
                     <p className="text-sm">
-                      Something went wrong. Please try again or email us directly at{' '}
+                      Something went wrong. Please try again or email us at{' '}
                       <a href="mailto:hello@veloratech.com.lk" className="underline font-medium">
                         hello@veloratech.com.lk
                       </a>.
@@ -186,37 +216,37 @@ const Contact = () => {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                       <label htmlFor="from_name" className="block text-sm font-medium text-gray-700 mb-2">Full Name *</label>
-                      <input type="text" id="from_name" name="from_name" required value={formData.from_name} onChange={handleChange} placeholder="Your full name" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
+                      <input type="text" id="from_name" name="from_name" required value={formData.from_name} onChange={handleChange} placeholder="Your full name" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white" />
                     </div>
                     <div>
                       <label htmlFor="from_email" className="block text-sm font-medium text-gray-700 mb-2">Email Address *</label>
-                      <input type="email" id="from_email" name="from_email" required value={formData.from_email} onChange={handleChange} placeholder="your@email.com" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
+                      <input type="email" id="from_email" name="from_email" required value={formData.from_email} onChange={handleChange} placeholder="your@email.com" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white" />
                     </div>
                   </div>
 
                   <div>
                     <label htmlFor="company" className="block text-sm font-medium text-gray-700 mb-2">Company (Optional)</label>
-                    <input type="text" id="company" name="company" value={formData.company} onChange={handleChange} placeholder="Your company name" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
+                    <input type="text" id="company" name="company" value={formData.company} onChange={handleChange} placeholder="Your company name" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white" />
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div>
                       <label htmlFor="project_type" className="block text-sm font-medium text-gray-700 mb-2">Project Type *</label>
-                      <select id="project_type" name="project_type" required value={formData.project_type} onChange={handleChange} className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                      <select id="project_type" name="project_type" required value={formData.project_type} onChange={handleChange} className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white">
                         <option value="">Select type</option>
                         {projectTypes.map((t) => <option key={t} value={t}>{t}</option>)}
                       </select>
                     </div>
                     <div>
                       <label htmlFor="budget" className="block text-sm font-medium text-gray-700 mb-2">Budget Range</label>
-                      <select id="budget" name="budget" value={formData.budget} onChange={handleChange} className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                      <select id="budget" name="budget" value={formData.budget} onChange={handleChange} className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white">
                         <option value="">Select budget</option>
                         {budgetRanges.map((r) => <option key={r} value={r}>{r}</option>)}
                       </select>
                     </div>
                     <div>
                       <label htmlFor="timeline" className="block text-sm font-medium text-gray-700 mb-2">Timeline</label>
-                      <select id="timeline" name="timeline" value={formData.timeline} onChange={handleChange} className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                      <select id="timeline" name="timeline" value={formData.timeline} onChange={handleChange} className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white">
                         <option value="">Select timeline</option>
                         {timelines.map((t) => <option key={t} value={t}>{t}</option>)}
                       </select>
@@ -225,7 +255,7 @@ const Contact = () => {
 
                   <div>
                     <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">Project Description *</label>
-                    <textarea id="message" name="message" required rows={6} value={formData.message} onChange={handleChange} placeholder="Tell us about your project, goals, and any specific requirements..." className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
+                    <textarea id="message" name="message" required rows={6} value={formData.message} onChange={handleChange} placeholder="Tell us about your project, goals, and any specific requirements..." className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white" />
                   </div>
 
                   <Button type="submit" size="lg" disabled={status === 'loading'} className="w-full bg-blue-600 hover:bg-blue-700 disabled:opacity-60">
@@ -245,7 +275,7 @@ const Contact = () => {
         </div>
       </section>
 
-      {/* Process */}
+      {/* ── Process Steps ── */}
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
@@ -266,15 +296,15 @@ const Contact = () => {
         </div>
       </section>
 
-      {/* FAQ */}
+      {/* ── FAQ ── */}
       <section className="py-20 bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">Frequently Asked Questions</h2>
           </div>
-          <div className="space-y-8">
+          <div className="space-y-6">
             {faqs.map((faq, i) => (
-              <div key={i} className="bg-gray-50 rounded-xl p-6">
+              <div key={i} className="bg-gray-50 rounded-xl p-6 border border-gray-100">
                 <h3 className="text-lg font-semibold text-gray-900 mb-2">{faq.q}</h3>
                 <p className="text-gray-600">{faq.a}</p>
               </div>
