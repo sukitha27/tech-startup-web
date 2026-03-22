@@ -2,34 +2,54 @@ import { useState, useRef } from 'react';
 import emailjs from '@emailjs/browser';
 import { Button } from '@/components/ui/button';
 import SEO from '@/components/SEO';
-import { Mail, Phone, MapPin, Clock, Send, CheckCircle, MessageSquare, Calendar, FileText, Rocket, Loader2, AlertCircle } from 'lucide-react';
+import {
+  Mail, Phone, MapPin, Clock, Send, CheckCircle,
+  MessageSquare, Calendar, FileText, Rocket, Loader2, AlertCircle,
+} from 'lucide-react';
 
 // ─── EmailJS config ───────────────────────────────────────────────────────────
-// 1. Sign up free at https://emailjs.com
-// 2. Create a service (Gmail / Outlook) → paste Service ID below
-// 3. Create a template → paste Template ID below
-// 4. Account → API Keys → paste Public Key below
-// Template variables to use: {{from_name}} {{from_email}} {{company}}
-//   {{project_type}} {{budget}} {{timeline}} {{message}}
-const EMAILJS_SERVICE_ID  = 'service_o3s43jb';
-const EMAILJS_TEMPLATE_ID = 'template_gnjz92p';
-const EMAILJS_PUBLIC_KEY  = 'e9YUkcM48gRrP1aZg';
+const EMAILJS_SERVICE_ID       = 'service_o3s43jb';       // e.g. service_o3s43jb
+const EMAILJS_TEMPLATE_ID      = 'template_gnjz92p';      // notifies YOU of new enquiry
+const EMAILJS_AUTOREPLY_ID     = 'template_yhulxmm';     // auto-reply sent TO client
+const EMAILJS_PUBLIC_KEY       = 'e9YUkcM48gRrP1aZg';
 // ─────────────────────────────────────────────────────────────────────────────
 
-const INITIAL_FORM = { from_name: '', from_email: '', company: '', project_type: '', budget: '', timeline: '', message: '' };
+const INITIAL_FORM = {
+  from_name: '', from_email: '', company: '',
+  project_type: '', budget: '', timeline: '', message: '',
+};
 
 const Contact = () => {
   const formRef = useRef(null);
   const [formData, setFormData] = useState(INITIAL_FORM);
   const [status, setStatus] = useState('idle'); // idle | loading | success | error
 
-  const handleChange = (e) => setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  const handleChange = (e) =>
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setStatus('loading');
+
     try {
-      await emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, formRef.current, EMAILJS_PUBLIC_KEY);
+      // Send both emails simultaneously
+      await Promise.all([
+        // 1. Notify Velora Tech of new enquiry
+        emailjs.sendForm(
+          EMAILJS_SERVICE_ID,
+          EMAILJS_TEMPLATE_ID,
+          formRef.current,
+          EMAILJS_PUBLIC_KEY
+        ),
+        // 2. Send auto-reply to the client
+        emailjs.sendForm(
+          EMAILJS_SERVICE_ID,
+          EMAILJS_AUTOREPLY_ID,
+          formRef.current,
+          EMAILJS_PUBLIC_KEY
+        ),
+      ]);
+
       setStatus('success');
       setFormData(INITIAL_FORM);
     } catch (err) {
@@ -39,10 +59,10 @@ const Contact = () => {
   };
 
   const contactInfo = [
-    { icon: Mail,  title: 'Email',         value: 'hello@veloratech.com.lk',  description: 'Send us an email anytime' },
-    { icon: Phone, title: 'Phone',         value: '+94 (076) 114-8054',     description: 'Call for urgent inquiries' },
-    { icon: MapPin,title: 'Location',      value: 'Nagollagama, Sri Lanka', description: 'Available for worldwide projects' },
-    { icon: Clock, title: 'Response Time', value: '< 24 hours',            description: 'We typically respond within 24 hours' },
+    { icon: Mail,  title: 'Email',         value: 'hello@veloratech.com.lk', description: 'Send us an email anytime' },
+    { icon: Phone, title: 'Phone',         value: '+94 (076) 114-8054',       description: 'Call for urgent inquiries' },
+    { icon: MapPin,title: 'Location',      value: 'Nagollagama, Sri Lanka',   description: 'Available for worldwide projects' },
+    { icon: Clock, title: 'Response Time', value: '< 24 hours',              description: 'We typically respond within 24 hours' },
   ];
 
   const processSteps = [
@@ -53,17 +73,24 @@ const Contact = () => {
     { icon: Rocket,        title: 'Launch',               description: 'Testing, deployment, and go-live support' },
   ];
 
-  const projectTypes = ['Website Development','Web Application','E-commerce Platform','Software Solution','API Development','Technical Consulting','Other'];
-  const budgetRanges = ['$5,000 - $10,000','$10,000 - $25,000','$25,000 - $50,000','$50,000+',"Let's discuss"];
-  const timelines    = ['ASAP','1-3 months','3-6 months','6+ months','Flexible'];
+  const projectTypes = [
+    'Website Development', 'Web Application', 'E-commerce Platform',
+    'Software Solution', 'API Development', 'Technical Consulting', 'Other',
+  ];
+  const budgetRanges = [
+    '$5,000 - $10,000', '$10,000 - $25,000', '$25,000 - $50,000',
+    '$50,000+', "Let's discuss",
+  ];
+  const timelines = ['ASAP', '1-3 months', '3-6 months', '6+ months', 'Flexible'];
 
   const faqs = [
-    { q: 'How long does a typical project take?', a: "Timelines vary by scope. A simple website might take 2–4 weeks, while a complex web application could take 2–6 months. We'll provide a detailed timeline during our initial consultation." },
-    { q: 'Do you provide ongoing support after launch?', a: 'Yes! We offer support packages covering bug fixes, updates, performance monitoring, and feature enhancements.' },
-    { q: 'What technologies do you work with?', a: 'We specialise in React, Vue.js, Node.js, Python, PHP, and WordPress. We choose the best stack based on your specific goals.' },
-    { q: 'How do you handle project communication?', a: "We believe in transparent communication with regular updates, scheduled check-ins, and full visibility into project progress via email or phone." },
+    { q: 'How long does a typical project take?',         a: "Timelines vary by scope. A simple website might take 2–4 weeks, while a complex web application could take 2–6 months. We'll provide a detailed timeline during our initial consultation." },
+    { q: 'Do you provide ongoing support after launch?',  a: 'Yes! We offer support packages covering bug fixes, updates, performance monitoring, and feature enhancements.' },
+    { q: 'What technologies do you work with?',           a: 'We specialise in React, Vue.js, Node.js, Python, PHP, and WordPress. We choose the best stack based on your specific goals.' },
+    { q: 'How do you handle project communication?',      a: "We believe in transparent communication with regular updates, scheduled check-ins, and full visibility into project progress via email or phone." },
   ];
 
+  // ── Success screen ──────────────────────────────────────────────────────────
   if (status === 'success') {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
@@ -71,13 +98,21 @@ const Contact = () => {
         <div className="bg-white rounded-xl shadow-lg p-8 text-center max-w-md mx-4">
           <CheckCircle className="h-16 w-16 text-green-500 mx-auto mb-4" />
           <h2 className="text-2xl font-bold text-gray-900 mb-2">Message Sent!</h2>
-          <p className="text-gray-600 mb-6">Thanks for reaching out. We'll get back to you within 24 hours.</p>
-          <Button onClick={() => setStatus('idle')} className="bg-blue-600 hover:bg-blue-700">Send Another Message</Button>
+          <p className="text-gray-600 mb-2">
+            Thanks for reaching out. We'll get back to you within 24 hours.
+          </p>
+          <p className="text-gray-500 text-sm mb-6">
+            A confirmation email has been sent to <strong>{formData.from_email || 'your email'}</strong>.
+          </p>
+          <Button onClick={() => setStatus('idle')} className="bg-blue-600 hover:bg-blue-700">
+            Send Another Message
+          </Button>
         </div>
       </div>
     );
   }
 
+  // ── Main form ───────────────────────────────────────────────────────────────
   return (
     <div className="min-h-screen">
       <SEO
@@ -89,10 +124,12 @@ const Contact = () => {
       <section className="bg-gradient-to-br from-blue-50 to-indigo-100 py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl lg:text-6xl font-bold text-gray-900 mb-6">
-            Let's Build Something <span className="text-blue-600">Great Together</span>
+            Let's Build Something{' '}
+            <span className="text-blue-600">Great Together</span>
           </h1>
           <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-            Ready to start your project? Let's discuss your needs and create a solution that drives real results.
+            Ready to start your project? Let's discuss your needs and create a solution
+            that drives real results for your business.
           </p>
         </div>
       </section>
@@ -101,10 +138,13 @@ const Contact = () => {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-            {/* Info */}
+
+            {/* Contact Info */}
             <div className="lg:col-span-1">
               <h2 className="text-2xl font-bold text-gray-900 mb-6">Get In Touch</h2>
-              <p className="text-gray-600 mb-8">We're here to help bring your ideas to life. Reach out and let's start the conversation.</p>
+              <p className="text-gray-600 mb-8">
+                We're here to help bring your ideas to life. Reach out and let's start the conversation.
+              </p>
               <div className="space-y-6">
                 {contactInfo.map((info, i) => (
                   <div key={i} className="flex items-start space-x-4">
@@ -124,14 +164,20 @@ const Contact = () => {
             {/* Form */}
             <div className="lg:col-span-2">
               <div className="bg-gray-50 rounded-xl p-8">
-                <h2 className="text-2xl font-bold text-gray-900 mb-6">Start Your Project</h2>
+                <h2 className="text-2xl font-bold text-gray-900 mb-2">Start Your Project</h2>
+                <p className="text-gray-500 text-sm mb-6">
+                  Fill in your details and we'll send you a confirmation email right away.
+                </p>
 
+                {/* Error banner */}
                 {status === 'error' && (
                   <div className="flex items-start gap-3 bg-red-50 border border-red-200 text-red-700 rounded-lg px-4 py-3 mb-6">
                     <AlertCircle className="h-5 w-5 mt-0.5 flex-shrink-0" />
                     <p className="text-sm">
                       Something went wrong. Please try again or email us directly at{' '}
-                      <a href="mailto:hello@veloratech.com" className="underline font-medium">hello@veloratech.com</a>.
+                      <a href="mailto:hello@veloratech.com.lk" className="underline font-medium">
+                        hello@veloratech.com.lk
+                      </a>.
                     </p>
                   </div>
                 )}
@@ -183,8 +229,15 @@ const Contact = () => {
                   </div>
 
                   <Button type="submit" size="lg" disabled={status === 'loading'} className="w-full bg-blue-600 hover:bg-blue-700 disabled:opacity-60">
-                    {status === 'loading' ? <><Loader2 className="h-5 w-5 mr-2 animate-spin" />Sending...</> : <><Send className="h-5 w-5 mr-2" />Send Message</>}
+                    {status === 'loading'
+                      ? <><Loader2 className="h-5 w-5 mr-2 animate-spin" />Sending...</>
+                      : <><Send className="h-5 w-5 mr-2" />Send Message</>
+                    }
                   </Button>
+
+                  <p className="text-center text-gray-400 text-xs">
+                    By submitting this form you'll receive a confirmation email and we'll follow up within 24 hours.
+                  </p>
                 </form>
               </div>
             </div>
