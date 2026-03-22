@@ -1,4 +1,5 @@
 import { useState, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import emailjs from '@emailjs/browser';
 import { Button } from '@/components/ui/button';
 import SEO from '@/components/SEO';
@@ -6,7 +7,7 @@ import {
   Mail, Phone, MapPin, Clock, Send, CheckCircle,
   MessageSquare, Calendar, FileText, Rocket, Loader2, AlertCircle,
 } from 'lucide-react';
-import contactHeroBg from '../assets/contact-bg.jpg';
+import contactHeroBg from '../assets/hero-bg.jpg';
 
 // ─── EmailJS config ───────────────────────────────────────────────────────────
 const EMAILJS_SERVICE_ID       = 'service_o3s43jb';       // e.g. service_o3s43jb
@@ -106,7 +107,6 @@ const Contact = () => {
           backgroundPosition: 'center',
         }}
       >
-        {/* Blue-purple gradient overlay — distinct feel */}
         <div className="absolute inset-0 bg-gradient-to-r from-blue-900/85 to-purple-900/85" />
 
         {/* Decorative orbs */}
@@ -118,9 +118,15 @@ const Contact = () => {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <nav className="text-white text-sm">
               <ul className="flex space-x-2">
-                <li><Link to="/" className="hover:text-blue-300 transition-colors uppercase tracking-wide">Home</Link></li>
+                <li>
+                  <Link to="/" className="hover:text-blue-300 transition-colors uppercase tracking-wide">
+                    Home
+                  </Link>
+                </li>
                 <li className="text-gray-400 before:content-['/'] before:mr-2">
-                  <Link to="/contact" className="text-blue-300 font-semibold uppercase tracking-wide">Contact Us</Link>
+                  <Link to="/contact" className="text-blue-300 font-semibold uppercase tracking-wide">
+                    Contact Us
+                  </Link>
                 </li>
               </ul>
             </nav>
@@ -144,7 +150,7 @@ const Contact = () => {
             that drives real results for your business.
           </p>
 
-          {/* Quick contact pills */}
+          {/* Clickable contact pills */}
           <div className="flex flex-wrap justify-center gap-4">
             <a
               href="mailto:hello@veloratech.com.lk"
@@ -161,7 +167,7 @@ const Contact = () => {
           </div>
         </div>
 
-        {/* Bottom fade */}
+        {/* Bottom fade into white */}
         <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-white to-transparent" />
       </section>
 
@@ -280,7 +286,9 @@ const Contact = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">What Happens Next?</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">Here's how we'll work together to bring your project to life</p>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Here's how we'll work together to bring your project to life
+            </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
             {processSteps.map((step, i) => (
@@ -300,7 +308,9 @@ const Contact = () => {
       <section className="py-20 bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">Frequently Asked Questions</h2>
+            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+              Frequently Asked Questions
+            </h2>
           </div>
           <div className="space-y-6">
             {faqs.map((faq, i) => (
