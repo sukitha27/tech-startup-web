@@ -11,9 +11,9 @@ import { Mail, Phone, MapPin, Clock, Send, CheckCircle, MessageSquare, Calendar,
 // 4. Account → API Keys → paste Public Key below
 // Template variables to use: {{from_name}} {{from_email}} {{company}}
 //   {{project_type}} {{budget}} {{timeline}} {{message}}
-const EMAILJS_SERVICE_ID  = 'YOUR_SERVICE_ID';
-const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';
-const EMAILJS_PUBLIC_KEY  = 'YOUR_PUBLIC_KEY';
+const EMAILJS_SERVICE_ID  = 'service_o3s43jb';
+const EMAILJS_TEMPLATE_ID = 'template_gnjz92p';
+const EMAILJS_PUBLIC_KEY  = 'e9YUkcM48gRrP1aZg';
 // ─────────────────────────────────────────────────────────────────────────────
 
 const INITIAL_FORM = { from_name: '', from_email: '', company: '', project_type: '', budget: '', timeline: '', message: '' };
@@ -39,7 +39,7 @@ const Contact = () => {
   };
 
   const contactInfo = [
-    { icon: Mail,  title: 'Email',         value: 'hello@veloratech.com',  description: 'Send us an email anytime' },
+    { icon: Mail,  title: 'Email',         value: 'hello@veloratech.com.lk',  description: 'Send us an email anytime' },
     { icon: Phone, title: 'Phone',         value: '+94 (076) 114-8054',     description: 'Call for urgent inquiries' },
     { icon: MapPin,title: 'Location',      value: 'Nagollagama, Sri Lanka', description: 'Available for worldwide projects' },
     { icon: Clock, title: 'Response Time', value: '< 24 hours',            description: 'We typically respond within 24 hours' },
