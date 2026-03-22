@@ -4,7 +4,7 @@ import SEO from '@/components/SEO';
 import { ExternalLink, Github, ArrowRight } from 'lucide-react';
 import portfolioMockup1 from '../assets/portfolio_mockup1.png';
 import portfolioMockup2 from '../assets/portfolio_mockup2.png';
-import portfolioHeroBg from '../assets/shero-bg.jpg';
+import portfolioHeroBg from '../assets/pp_bg.jpg';
 
 const Portfolio = () => {
   const projects = [
