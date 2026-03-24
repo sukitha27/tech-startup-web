@@ -118,8 +118,8 @@ const PrivacyPolicy = () => {
             </ul>
             <p>
               To exercise any of these rights, please contact us at{' '}
-              <a href="mailto:hello@veloratech.com" className="text-blue-600 hover:underline">
-                hello@veloratech.com
+              <a href="mailto:hello@veloratech.com.lk" className="text-blue-600 hover:underline">
+                hello@veloratech.com.lk
               </a>.
             </p>
           </Section>
@@ -148,8 +148,8 @@ const PrivacyPolicy = () => {
               <p>Nagollagama, Sri Lanka</p>
               <p>
                 Email:{' '}
-                <a href="mailto:hello@veloratech.com" className="text-blue-600 hover:underline">
-                  hello@veloratech.com
+                <a href="mailto:hello@veloratech.com.lk" className="text-blue-600 hover:underline">
+                  hello@veloratech.com.lk
                 </a>
               </p>
               <p>Phone: +94 (076) 114-8054</p>
