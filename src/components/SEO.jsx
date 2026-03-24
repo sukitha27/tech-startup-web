@@ -17,7 +17,7 @@ const SEO = ({
 }) => {
   const siteTitle = 'Velora Tech';
   const fullTitle = title ? `${title} | ${siteTitle}` : siteTitle;
-  const canonicalUrl = url || (typeof window !== 'undefined' ? window.location.href : '');
+  const canonicalUrl = url || 'https://www.veloratech.com.lk';
 
   return (
     <Helmet>
