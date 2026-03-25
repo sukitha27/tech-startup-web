@@ -4,7 +4,8 @@ import { Button } from '@/components/ui/button';
 import SEO from '@/components/SEO';
 import { Search, Clock, Tag, ChevronRight } from 'lucide-react';
 import blogHeroBg from '../assets/blog-bg.jpg';
-import { posts, categoryColors } from '../data/posts';
+// ↓ Now reads from the auto-generated registry — no manual posts.js to update
+import { posts, categoryColors } from '@/lib/posts';
 
 const categories = ['All', 'Web Development', 'Digital Strategy', 'E-commerce', 'Project Management'];
 
@@ -38,7 +39,6 @@ const BlogCard = ({ post, large = false }) => (
           <p className="text-sm font-medium text-gray-800">{post.author}</p>
           <p className="text-xs text-gray-400">{post.date}</p>
         </div>
-        {/* Fixed: was a plain <button> with no href — now a real Link */}
         <Link
           to={`/blog/${post.slug}`}
           className="flex items-center text-blue-600 text-sm font-semibold gap-1 hover:gap-2 transition-all"
