@@ -9,36 +9,127 @@ import {
 } from 'lucide-react';
 import contactHeroBg from '../assets/contact-bg.jpg';
 
-// ─── EmailJS config ───────────────────────────────────────────────────────────
-const EMAILJS_SERVICE_ID       = 'service_o3s43jb';       // e.g. service_o3s43jb
-const EMAILJS_TEMPLATE_ID      = 'template_gnjz92p';      // notifies YOU of new enquiry
-const EMAILJS_AUTOREPLY_ID     = 'template_yhulxmm';     // auto-reply sent TO client
-const EMAILJS_PUBLIC_KEY       = 'e9YUkcM48gRrP1aZg';
+// ─── EmailJS config — values come from .env, never hardcoded ─────────────────
+const EMAILJS_SERVICE_ID   = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+const EMAILJS_TEMPLATE_ID  = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+const EMAILJS_AUTOREPLY_ID = import.meta.env.VITE_EMAILJS_AUTOREPLY_ID;
+const EMAILJS_PUBLIC_KEY   = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+// ─────────────────────────────────────────────────────────────────────────────
+
+// ─── Rate limiting ────────────────────────────────────────────────────────────
+// Allow max 3 submissions per hour, stored in localStorage
+const RATE_LIMIT_KEY    = 'vt_contact_submissions';
+const RATE_LIMIT_MAX    = 3;
+const RATE_LIMIT_WINDOW = 60 * 60 * 1000; // 1 hour in ms
+
+function getRateLimitData() {
+  try {
+    return JSON.parse(localStorage.getItem(RATE_LIMIT_KEY) || '[]');
+  } catch {
+    return [];
+  }
+}
+
+function isRateLimited() {
+  const now = Date.now();
+  const submissions = getRateLimitData().filter(
+    (ts) => now - ts < RATE_LIMIT_WINDOW
+  );
+  return submissions.length >= RATE_LIMIT_MAX;
+}
+
+function recordSubmission() {
+  const now = Date.now();
+  const submissions = getRateLimitData()
+    .filter((ts) => now - ts < RATE_LIMIT_WINDOW)
+    .concat(now);
+  localStorage.setItem(RATE_LIMIT_KEY, JSON.stringify(submissions));
+}
+
+function getMinutesUntilReset() {
+  const submissions = getRateLimitData();
+  if (!submissions.length) return 0;
+  const oldest = Math.min(...submissions);
+  const resetsAt = oldest + RATE_LIMIT_WINDOW;
+  return Math.ceil((resetsAt - Date.now()) / 60000);
+}
 // ─────────────────────────────────────────────────────────────────────────────
 
 const INITIAL_FORM = {
   from_name: '', from_email: '', company: '',
   project_type: '', budget: '', timeline: '', message: '',
+  // honeypot — must stay empty; bots fill it automatically
+  website: '',
 };
+
+// ─── Basic client-side sanitization ──────────────────────────────────────────
+function sanitize(str) {
+  return str.trim().replace(/<[^>]*>/g, '');
+}
+
+function validateForm(data) {
+  const errors = {};
+  if (!sanitize(data.from_name))
+    errors.from_name = 'Name is required.';
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.from_email))
+    errors.from_email = 'Please enter a valid email address.';
+  if (!data.project_type)
+    errors.project_type = 'Please select a project type.';
+  if (sanitize(data.message).length < 20)
+    errors.message = 'Please describe your project (at least 20 characters).';
+  return errors;
+}
+// ─────────────────────────────────────────────────────────────────────────────
 
 const Contact = () => {
   const formRef = useRef(null);
   const [formData, setFormData] = useState(INITIAL_FORM);
-  const [status, setStatus] = useState('idle');
+  const [fieldErrors, setFieldErrors] = useState({});
+  const [status, setStatus] = useState('idle'); // idle | loading | success | error | rate_limited
 
-  const handleChange = (e) =>
-    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    // Clear field error on change
+    if (fieldErrors[name]) {
+      setFieldErrors((prev) => ({ ...prev, [name]: undefined }));
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // ── Honeypot check ──────────────────────────────────────────────────────
+    if (formData.website) {
+      // Bot filled the hidden field — silently succeed
+      setStatus('success');
+      return;
+    }
+
+    // ── Rate limit check ────────────────────────────────────────────────────
+    if (isRateLimited()) {
+      setStatus('rate_limited');
+      return;
+    }
+
+    // ── Validation ──────────────────────────────────────────────────────────
+    const errors = validateForm(formData);
+    if (Object.keys(errors).length > 0) {
+      setFieldErrors(errors);
+      return;
+    }
+
     setStatus('loading');
+
     try {
       await Promise.all([
         emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID,  formRef.current, EMAILJS_PUBLIC_KEY),
         emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_AUTOREPLY_ID, formRef.current, EMAILJS_PUBLIC_KEY),
       ]);
+      recordSubmission();
       setStatus('success');
       setFormData(INITIAL_FORM);
+      setFieldErrors({});
     } catch (err) {
       console.error('EmailJS error:', err);
       setStatus('error');
@@ -98,7 +189,7 @@ const Contact = () => {
         description="Get in touch with Velora Tech to start your web or software project. Free initial consultation. Response within 24 hours."
       />
 
-      {/* ── Hero with background image ── */}
+      {/* ── Hero ── */}
       <section
         className="relative min-h-[60vh] flex items-center justify-center"
         style={{
@@ -108,32 +199,22 @@ const Contact = () => {
         }}
       >
         <div className="absolute inset-0 bg-gradient-to-r from-blue-900/85 to-purple-900/85" />
-
-        {/* Decorative orbs */}
         <div className="absolute top-20 right-10 w-64 h-64 bg-blue-400/20 rounded-full blur-3xl" />
         <div className="absolute bottom-10 left-10 w-64 h-64 bg-purple-400/20 rounded-full blur-3xl" />
 
-        {/* Breadcrumb */}
         <div className="absolute top-8 left-0 right-0 z-10">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <nav className="text-white text-sm">
               <ul className="flex space-x-2">
-                <li>
-                  <Link to="/" className="hover:text-blue-300 transition-colors uppercase tracking-wide">
-                    Home
-                  </Link>
-                </li>
+                <li><Link to="/" className="hover:text-blue-300 transition-colors uppercase tracking-wide">Home</Link></li>
                 <li className="text-gray-400 before:content-['/'] before:mr-2">
-                  <Link to="/contact" className="text-blue-300 font-semibold uppercase tracking-wide">
-                    Contact Us
-                  </Link>
+                  <Link to="/contact" className="text-blue-300 font-semibold uppercase tracking-wide">Contact Us</Link>
                 </li>
               </ul>
             </nav>
           </div>
         </div>
 
-        {/* Content */}
         <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-24">
           <div className="flex justify-center mb-6">
             <span className="inline-block w-12 h-1 bg-blue-400 rounded-full mr-2" />
@@ -149,25 +230,16 @@ const Contact = () => {
             Ready to start your project? Let's discuss your needs and create a solution
             that drives real results for your business.
           </p>
-
-          {/* Clickable contact pills */}
           <div className="flex flex-wrap justify-center gap-4">
-            <a
-              href="mailto:hello@veloratech.com.lk"
-              className="flex items-center gap-2 bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/20 text-white px-5 py-2.5 rounded-full transition-all text-sm font-medium"
-            >
+            <a href="mailto:hello@veloratech.com.lk" className="flex items-center gap-2 bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/20 text-white px-5 py-2.5 rounded-full transition-all text-sm font-medium">
               <Mail className="h-4 w-4" /> hello@veloratech.com.lk
             </a>
-            <a
-              href="tel:+94761148054"
-              className="flex items-center gap-2 bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/20 text-white px-5 py-2.5 rounded-full transition-all text-sm font-medium"
-            >
+            <a href="tel:+94761148054" className="flex items-center gap-2 bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/20 text-white px-5 py-2.5 rounded-full transition-all text-sm font-medium">
               <Phone className="h-4 w-4" /> +94 (076) 114-8054
             </a>
           </div>
         </div>
 
-        {/* Bottom fade into white */}
         <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-white to-transparent" />
       </section>
 
@@ -206,27 +278,72 @@ const Contact = () => {
                   Fill in your details and we'll send you a confirmation email right away.
                 </p>
 
+                {/* Rate limited banner */}
+                {status === 'rate_limited' && (
+                  <div className="flex items-start gap-3 bg-amber-50 border border-amber-200 text-amber-800 rounded-lg px-4 py-3 mb-6">
+                    <AlertCircle className="h-5 w-5 mt-0.5 flex-shrink-0" />
+                    <p className="text-sm">
+                      You've sent {RATE_LIMIT_MAX} messages recently. Please wait {getMinutesUntilReset()} minutes before trying again, or email us directly at{' '}
+                      <a href="mailto:hello@veloratech.com.lk" className="underline font-medium">hello@veloratech.com.lk</a>.
+                    </p>
+                  </div>
+                )}
+
+                {/* Error banner */}
                 {status === 'error' && (
                   <div className="flex items-start gap-3 bg-red-50 border border-red-200 text-red-700 rounded-lg px-4 py-3 mb-6">
                     <AlertCircle className="h-5 w-5 mt-0.5 flex-shrink-0" />
                     <p className="text-sm">
                       Something went wrong. Please try again or email us at{' '}
-                      <a href="mailto:hello@veloratech.com.lk" className="underline font-medium">
-                        hello@veloratech.com.lk
-                      </a>.
+                      <a href="mailto:hello@veloratech.com.lk" className="underline font-medium">hello@veloratech.com.lk</a>.
                     </p>
                   </div>
                 )}
 
-                <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
+                <form ref={formRef} onSubmit={handleSubmit} className="space-y-6" noValidate>
+
+                  {/* ── Honeypot — hidden from real users, visible to bots ── */}
+                  <div aria-hidden="true" style={{ position: 'absolute', left: '-9999px', opacity: 0, pointerEvents: 'none', tabIndex: -1 }}>
+                    <label htmlFor="website">Leave this blank</label>
+                    <input
+                      type="text"
+                      id="website"
+                      name="website"
+                      value={formData.website}
+                      onChange={handleChange}
+                      autoComplete="off"
+                      tabIndex={-1}
+                    />
+                  </div>
+
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                       <label htmlFor="from_name" className="block text-sm font-medium text-gray-700 mb-2">Full Name *</label>
-                      <input type="text" id="from_name" name="from_name" required value={formData.from_name} onChange={handleChange} placeholder="Your full name" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white" />
+                      <input
+                        type="text"
+                        id="from_name"
+                        name="from_name"
+                        required
+                        value={formData.from_name}
+                        onChange={handleChange}
+                        placeholder="Your full name"
+                        className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white ${fieldErrors.from_name ? 'border-red-400' : 'border-gray-300'}`}
+                      />
+                      {fieldErrors.from_name && <p className="text-red-600 text-xs mt-1">{fieldErrors.from_name}</p>}
                     </div>
                     <div>
                       <label htmlFor="from_email" className="block text-sm font-medium text-gray-700 mb-2">Email Address *</label>
-                      <input type="email" id="from_email" name="from_email" required value={formData.from_email} onChange={handleChange} placeholder="your@email.com" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white" />
+                      <input
+                        type="email"
+                        id="from_email"
+                        name="from_email"
+                        required
+                        value={formData.from_email}
+                        onChange={handleChange}
+                        placeholder="your@email.com"
+                        className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white ${fieldErrors.from_email ? 'border-red-400' : 'border-gray-300'}`}
+                      />
+                      {fieldErrors.from_email && <p className="text-red-600 text-xs mt-1">{fieldErrors.from_email}</p>}
                     </div>
                   </div>
 
@@ -238,10 +355,18 @@ const Contact = () => {
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div>
                       <label htmlFor="project_type" className="block text-sm font-medium text-gray-700 mb-2">Project Type *</label>
-                      <select id="project_type" name="project_type" required value={formData.project_type} onChange={handleChange} className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white">
+                      <select
+                        id="project_type"
+                        name="project_type"
+                        required
+                        value={formData.project_type}
+                        onChange={handleChange}
+                        className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white ${fieldErrors.project_type ? 'border-red-400' : 'border-gray-300'}`}
+                      >
                         <option value="">Select type</option>
                         {projectTypes.map((t) => <option key={t} value={t}>{t}</option>)}
                       </select>
+                      {fieldErrors.project_type && <p className="text-red-600 text-xs mt-1">{fieldErrors.project_type}</p>}
                     </div>
                     <div>
                       <label htmlFor="budget" className="block text-sm font-medium text-gray-700 mb-2">Budget Range</label>
@@ -261,10 +386,25 @@ const Contact = () => {
 
                   <div>
                     <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">Project Description *</label>
-                    <textarea id="message" name="message" required rows={6} value={formData.message} onChange={handleChange} placeholder="Tell us about your project, goals, and any specific requirements..." className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white" />
+                    <textarea
+                      id="message"
+                      name="message"
+                      required
+                      rows={6}
+                      value={formData.message}
+                      onChange={handleChange}
+                      placeholder="Tell us about your project, goals, and any specific requirements..."
+                      className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white ${fieldErrors.message ? 'border-red-400' : 'border-gray-300'}`}
+                    />
+                    {fieldErrors.message && <p className="text-red-600 text-xs mt-1">{fieldErrors.message}</p>}
                   </div>
 
-                  <Button type="submit" size="lg" disabled={status === 'loading'} className="w-full bg-blue-600 hover:bg-blue-700 disabled:opacity-60">
+                  <Button
+                    type="submit"
+                    size="lg"
+                    disabled={status === 'loading' || status === 'rate_limited'}
+                    className="w-full bg-blue-600 hover:bg-blue-700 disabled:opacity-60"
+                  >
                     {status === 'loading'
                       ? <><Loader2 className="h-5 w-5 mr-2 animate-spin" />Sending...</>
                       : <><Send className="h-5 w-5 mr-2" />Send Message</>
@@ -286,9 +426,7 @@ const Contact = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">What Happens Next?</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Here's how we'll work together to bring your project to life
-            </p>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">Here's how we'll work together to bring your project to life</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
             {processSteps.map((step, i) => (
@@ -308,9 +446,7 @@ const Contact = () => {
       <section className="py-20 bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-              Frequently Asked Questions
-            </h2>
+            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">Frequently Asked Questions</h2>
           </div>
           <div className="space-y-6">
             {faqs.map((faq, i) => (
