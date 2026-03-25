@@ -168,8 +168,8 @@ githubUrl: '#'
                 }`}
               >
                 <div className={index % 2 === 1 ? 'lg:col-start-2' : ''}>
-                  <div className="bg-white rounded-xl shadow-lg overflow-hidden">
-                    <img src={project.image} alt={project.title} className="w-full h-64 object-cover" />
+                  <div className="bg-white rounded-xl shadow-lg overflow-hidden p-4">
+                    <img src={project.image} alt={project.title} className="w-full object-contain" />
                   </div>
                 </div>
                 <div className={index % 2 === 1 ? 'lg:col-start-1' : ''}>
