@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import SEO from '@/components/SEO';
 import { ExternalLink, Github, ArrowRight } from 'lucide-react';
-import portfolioMockup1 from '../assets/portfolio_mockup1.png';
+import anuradhapuraProject from '../assets/Portfolio1.svg';
 import portfolioMockup2 from '../assets/portfolio_mockup2.png';
 import portfolioHeroBg from '../assets/pp_bg.jpg';
 
@@ -10,24 +10,24 @@ const Portfolio = () => {
   const projects = [
     {
       id: 1,
-      title: 'E-commerce Platform',
-      category: 'Web Development',
-      description:
-        'A modern e-commerce platform built for a growing retail business. Features include product catalog, shopping cart, payment processing, and admin dashboard.',
-      image: portfolioMockup1,
-      technologies: ['React', 'Node.js', 'MySQL', 'Stripe', 'AWS'],
-      challenge:
-        'The client needed a scalable online store that could handle high traffic and integrate with their existing inventory management system.',
-      solution:
-        'Built a custom e-commerce platform with real-time inventory sync, optimized for performance and SEO.',
-      results: [
-        '40% increase in online sales',
-        '60% improvement in page load speed',
-        '25% reduction in cart abandonment',
-        'Seamless inventory management integration',
-      ],
-      liveUrl: '#',
-      githubUrl: '#',
+title: 'Anuradhapura Homestay Website',
+category: 'Tourism Website',
+description:
+'A modern tourism website developed for a homestay in Anuradhapura. The site showcases accommodation, local experiences, photo gallery, and booking contact options for travelers visiting Sri Lanka.',
+image: anuradhapuraProject,
+technologies: ['React', 'Responsive Design', 'SEO Optimization'],
+challenge:
+'The client needed a professional website to attract international tourists and provide easy access to accommodation details.',
+solution:
+'Developed a fast, mobile friendly tourism website with clear information architecture, image galleries, and SEO optimization for travel searches.',
+results: [
+'Improved online visibility for the homestay',
+'Better experience for international travelers',
+'Mobile friendly design for travel bookings',
+'Professional online presence'
+],
+liveUrl: 'https://www.anuradhapurahomestay.com/',
+githubUrl: '#'
     },
     {
       id: 2,
