@@ -10,6 +10,7 @@ import Blog from './pages/Blog';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import NotFound from './pages/NotFound';
 import Footer from './components/Footer';
+import ErrorBoundary from './components/ErrorBoundary';
 import './App.css';
 
 function App() {
@@ -19,16 +20,19 @@ function App() {
         <div className="flex flex-col min-h-screen">
           <Navbar />
           <main className="flex-grow">
-            <Routes>
-              <Route path="/"              element={<Home />} />
-              <Route path="/services"      element={<Services />} />
-              <Route path="/portfolio"     element={<Portfolio />} />
-              <Route path="/about"         element={<About />} />
-              <Route path="/contact"       element={<Contact />} />
-              <Route path="/blog"          element={<Blog />} />
-              <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-              <Route path="*"              element={<NotFound />} />
-            </Routes>
+            <ErrorBoundary>
+              <Routes>
+                <Route path="/"               element={<Home />} />
+                <Route path="/services"       element={<Services />} />
+                <Route path="/portfolio"      element={<Portfolio />} />
+                <Route path="/about"          element={<About />} />
+                <Route path="/contact"        element={<Contact />} />
+                <Route path="/blog"           element={<Blog />} />
+                <Route path="/blog/:slug"     element={<Blog />} />
+                <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+                <Route path="*"               element={<NotFound />} />
+              </Routes>
+            </ErrorBoundary>
           </main>
           <Footer />
         </div>
