@@ -1,28 +1,14 @@
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
-import mdx from '@mdx-js/rollup';
-import remarkGfm from 'remark-gfm';
-import remarkFrontmatter from 'remark-frontmatter';
-import remarkMdxFrontmatter from 'remark-mdx-frontmatter';
-import rehypeSlug from 'rehype-slug';
-import path from 'path';
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import tailwindcss from '@tailwindcss/vite'
+import path from 'path'
 
+// https://vite.dev/config/
 export default defineConfig({
-  plugins: [
-    // MDX must come BEFORE the React plugin
-    mdx({
-      remarkPlugins: [
-        remarkGfm,
-        remarkFrontmatter,          // parse the --- block
-        remarkMdxFrontmatter,       // export it as `frontmatter` from each module
-      ],
-      rehypePlugins: [rehypeSlug],
-    }),
-    react(),
-  ],
+  plugins: [react(),tailwindcss()],
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src'),
+      "@": path.resolve(__dirname, "./src"),
     },
   },
-});
+})
