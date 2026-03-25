@@ -31,7 +31,7 @@ import "react-whatsapp-chat-widget/index.css";
 import { useEffect, useState, useRef } from 'react';
 
 // ── Shared blog data — single source of truth ────────────────────────────────
-import { blogPreviews, categoryColors } from '../lib/posts';
+import { blogPreviews, categoryColors } from '../data/posts';
 // ─────────────────────────────────────────────────────────────────────────────
 
 const Home = () => {

@@ -4,7 +4,7 @@ import { Suspense, lazy, useEffect, useState } from 'react';
 import { MDXProvider } from '@mdx-js/react';
 import SEO from '@/components/SEO';
 import MDXComponents from '@/components/MDXComponents';
-import { posts, categoryColors } from '@/lib/posts';
+import { posts, categoryColors } from '../data/posts';
 import {
   Clock, Tag, ArrowLeft, Twitter, Linkedin,
   Link2, CheckCircle, ChevronRight, User,

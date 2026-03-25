@@ -1,0 +1,85 @@
+---
+slug: react-vs-nextjs-business-site
+title: React vs Next.js: Which Should You Build Your Business Site With?
+excerpt: A practical, no-jargon breakdown of when to pick plain React and when Next.js earns its complexity — told through real project examples.
+category: Web Development
+author: Velora Tech Team
+date: February 14, 2025
+readTime: 7 min read
+tags: [React, Next.js, Architecture]
+featured: false
+---
+
+If you've spoken to any web developer in the past two years, you've probably heard both React and Next.js mentioned as if they're alternatives to each other. They're not — Next.js is built *on top of* React — but the choice between building with plain React versus Next.js has real consequences for your project's performance, SEO, maintenance costs, and timeline.
+
+Here's the honest breakdown.
+
+## What React Gives You
+
+React is a JavaScript library for building user interfaces. It's component-based, meaning you build your UI as a collection of reusable pieces that manage their own state. This is the Velora Tech site you're reading right now — built with React using Vite as the build tool.
+
+React alone renders everything in the browser (client-side rendering, or CSR). The server sends a near-empty HTML file, and the browser downloads JavaScript, runs it, and builds the page. This has implications:
+
+**Good for:** Web applications where the content is dynamic, user-specific, or behind authentication. Dashboards, SaaS tools, internal business applications, anything where SEO doesn't matter because the content isn't publicly crawlable.
+
+**Not ideal for:** Publicly accessible pages where search engine visibility matters. Google can crawl client-rendered JavaScript, but it's slower and less reliable than crawling static HTML.
+
+## What Next.js Adds
+
+Next.js is a React *framework* — it takes React and adds a set of conventions and capabilities on top:
+
+- **Server-Side Rendering (SSR):** Pages are rendered on the server for each request, so the browser receives complete HTML immediately
+- **Static Site Generation (SSG):** Pages are pre-built at deploy time, resulting in extremely fast loads from a CDN
+- **React Server Components:** Components that render only on the server, never sending their JavaScript to the client
+- **Built-in routing:** File-based routing instead of configuring React Router manually
+- **API routes:** Backend endpoints in the same project
+- **Image optimisation:** Automatic resizing, format conversion, and lazy loading
+
+Next.js earns its additional complexity when these features matter for your project.
+
+## Real-World Decision Guide
+
+### Build with plain React (+ Vite) when:
+
+**You're building a web application, not a website.** If users log in to access content, SEO is largely irrelevant. A customer dashboard, project management tool, booking management system, or internal operations tool doesn't need server-side rendering.
+
+**Your data is entirely dynamic.** If every page load requires fresh data from an API that's unique to the logged-in user, SSG won't help you anyway.
+
+**You want a simpler setup.** Next.js adds meaningful complexity — different rendering strategies, a more opinionated folder structure, edge cases around client vs server components. For a team that just needs a React app, this overhead isn't worth it.
+
+**Example:** We built a business management dashboard for a client using React + Vite. All pages were behind authentication. Next.js's SSR and SSG features would have added complexity with zero benefit.
+
+### Build with Next.js when:
+
+**SEO matters.** If your site needs to rank in search results — any marketing site, e-commerce store, blog, portfolio, tourism platform — you want server-rendered or statically generated HTML that search engines can reliably crawl and index.
+
+**You have a mix of static and dynamic content.** Next.js lets different pages use different rendering strategies. Your homepage can be fully static (blazing fast), your product catalogue can be incrementally regenerated, and your user dashboard can be fully dynamic. You can't do this elegantly with plain React.
+
+**Performance is critical for public-facing pages.** Static pages served from a CDN load faster than anything else. For e-commerce especially, this speed translates directly to conversion rates.
+
+**Example:** The Anuradhapura Homestay site in our portfolio is a perfect Next.js candidate. It's publicly accessible, needs to rank for tourism searches, and has stable content that can be statically generated.
+
+## The Hybrid Reality
+
+In practice, many production projects use React for the application layer and Next.js for the marketing/public layer. A SaaS product might have:
+
+- `app.product.com` — React + Vite (the actual application)
+- `product.com` — Next.js (the marketing site, blog, docs)
+
+This is common and sensible. It avoids the overhead of Next.js in contexts where it doesn't add value, while taking advantage of it where it does.
+
+## The Elephant in the Room: App Router vs Pages Router
+
+If you decide on Next.js, you'll immediately face another choice: the newer App Router (Next.js 13+) or the legacy Pages Router. Our recommendation for new projects in 2025: use the App Router. It's the direction Next.js is heading, React Server Components support is only available there, and the ecosystem has largely caught up.
+
+The learning curve is steeper than the Pages Router, but the capability ceiling is higher.
+
+## Cost and Timeline Implications
+
+Next.js projects typically take 15–25% longer to build than equivalent React + Vite projects, purely due to the additional architectural decisions and complexity. For a five-page marketing site, that's a day or two. For a large e-commerce platform, it could be a week.
+
+The investment pays off quickly if SEO and performance matter. It doesn't if you're building an application behind a login.
+
+---
+
+Not sure which fits your project? [Describe what you're building](/contact) and we'll give you a straight answer — including an honest assessment of whether the complexity is warranted.

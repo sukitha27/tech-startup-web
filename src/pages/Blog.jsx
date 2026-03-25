@@ -5,7 +5,7 @@ import SEO from '@/components/SEO';
 import { Search, Clock, Tag, ChevronRight } from 'lucide-react';
 import blogHeroBg from '../assets/blog-bg.jpg';
 // ↓ Now reads from the auto-generated registry — no manual posts.js to update
-import { posts, categoryColors } from '@/lib/posts';
+import { posts, categoryColors } from '@/data/posts';
 
 const categories = ['All', 'Web Development', 'Digital Strategy', 'E-commerce', 'Project Management'];
 
