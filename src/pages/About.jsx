@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import SEO from '@/components/SEO';
@@ -7,27 +7,61 @@ import {
   Zap, Globe, Shield, Cpu, Database, Cloud, Palette, Smartphone, Server
 } from 'lucide-react';
 
+const TARGETS = { projects: 58, clients: 34, solutions: 17, designs: 41 };
+
 const About = () => {
   const [activeTab, setActiveTab] = useState('mission');
   const [counterValues, setCounterValues] = useState({ projects: 0, clients: 0, solutions: 0, designs: 0 });
+  const statsRef = useRef(null);
+  const animatedRef = useRef(false); // only run once
 
+  // ── Counter animates when the stats section scrolls into view ──────────────
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCounterValues((prev) => ({
-        projects:  Math.min(prev.projects  + 2, 58),
-        clients:   Math.min(prev.clients   + 1, 34),
-        solutions: Math.min(prev.solutions + 1, 17),
-        designs:   Math.min(prev.designs   + 2, 41),
-      }));
-    }, 50);
-    return () => clearInterval(interval);
+    const el = statsRef.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && !animatedRef.current) {
+          animatedRef.current = true;
+
+          const duration = 1500; // ms
+          const steps = 60;
+          const interval = duration / steps;
+
+          let step = 0;
+          const timer = setInterval(() => {
+            step++;
+            const progress = step / steps;
+            // Ease out: fast at first, slows toward the end
+            const eased = 1 - Math.pow(1 - progress, 3);
+
+            setCounterValues({
+              projects:  Math.round(TARGETS.projects  * eased),
+              clients:   Math.round(TARGETS.clients   * eased),
+              solutions: Math.round(TARGETS.solutions * eased),
+              designs:   Math.round(TARGETS.designs   * eased),
+            });
+
+            if (step >= steps) {
+              clearInterval(timer);
+              setCounterValues({ ...TARGETS }); // ensure exact final values
+            }
+          }, interval);
+        }
+      },
+      { threshold: 0.4 }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
   }, []);
 
   const companyStats = [
-    { value: `${counterValues.projects}+`,  label: 'Projects Completed', icon: Code },
-    { value: `${counterValues.clients}+`,   label: 'Happy Clients',      icon: Users },
-    { value: `${counterValues.solutions}+`, label: 'Web Solutions',      icon: Globe },
-    { value: `${counterValues.designs}+`,   label: 'Creative Designs',   icon: Award },
+    { value: `${counterValues.projects}+`, label: 'Projects Completed', icon: Code },
+    { value: `${counterValues.clients}+`,  label: 'Happy Clients',      icon: Users },
+    { value: `${counterValues.solutions}+`,label: 'Web Solutions',      icon: Globe },
+    { value: `${counterValues.designs}+`,  label: 'Creative Designs',   icon: Award },
   ];
 
   const values = [
@@ -46,7 +80,6 @@ const About = () => {
     { icon: Server,     title: 'API & Backend',           technologies: ['Node.js', 'Python', 'PHP', 'MySQL / PostgreSQL'],      description: 'Robust backend systems and third-party integrations' },
   ];
 
-  // Honest timeline that matches the company's actual size
   const timeline = [
     {
       year: '2024–25',
@@ -80,7 +113,6 @@ const About = () => {
     },
   ];
 
-  // Honest tooling / approach badges — no fake partner tiers
   const toolsAndApproaches = [
     'React & Next.js Development',
     'WordPress & WooCommerce',
@@ -113,7 +145,8 @@ const About = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
+          {/* Stats grid — observed for counter animation */}
+          <div ref={statsRef} className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
             {companyStats.map((stat, i) => (
               <div key={i} className="bg-slate-800/50 backdrop-blur-md rounded-2xl p-6 text-center border border-slate-700 hover:border-blue-500 transition-all duration-300 hover:-translate-y-1">
                 <div className="flex justify-center mb-4">
@@ -254,7 +287,7 @@ const About = () => {
         </div>
       </section>
 
-      {/* Tools & Approach (replaces fake certifications) */}
+      {/* Tools & Approach */}
       <section className="py-20 bg-slate-800/30 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">

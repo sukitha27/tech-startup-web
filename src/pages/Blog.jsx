@@ -4,24 +4,9 @@ import { Button } from '@/components/ui/button';
 import SEO from '@/components/SEO';
 import { Search, Clock, Tag, ChevronRight } from 'lucide-react';
 import blogHeroBg from '../assets/blog-bg.jpg';
-
-const posts = [
-  { id: 1, title: '10 Web Development Trends That Will Define 2025', excerpt: 'From AI-assisted coding to edge rendering and WebAssembly going mainstream — here are the shifts every developer and business owner should be watching this year.', category: 'Web Development', author: 'Velora Tech Team', date: 'March 10, 2025', readTime: '6 min read', tags: ['React', 'AI', 'Performance'], featured: true },
-  { id: 2, title: 'Why Sri Lankan Businesses Need a Proper Web Presence in 2025', excerpt: "With mobile internet penetration surpassing 80% locally, a Facebook page is no longer enough. Here's what a professional digital presence actually looks like and why it matters for revenue.", category: 'Digital Strategy', author: 'Velora Tech Team', date: 'February 28, 2025', readTime: '5 min read', tags: ['Sri Lanka', 'Business', 'Strategy'], featured: false },
-  { id: 3, title: 'React vs Next.js: Which Should You Build Your Business Site With?', excerpt: 'A practical, no-jargon breakdown of when to pick plain React and when Next.js earns its complexity — told through real project examples.', category: 'Web Development', author: 'Velora Tech Team', date: 'February 14, 2025', readTime: '7 min read', tags: ['React', 'Next.js', 'Architecture'], featured: false },
-  { id: 4, title: 'E-commerce Conversion Rate Optimisation: What Actually Moves the Needle', excerpt: "After working on a dozen online stores, we've identified the handful of changes that consistently lift sales — and the popular advice that rarely does.", category: 'E-commerce', author: 'Velora Tech Team', date: 'January 30, 2025', readTime: '8 min read', tags: ['E-commerce', 'CRO', 'UX'], featured: false },
-  { id: 5, title: 'How to Write a Software Brief That Saves You Money', excerpt: "Vague requirements are the single biggest driver of blown budgets and missed deadlines. This guide walks you through what to include before you approach any developer.", category: 'Project Management', author: 'Velora Tech Team', date: 'January 15, 2025', readTime: '5 min read', tags: ['Process', 'Client Tips', 'Budget'], featured: false },
-  { id: 6, title: 'The Real Cost of a Cheap Website (And How to Avoid the Trap)', excerpt: "Low quotes often lead to security vulnerabilities, poor SEO, and sites that need rebuilding in under two years. Here's how to evaluate a proposal properly.", category: 'Digital Strategy', author: 'Velora Tech Team', date: 'December 20, 2024', readTime: '6 min read', tags: ['Budget', 'Quality', 'Business'], featured: false },
-];
+import { posts, categoryColors } from '../data/posts';
 
 const categories = ['All', 'Web Development', 'Digital Strategy', 'E-commerce', 'Project Management'];
-
-const categoryColors = {
-  'Web Development':    'bg-blue-100 text-blue-800',
-  'Digital Strategy':   'bg-purple-100 text-purple-800',
-  'E-commerce':         'bg-green-100 text-green-800',
-  'Project Management': 'bg-orange-100 text-orange-800',
-};
 
 const BlogCard = ({ post, large = false }) => (
   <article className={`bg-white rounded-2xl shadow-md overflow-hidden flex flex-col hover:shadow-xl hover:-translate-y-1 transition-all duration-300 ${large ? 'md:flex-row' : ''}`}>
@@ -30,10 +15,16 @@ const BlogCard = ({ post, large = false }) => (
     </div>
     <div className="p-6 flex flex-col flex-1">
       <div className="flex items-center gap-2 mb-3 flex-wrap">
-        <span className={`text-xs font-semibold px-2 py-1 rounded-full ${categoryColors[post.category] ?? 'bg-gray-100 text-gray-700'}`}>{post.category}</span>
-        <span className="text-gray-400 text-xs flex items-center gap-1"><Clock className="h-3 w-3" /> {post.readTime}</span>
+        <span className={`text-xs font-semibold px-2 py-1 rounded-full ${categoryColors[post.category] ?? 'bg-gray-100 text-gray-700'}`}>
+          {post.category}
+        </span>
+        <span className="text-gray-400 text-xs flex items-center gap-1">
+          <Clock className="h-3 w-3" /> {post.readTime}
+        </span>
       </div>
-      <h2 className={`font-bold text-gray-900 mb-3 leading-snug hover:text-blue-600 transition-colors cursor-pointer ${large ? 'text-2xl' : 'text-lg'}`}>{post.title}</h2>
+      <h2 className={`font-bold text-gray-900 mb-3 leading-snug hover:text-blue-600 transition-colors ${large ? 'text-2xl' : 'text-lg'}`}>
+        {post.title}
+      </h2>
       <p className="text-gray-600 text-sm leading-relaxed flex-1 mb-4">{post.excerpt}</p>
       <div className="flex flex-wrap gap-1 mb-4">
         {post.tags.map((tag) => (
@@ -47,9 +38,13 @@ const BlogCard = ({ post, large = false }) => (
           <p className="text-sm font-medium text-gray-800">{post.author}</p>
           <p className="text-xs text-gray-400">{post.date}</p>
         </div>
-        <button className="flex items-center text-blue-600 text-sm font-semibold gap-1 hover:gap-2 transition-all">
+        {/* Fixed: was a plain <button> with no href — now a real Link */}
+        <Link
+          to={`/blog/${post.slug}`}
+          className="flex items-center text-blue-600 text-sm font-semibold gap-1 hover:gap-2 transition-all"
+        >
           Read more <ChevronRight className="h-4 w-4" />
-        </button>
+        </Link>
       </div>
     </div>
   </article>
@@ -60,15 +55,17 @@ const Blog = () => {
   const [searchQuery, setSearchQuery] = useState('');
 
   const filtered = posts.filter((p) => {
-    const matchCat = activeCategory === 'All' || p.category === activeCategory;
-    const matchSearch = searchQuery === '' || p.title.toLowerCase().includes(searchQuery.toLowerCase()) || p.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchCat    = activeCategory === 'All' || p.category === activeCategory;
+    const matchSearch = searchQuery === '' ||
+      p.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      p.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
     return matchCat && matchSearch;
   });
 
-  const featured = filtered.find((p) => p.featured);
-  const rest = filtered.filter((p) => !p.featured);
+  const featured    = filtered.find((p) => p.featured);
+  const rest        = filtered.filter((p) => !p.featured);
   const showFeatured = featured && activeCategory === 'All' && searchQuery === '';
-  const gridPosts = showFeatured ? rest : filtered;
+  const gridPosts   = showFeatured ? rest : filtered;
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -77,23 +74,15 @@ const Blog = () => {
         description="Web development insights, digital strategy guides, and lessons from real client projects — written for business owners and developers alike."
       />
 
-      {/* ── Hero with background image ── */}
+      {/* ── Hero ── */}
       <section
         className="relative min-h-[60vh] flex items-center justify-center"
-        style={{
-          backgroundImage: `url(${blogHeroBg})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}
+        style={{ backgroundImage: `url(${blogHeroBg})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
       >
-        {/* Deep teal/slate overlay — distinct from other pages */}
         <div className="absolute inset-0 bg-slate-900/80" />
-
-        {/* Subtle animated gradient orbs */}
         <div className="absolute top-10 left-1/4 w-72 h-72 bg-blue-500/20 rounded-full blur-3xl" />
         <div className="absolute bottom-10 right-1/4 w-72 h-72 bg-purple-500/20 rounded-full blur-3xl" />
 
-        {/* Breadcrumb */}
         <div className="absolute top-8 left-0 right-0 z-10">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <nav className="text-white text-sm">
@@ -107,7 +96,6 @@ const Blog = () => {
           </div>
         </div>
 
-        {/* Content */}
         <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-24">
           <span className="inline-block bg-blue-500/20 text-blue-300 text-sm font-semibold px-4 py-1.5 rounded-full mb-6 tracking-wide uppercase border border-blue-400/30">
             Our Blog
@@ -122,8 +110,6 @@ const Blog = () => {
             Practical guides, industry trends, and lessons from real client projects — written for
             business owners and developers alike.
           </p>
-
-          {/* Search bar in hero */}
           <div className="relative max-w-xl mx-auto">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
             <input
@@ -136,13 +122,11 @@ const Blog = () => {
           </div>
         </div>
 
-        {/* Bottom fade */}
         <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-gray-50 to-transparent" />
       </section>
 
       {/* ── Posts ── */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        {/* Category filter */}
         <div className="flex flex-wrap gap-3 mb-10">
           {categories.map((cat) => (
             <button

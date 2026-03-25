@@ -30,6 +30,7 @@ import profilepic from '@/assets/pro_pic.png';
 import WhatsAppWidget from "react-whatsapp-chat-widget";
 import "react-whatsapp-chat-widget/index.css";
 import { useEffect, useState, useRef } from 'react';
+import { blogPreviews, categoryColors } from '../data/posts';
 
 // Blog preview data — keep in sync with src/pages/Blog.jsx
 const blogPreviews = [
