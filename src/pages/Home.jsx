@@ -664,7 +664,7 @@ const Home = () => {
       </section>
 
       <WhatsAppWidget
-        phoneNo="94761148054"
+        phoneNo={import.meta.env.VITE_WHATSAPP_NUMBER}
         position="right"
         widgetWidth="300px"
         widgetWidthMobile="260px"
