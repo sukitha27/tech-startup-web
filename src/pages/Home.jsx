@@ -24,51 +24,15 @@ import logo398 from "@/assets/logos/logoipsum-398.svg";
 import webdevImage from '../assets/webdev.jpg';
 import sketchImage from '../assets/sketch.jpg';
 import servicesBgImage from '../assets/services-bg.jpg';
-import authorimg from '../assets/author1.jpg';
 import blogBg from "../assets/blog-bg.jpg";
 import profilepic from '@/assets/pro_pic.png';
 import WhatsAppWidget from "react-whatsapp-chat-widget";
 import "react-whatsapp-chat-widget/index.css";
 import { useEffect, useState, useRef } from 'react';
+
+// ── Shared blog data — single source of truth ────────────────────────────────
 import { blogPreviews, categoryColors } from '../data/posts';
-
-// Blog preview data — keep in sync with src/pages/Blog.jsx
-const blogPreviews = [
-  {
-    id: 1,
-    title: '10 Web Development Trends That Will Define 2025',
-    category: 'Web Development',
-    readTime: '6 min read',
-    excerpt: 'From AI-assisted coding to edge rendering — the shifts every business owner should be watching.',
-    authorName: 'Velora Tech Team',
-    date: 'March 10, 2025',
-  },
-  {
-    id: 2,
-    title: 'Why Sri Lankan Businesses Need a Proper Web Presence in 2025',
-    category: 'Digital Strategy',
-    readTime: '5 min read',
-    excerpt: 'A Facebook page is no longer enough. Here\'s what a professional digital presence actually looks like.',
-    authorName: 'Velora Tech Team',
-    date: 'February 28, 2025',
-  },
-  {
-    id: 3,
-    title: 'React vs Next.js: Which Should You Build Your Business Site With?',
-    category: 'Web Development',
-    readTime: '7 min read',
-    excerpt: 'A practical, no-jargon breakdown of when to pick plain React and when Next.js earns its complexity.',
-    authorName: 'Velora Tech Team',
-    date: 'February 14, 2025',
-  },
-];
-
-const categoryColors = {
-  'Web Development': 'bg-blue-100 text-blue-800',
-  'Digital Strategy': 'bg-purple-100 text-purple-800',
-  'E-commerce': 'bg-green-100 text-green-800',
-  'Project Management': 'bg-orange-100 text-orange-800',
-};
+// ─────────────────────────────────────────────────────────────────────────────
 
 const Home = () => {
   const [testimonialIndex, setTestimonialIndex] = useState(0);
@@ -336,7 +300,7 @@ const Home = () => {
           backgroundImage: `url(${servicesBgImage})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
-          backgroundAttachment: 'fixed',
+          // Removed backgroundAttachment: 'fixed' — causes poor performance on mobile
         }}
       >
         <div className="absolute inset-0 bg-slate-900/90"></div>
@@ -450,9 +414,9 @@ const Home = () => {
                 <div className="flex space-x-4">
                   {[
                     { icon: 'fa-facebook-f', label: 'Facebook' },
-                    { icon: 'fa-instagram', label: 'Instagram' },
-                    { icon: 'fa-twitter', label: 'Twitter' },
-                    { icon: 'fa-linkedin-in', label: 'LinkedIn' },
+                    { icon: 'fa-instagram',  label: 'Instagram' },
+                    { icon: 'fa-twitter',    label: 'Twitter' },
+                    { icon: 'fa-linkedin-in',label: 'LinkedIn' },
                   ].map(({ icon, label }) => (
                     <a
                       key={label}
@@ -497,15 +461,15 @@ const Home = () => {
             speed={60}
             direction="left"
             logos={[
-              { src: reactLogo, alt: "React" },
-              { src: nodeLogo, alt: "Node.js" },
+              { src: reactLogo,    alt: "React" },
+              { src: nodeLogo,     alt: "Node.js" },
               { src: tailwindLogo, alt: "Tailwind CSS" },
-              { src: typesLogo, alt: "TypeScript" },
-              { src: phpLogo, alt: "PHP" },
-              { src: wpressLogo, alt: "WordPress" },
+              { src: typesLogo,    alt: "TypeScript" },
+              { src: phpLogo,      alt: "PHP" },
+              { src: wpressLogo,   alt: "WordPress" },
               { src: firebaseLogo, alt: "Firebase" },
-              { src: woocomLogo, alt: "WooCommerce" },
-              { src: htmlLogo, alt: "HTML5" },
+              { src: woocomLogo,   alt: "WooCommerce" },
+              { src: htmlLogo,     alt: "HTML5" },
             ]}
           />
         </div>
@@ -592,7 +556,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* ── Blog Preview (real data, not placeholders) ── */}
+      {/* ── Blog Preview ── */}
       <section className="relative py-20 bg-gray-900">
         <div className="absolute inset-0">
           <img src={blogBg} alt="Background" className="w-full h-full object-cover" />
@@ -624,7 +588,7 @@ const Home = () => {
                   <div className="flex items-center gap-1 text-xs text-gray-400">
                     <Clock className="h-3 w-3" /> {post.readTime}
                   </div>
-                  <Link to="/blog" className="flex items-center text-blue-600 font-medium text-sm hover:gap-2 gap-1 transition-all">
+                  <Link to={`/blog/${post.slug}`} className="flex items-center text-blue-600 font-medium text-sm hover:gap-2 gap-1 transition-all">
                     Read more <ChevronRight className="h-4 w-4" />
                   </Link>
                 </div>
