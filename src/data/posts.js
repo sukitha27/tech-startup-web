@@ -1,63 +1,88 @@
-// src/lib/posts.js
-// Auto-generated post registry — reads frontmatter from all MDX files at
-// build time via Vite's import.meta.glob. No manual list to maintain.
-//
-// Usage: import { getAllPosts, getPostBySlug, blogPreviews, categoryColors } from '@/lib/posts'
+// src/data/posts.js
+// Single source of truth for blog post metadata.
+// Keep this in sync with the MDX files in src/content/posts/
 
-// Grab every MDX file's frontmatter eagerly (not the full module — just meta)
-// Each MDX file must export a `frontmatter` object (handled by @mdx-js/rollup).
-const modules = import.meta.glob('../content/posts/*.mdx', { eager: true });
-
-// Build a normalised post list sorted by date descending
-function buildPosts() {
-  return Object.entries(modules)
-    .map(([filepath, mod]) => {
-      const fm = mod.frontmatter ?? {};
-
-      // Derive slug from filename if not set in frontmatter
-      const slug =
-        fm.slug ??
-        filepath
-          .split('/')
-          .pop()
-          .replace(/\.mdx$/, '');
-
-      return {
-        // Required fields with safe fallbacks
-        id:       slug,
-        slug,
-        title:    fm.title    ?? 'Untitled',
-        excerpt:  fm.excerpt  ?? '',
-        category: fm.category ?? 'General',
-        author:   fm.author   ?? 'Velora Tech Team',
-        date:     fm.date     ?? '',
-        readTime: fm.readTime ?? '5 min read',
-        tags:     Array.isArray(fm.tags) ? fm.tags : [],
-        featured: fm.featured ?? false,
-      };
-    })
-    .sort((a, b) => {
-      // Sort newest first — parse the date strings
-      const da = a.date ? new Date(a.date) : new Date(0);
-      const db = b.date ? new Date(b.date) : new Date(0);
-      return db - da;
-    });
-}
-
-export const posts = buildPosts();
+export const posts = [
+  {
+    id: 1,
+    slug: 'web-development-trends-2025',
+    title: '10 Web Development Trends That Will Define 2025',
+    excerpt: 'From AI-assisted coding to edge rendering and WebAssembly going mainstream — here are the shifts every developer and business owner should be watching this year.',
+    category: 'Web Development',
+    author: 'Velora Tech Team',
+    date: 'March 10, 2025',
+    readTime: '6 min read',
+    tags: ['React', 'AI', 'Performance'],
+    featured: true,
+  },
+  {
+    id: 2,
+    slug: 'sri-lankan-businesses-web-presence-2025',
+    title: 'Why Sri Lankan Businesses Need a Proper Web Presence in 2025',
+    excerpt: "With mobile internet penetration surpassing 80% locally, a Facebook page is no longer enough. Here's what a professional digital presence actually looks like and why it matters for revenue.",
+    category: 'Digital Strategy',
+    author: 'Velora Tech Team',
+    date: 'February 28, 2025',
+    readTime: '5 min read',
+    tags: ['Sri Lanka', 'Business', 'Strategy'],
+    featured: false,
+  },
+  {
+    id: 3,
+    slug: 'react-vs-nextjs-business-site',
+    title: 'React vs Next.js: Which Should You Build Your Business Site With?',
+    excerpt: 'A practical, no-jargon breakdown of when to pick plain React and when Next.js earns its complexity — told through real project examples.',
+    category: 'Web Development',
+    author: 'Velora Tech Team',
+    date: 'February 14, 2025',
+    readTime: '7 min read',
+    tags: ['React', 'Next.js', 'Architecture'],
+    featured: false,
+  },
+  {
+    id: 4,
+    slug: 'ecommerce-conversion-rate-optimisation',
+    title: 'E-commerce Conversion Rate Optimisation: What Actually Moves the Needle',
+    excerpt: "After working on a dozen online stores, we've identified the handful of changes that consistently lift sales — and the popular advice that rarely does.",
+    category: 'E-commerce',
+    author: 'Velora Tech Team',
+    date: 'January 30, 2025',
+    readTime: '8 min read',
+    tags: ['E-commerce', 'CRO', 'UX'],
+    featured: false,
+  },
+  {
+    id: 5,
+    slug: 'how-to-write-a-software-brief',
+    title: 'How to Write a Software Brief That Saves You Money',
+    excerpt: "Vague requirements are the single biggest driver of blown budgets and missed deadlines. This guide walks you through what to include before you approach any developer.",
+    category: 'Project Management',
+    author: 'Velora Tech Team',
+    date: 'January 15, 2025',
+    readTime: '5 min read',
+    tags: ['Process', 'Client Tips', 'Budget'],
+    featured: false,
+  },
+  {
+    id: 6,
+    slug: 'real-cost-of-cheap-website',
+    title: 'The Real Cost of a Cheap Website (And How to Avoid the Trap)',
+    excerpt: "Low quotes often lead to security vulnerabilities, poor SEO, and sites that need rebuilding in under two years. Here's how to evaluate a proposal properly.",
+    category: 'Digital Strategy',
+    author: 'Velora Tech Team',
+    date: 'December 20, 2024',
+    readTime: '6 min read',
+    tags: ['Budget', 'Quality', 'Business'],
+    featured: false,
+  },
+];
 
 // The 3 most recent posts — used for the homepage blog preview section
 export const blogPreviews = posts.slice(0, 3);
 
-// Category → Tailwind colour classes
 export const categoryColors = {
   'Web Development':    'bg-blue-100 text-blue-800',
   'Digital Strategy':   'bg-purple-100 text-purple-800',
   'E-commerce':         'bg-green-100 text-green-800',
   'Project Management': 'bg-orange-100 text-orange-800',
 };
-
-// Helper — find a single post by slug
-export function getPostBySlug(slug) {
-  return posts.find((p) => p.slug === slug) ?? null;
-}
