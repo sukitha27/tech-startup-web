@@ -4,8 +4,7 @@ import { Button } from '@/components/ui/button';
 import SEO from '@/components/SEO';
 import { Search, Clock, Tag, ChevronRight } from 'lucide-react';
 import blogHeroBg from '../assets/blog-bg.jpg';
-// ↓ Now reads from the auto-generated registry — no manual posts.js to update
-import { posts, categoryColors } from '@/data/posts';
+import { posts, categoryColors } from '@/data/posts';   // ← @/ alias, matches posts.js location
 
 const categories = ['All', 'Web Development', 'Digital Strategy', 'E-commerce', 'Project Management'];
 
