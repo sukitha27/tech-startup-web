@@ -6,6 +6,12 @@
 // Add your image files to src/assets/blog/ and reference them here.
 // Example: import webTrendsImg from '@/assets/blog/web-trends-2025.jpg'
 // Then set  image: webTrendsImg  on the matching post.
+import webTrendsImg        from '@/assets/blog/web-development-trends-2025.jpg';
+  import sriLankaImg         from '@/assets/blog/sri-lankan-businesses-web-presence-2025.jpg';
+  import reactNextImg        from '@/assets/blog/react-vs-nextjs-business-site.png';
+  import ecommerceImg        from '@/assets/blog/ecommerce-conversion-rate-optimisation.png';
+  import softwareBriefImg    from '@/assets/blog/how-to-write-a-software-brief.png';
+  import cheapWebsiteImg     from '@/assets/blog/real-cost-of-cheap-website.png';
 //
 // If `image` is omitted or null the cards fall back to a styled
 // category-coloured gradient — so nothing breaks while you're adding images.
@@ -22,7 +28,7 @@ export const posts = [
     readTime: '6 min read',
     tags: ['React', 'AI', 'Performance'],
     featured: true,
-    image: 'web-development-trends-2025.jpg', // e.g. import img from '@/assets/blog/web-trends-2025.jpg'
+    image: webTrendsImg, // e.g. import img from '@/assets/blog/web-trends-2025.jpg'
   },
   {
     id: 2,
@@ -35,7 +41,7 @@ export const posts = [
     readTime: '5 min read',
     tags: ['Sri Lanka', 'Business', 'Strategy'],
     featured: false,
-    image: 'sri-lankan-businesses-web-presence-2025.jpg',
+    image: 'image: sriLankaImg',
   },
   {
     id: 3,
@@ -48,7 +54,7 @@ export const posts = [
     readTime: '7 min read',
     tags: ['React', 'Next.js', 'Architecture'],
     featured: false,
-    image: 'react-vs-nextjs-business-site.png',
+    image: 'image: reactNextImg',
   },
   {
     id: 4,
@@ -61,7 +67,7 @@ export const posts = [
     readTime: '8 min read',
     tags: ['E-commerce', 'CRO', 'UX'],
     featured: false,
-    image: 'ecommerce-conversion-rate-optimisation.png',
+    image: 'image: ecommerceImg',
   },
   {
     id: 5,
@@ -74,7 +80,7 @@ export const posts = [
     readTime: '5 min read',
     tags: ['Process', 'Client Tips', 'Budget'],
     featured: false,
-    image: 'how-to-write-a-software-brief.png',
+    image: 'image: softwareBriefImg',
   },
   {
     id: 6,
@@ -87,7 +93,7 @@ export const posts = [
     readTime: '6 min read',
     tags: ['Budget', 'Quality', 'Business'],
     featured: false,
-    image: 'real-cost-of-cheap-website.png',
+    image: 'image: cheapWebsiteImg',
   },
 ];
 
