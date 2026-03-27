@@ -8,6 +8,7 @@ import { posts, categoryColors, categoryGradients } from '@/data/posts';
 import {
   Clock, Tag, ArrowLeft, Twitter, Linkedin,
   Link2, CheckCircle, ChevronRight, User,
+  Facebook, MessageCircle,
 } from 'lucide-react';
 import blogHeroBg from '../assets/blog-bg.jpg';
 
@@ -64,7 +65,6 @@ const RelatedCard = ({ post }) => {
       to={`/blog/${post.slug}`}
       className="group flex flex-col bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 overflow-hidden"
     >
-      {/* Thumbnail */}
       {post.image ? (
         <img
           src={post.image}
@@ -106,6 +106,20 @@ const ContentSkeleton = () => (
   </div>
 );
 
+// ── Share row — reused at top and bottom of article ───────────────────────────
+const ShareRow = ({ label, whatsappShare, facebookShare, twitterShare, linkedinShare }) => (
+  <div className="flex flex-wrap items-center gap-2">
+    {label && (
+      <span className="text-xs font-semibold text-gray-400 uppercase tracking-wider mr-1">{label}</span>
+    )}
+    <ShareButton href={whatsappShare} label="WhatsApp" icon={MessageCircle} color="bg-green-500" />
+    <ShareButton href={facebookShare} label="Facebook" icon={Facebook}      color="bg-blue-600" />
+    <ShareButton href={twitterShare}  label="Twitter"  icon={Twitter}       color="bg-sky-500"  />
+    <ShareButton href={linkedinShare} label="LinkedIn" icon={Linkedin}      color="bg-blue-700" />
+    <CopyLinkButton />
+  </div>
+);
+
 // ── Main component ────────────────────────────────────────────────────────────
 const BlogPost = () => {
   const { slug } = useParams();
@@ -136,9 +150,17 @@ const BlogPost = () => {
       ? [...related, ...posts.filter((p) => p.slug !== slug && !related.includes(p)).slice(0, 3 - related.length)]
       : related;
 
-  const canonicalUrl = `https://www.veloratech.com.lk/blog/${slug}`;
-  const twitterShare = `https://twitter.com/intent/tweet?text=${encodeURIComponent(post?.title ?? '')}&url=${encodeURIComponent(canonicalUrl)}`;
-  const linkedinShare = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(canonicalUrl)}`;
+  // ── Share URLs ───────────────────────────────────────────────────────────
+  const canonicalUrl  = `https://www.veloratech.com.lk/blog/${slug}`;
+  const encodedUrl    = encodeURIComponent(canonicalUrl);
+  const encodedTitle  = encodeURIComponent(post?.title ?? '');
+
+  const whatsappShare = `https://wa.me/?text=${encodedTitle}%20${encodedUrl}`;
+  const facebookShare = `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`;
+  const twitterShare  = `https://twitter.com/intent/tweet?text=${encodedTitle}&url=${encodedUrl}`;
+  const linkedinShare = `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`;
+
+  const shareProps = { whatsappShare, facebookShare, twitterShare, linkedinShare };
 
   // ── 404 ───────────────────────────────────────────────────────────────────
   if (!post || loadError) {
@@ -162,17 +184,24 @@ const BlogPost = () => {
     );
   }
 
-  // Hero background: use post cover image if available, else fall back to blogHeroBg
-  const heroBg = post.image ?? blogHeroBg;
+  const heroBg   = post.image ?? blogHeroBg;
   const gradient = categoryGradients[post.category] ?? categoryGradients.default;
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <SEO title={post.title} description={post.excerpt} url={canonicalUrl} image={post.image ?? undefined} />
+      {/*
+        Pass post.image (Vite hashed path) directly — SEO.jsx converts it to an
+        absolute URL so Facebook / WhatsApp / LinkedIn can fetch the preview image.
+      */}
+      <SEO
+        title={post.title}
+        description={post.excerpt}
+        url={canonicalUrl}
+        image={post.image ?? undefined}
+      />
 
       {/* ── Hero ─────────────────────────────────────────────────────────── */}
       <section className="relative min-h-[52vh] flex items-end">
-        {/* Background — real photo or gradient fallback */}
         {post.image ? (
           <div
             className="absolute inset-0 bg-cover bg-center"
@@ -182,7 +211,6 @@ const BlogPost = () => {
           <div className={`absolute inset-0 bg-gradient-to-br ${gradient}`} />
         )}
 
-        {/* Dark overlay so text is always readable */}
         <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/70 to-slate-900/40" />
 
         {/* Breadcrumb */}
@@ -215,12 +243,20 @@ const BlogPost = () => {
           </h1>
           <p className="text-gray-300 text-lg leading-relaxed max-w-3xl mb-6">{post.excerpt}</p>
 
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-2 mb-6">
             {post.tags.map((tag) => (
               <span key={tag} className="flex items-center gap-1 text-xs text-gray-400 bg-white/10 px-3 py-1 rounded-full backdrop-blur-sm">
                 <Tag className="h-3 w-3" /> {tag}
               </span>
             ))}
+          </div>
+
+          {/* Share buttons in hero — visible at a glance when landing on the page */}
+          <div className="flex flex-wrap gap-2">
+            <ShareButton href={whatsappShare} label="WhatsApp" icon={MessageCircle} color="bg-green-500" />
+            <ShareButton href={facebookShare} label="Facebook" icon={Facebook}      color="bg-blue-600" />
+            <ShareButton href={twitterShare}  label="Twitter"  icon={Twitter}       color="bg-sky-500"  />
+            <ShareButton href={linkedinShare} label="LinkedIn" icon={Linkedin}      color="bg-blue-700" />
           </div>
         </div>
 
@@ -236,11 +272,8 @@ const BlogPost = () => {
             <div className="bg-white rounded-2xl shadow-sm border border-gray-100 px-6 sm:px-10 py-10">
 
               {/* Share — top */}
-              <div className="flex flex-wrap items-center gap-2 mb-10 pb-6 border-b border-gray-100">
-                <span className="text-xs font-semibold text-gray-400 uppercase tracking-wider mr-1">Share</span>
-                <ShareButton href={twitterShare} label="Twitter" icon={Twitter} color="bg-sky-500" />
-                <ShareButton href={linkedinShare} label="LinkedIn" icon={Linkedin} color="bg-blue-700" />
-                <CopyLinkButton />
+              <div className="mb-10 pb-6 border-b border-gray-100">
+                <ShareRow label="Share" {...shareProps} />
               </div>
 
               {/* MDX content */}
@@ -255,11 +288,9 @@ const BlogPost = () => {
               </div>
 
               {/* Share — bottom */}
-              <div className="flex flex-wrap items-center gap-2 mt-12 pt-8 border-t border-gray-100">
-                <span className="text-sm font-medium text-gray-500 mr-1">Found this useful? Share it:</span>
-                <ShareButton href={twitterShare} label="Twitter" icon={Twitter} color="bg-sky-500" />
-                <ShareButton href={linkedinShare} label="LinkedIn" icon={Linkedin} color="bg-blue-700" />
-                <CopyLinkButton />
+              <div className="mt-12 pt-8 border-t border-gray-100">
+                <p className="text-sm font-medium text-gray-500 mb-3">Found this useful? Share it:</p>
+                <ShareRow {...shareProps} />
               </div>
             </div>
 
@@ -302,6 +333,20 @@ const BlogPost = () => {
                 <h3 className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-4">Related Articles</h3>
                 <div className="space-y-4">
                   {relatedFilled.map((p) => <RelatedCard key={p.id} post={p} />)}
+                </div>
+              </div>
+
+              {/* Sidebar share widget */}
+              <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
+                <h3 className="text-sm font-bold text-gray-700 mb-3">Share this article</h3>
+                <div className="flex flex-wrap gap-2">
+                  <ShareButton href={whatsappShare} label="WhatsApp" icon={MessageCircle} color="bg-green-500" />
+                  <ShareButton href={facebookShare} label="Facebook" icon={Facebook}      color="bg-blue-600" />
+                  <ShareButton href={twitterShare}  label="Twitter"  icon={Twitter}       color="bg-sky-500"  />
+                  <ShareButton href={linkedinShare} label="LinkedIn" icon={Linkedin}      color="bg-blue-700" />
+                </div>
+                <div className="mt-2">
+                  <CopyLinkButton />
                 </div>
               </div>
 
