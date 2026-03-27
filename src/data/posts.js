@@ -22,7 +22,7 @@ export const posts = [
     readTime: '6 min read',
     tags: ['React', 'AI', 'Performance'],
     featured: true,
-    image: null, // e.g. import img from '@/assets/blog/web-trends-2025.jpg'
+    image: 'web-development-trends-2025.jpg', // e.g. import img from '@/assets/blog/web-trends-2025.jpg'
   },
   {
     id: 2,
@@ -35,7 +35,7 @@ export const posts = [
     readTime: '5 min read',
     tags: ['Sri Lanka', 'Business', 'Strategy'],
     featured: false,
-    image: null,
+    image: 'sri-lankan-businesses-web-presence-2025.jpg',
   },
   {
     id: 3,
@@ -48,7 +48,7 @@ export const posts = [
     readTime: '7 min read',
     tags: ['React', 'Next.js', 'Architecture'],
     featured: false,
-    image: null,
+    image: 'react-vs-nextjs-business-site.png',
   },
   {
     id: 4,
@@ -61,7 +61,7 @@ export const posts = [
     readTime: '8 min read',
     tags: ['E-commerce', 'CRO', 'UX'],
     featured: false,
-    image: null,
+    image: 'ecommerce-conversion-rate-optimisation.png',
   },
   {
     id: 5,
@@ -74,7 +74,7 @@ export const posts = [
     readTime: '5 min read',
     tags: ['Process', 'Client Tips', 'Budget'],
     featured: false,
-    image: null,
+    image: 'how-to-write-a-software-brief.png',
   },
   {
     id: 6,
@@ -87,7 +87,7 @@ export const posts = [
     readTime: '6 min read',
     tags: ['Budget', 'Quality', 'Business'],
     featured: false,
-    image: null,
+    image: 'real-cost-of-cheap-website.png',
   },
 ];
 

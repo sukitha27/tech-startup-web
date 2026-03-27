@@ -26,13 +26,13 @@ import sketchImage from '../assets/sketch.jpg';
 import servicesBgImage from '../assets/services-bg.jpg';
 import blogBg from "../assets/blog-bg.jpg";
 import profilepic from '@/assets/pro_pic.png';
-import BlogCoverImage from '@/components/BlogCoverImage';
 import WhatsAppWidget from "react-whatsapp-chat-widget";
 import "react-whatsapp-chat-widget/index.css";
 import { useEffect, useState, useRef } from 'react';
 
 // ── Shared blog data — single source of truth ────────────────────────────────
-import { blogPreviews, categoryColors } from '../data/posts';
+import { blogPreviews, categoryColors } from '@/data/posts';
+import BlogCoverImage from '@/components/BlogCoverImage';
 // ─────────────────────────────────────────────────────────────────────────────
 
 const Home = () => {
