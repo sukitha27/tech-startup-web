@@ -4,14 +4,14 @@ import { useEffect, useState } from 'react';
 import { MDXProvider } from '@mdx-js/react';
 import SEO from '@/components/SEO';
 import MDXComponents from '@/components/MDXComponents';
-import { posts, categoryColors } from '@/data/posts';   // ← consistent @/ alias
+import { posts, categoryColors, categoryGradients } from '@/data/posts';
 import {
   Clock, Tag, ArrowLeft, Twitter, Linkedin,
   Link2, CheckCircle, ChevronRight, User,
 } from 'lucide-react';
 import blogHeroBg from '../assets/blog-bg.jpg';
 
-// ── Dynamically import each MDX file keyed by slug ───────────────────────────
+// ── Dynamically import MDX files ─────────────────────────────────────────────
 const postModules = import.meta.glob('../content/posts/*.mdx');
 
 function getModuleKey(slug) {
@@ -56,30 +56,42 @@ const CopyLinkButton = () => {
   );
 };
 
-// ── Related post card ─────────────────────────────────────────────────────────
-const RelatedCard = ({ post }) => (
-  <Link
-    to={`/blog/${post.slug}`}
-    className="group flex flex-col bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 overflow-hidden"
-  >
-    <div className="bg-gradient-to-br from-blue-600 to-indigo-700 h-28 flex items-center justify-center">
-      <span className="text-white/25 text-5xl font-black select-none">
-        {post.category.charAt(0)}
-      </span>
-    </div>
-    <div className="p-5 flex-1 flex flex-col">
-      <span className={`text-xs font-semibold px-2 py-0.5 rounded-full w-fit mb-2 ${categoryColors[post.category] ?? 'bg-gray-100 text-gray-700'}`}>
-        {post.category}
-      </span>
-      <h4 className="text-sm font-semibold text-gray-900 leading-snug group-hover:text-blue-600 transition-colors flex-1">
-        {post.title}
-      </h4>
-      <div className="flex items-center gap-1 mt-3 text-blue-600 text-xs font-medium">
-        Read more <ChevronRight className="h-3 w-3" />
+// ── Related card ──────────────────────────────────────────────────────────────
+const RelatedCard = ({ post }) => {
+  const gradient = categoryGradients[post.category] ?? categoryGradients.default;
+  return (
+    <Link
+      to={`/blog/${post.slug}`}
+      className="group flex flex-col bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 overflow-hidden"
+    >
+      {/* Thumbnail */}
+      {post.image ? (
+        <img
+          src={post.image}
+          alt={post.title}
+          loading="lazy"
+          className="h-28 w-full object-cover transition-transform duration-500 group-hover:scale-105"
+        />
+      ) : (
+        <div className={`h-28 w-full bg-gradient-to-br ${gradient} flex items-center justify-center`}>
+          <span className="text-white/20 text-5xl font-black select-none">{post.category.charAt(0)}</span>
+        </div>
+      )}
+
+      <div className="p-5 flex-1 flex flex-col">
+        <span className={`text-xs font-semibold px-2 py-0.5 rounded-full w-fit mb-2 ${categoryColors[post.category] ?? 'bg-gray-100 text-gray-700'}`}>
+          {post.category}
+        </span>
+        <h4 className="text-sm font-semibold text-gray-900 leading-snug group-hover:text-blue-600 transition-colors flex-1">
+          {post.title}
+        </h4>
+        <div className="flex items-center gap-1 mt-3 text-blue-600 text-xs font-medium">
+          Read more <ChevronRight className="h-3 w-3" />
+        </div>
       </div>
-    </div>
-  </Link>
-);
+    </Link>
+  );
+};
 
 // ── Loading skeleton ──────────────────────────────────────────────────────────
 const ContentSkeleton = () => (
@@ -111,18 +123,13 @@ const BlogPost = () => {
 
     const key = getModuleKey(slug);
     const loader = postModules[key];
-
-    if (!loader) {
-      setLoadError(true);
-      return;
-    }
-
+    if (!loader) { setLoadError(true); return; }
     loader()
       .then((mod) => setPostContent(() => mod.default))
       .catch(() => setLoadError(true));
   }, [slug]);
 
-  // Related: same category first, then fill from others
+  // Related posts
   const related = posts.filter((p) => p.slug !== slug && p.category === post?.category).slice(0, 3);
   const relatedFilled =
     related.length < 3
@@ -143,10 +150,7 @@ const BlogPost = () => {
           <h1 className="text-2xl font-bold text-gray-900 mb-3">Post not found</h1>
           <p className="text-gray-500 mb-8">This article doesn't exist or may have been moved.</p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <button
-              onClick={() => navigate(-1)}
-              className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg border border-gray-200 text-gray-700 hover:bg-gray-50 transition-colors text-sm font-medium"
-            >
+            <button onClick={() => navigate(-1)} className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg border border-gray-200 text-gray-700 hover:bg-gray-50 transition-colors text-sm font-medium">
               <ArrowLeft className="h-4 w-4" /> Go back
             </button>
             <Link to="/blog" className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition-colors text-sm font-medium">
@@ -158,16 +162,28 @@ const BlogPost = () => {
     );
   }
 
+  // Hero background: use post cover image if available, else fall back to blogHeroBg
+  const heroBg = post.image ?? blogHeroBg;
+  const gradient = categoryGradients[post.category] ?? categoryGradients.default;
+
   return (
     <div className="min-h-screen bg-gray-50">
-      <SEO title={post.title} description={post.excerpt} url={canonicalUrl} />
+      <SEO title={post.title} description={post.excerpt} url={canonicalUrl} image={post.image ?? undefined} />
 
-      {/* ── Hero ── */}
-      <section
-        className="relative min-h-[52vh] flex items-end"
-        style={{ backgroundImage: `url(${blogHeroBg})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
-      >
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/70 to-slate-900/30" />
+      {/* ── Hero ─────────────────────────────────────────────────────────── */}
+      <section className="relative min-h-[52vh] flex items-end">
+        {/* Background — real photo or gradient fallback */}
+        {post.image ? (
+          <div
+            className="absolute inset-0 bg-cover bg-center"
+            style={{ backgroundImage: `url(${heroBg})` }}
+          />
+        ) : (
+          <div className={`absolute inset-0 bg-gradient-to-br ${gradient}`} />
+        )}
+
+        {/* Dark overlay so text is always readable */}
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/70 to-slate-900/40" />
 
         {/* Breadcrumb */}
         <div className="absolute top-8 left-0 right-0 z-10">
@@ -182,7 +198,7 @@ const BlogPost = () => {
           </div>
         </div>
 
-        {/* Hero content */}
+        {/* Hero text */}
         <div className="relative z-10 w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 pt-32">
           <div className="flex flex-wrap items-center gap-3 mb-5">
             <span className={`text-xs font-bold px-3 py-1 rounded-full ${categoryColors[post.category] ?? 'bg-blue-100 text-blue-800'}`}>
@@ -211,7 +227,7 @@ const BlogPost = () => {
         <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-gray-50 to-transparent" />
       </section>
 
-      {/* ── Content grid ── */}
+      {/* ── Content grid ─────────────────────────────────────────────────── */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="flex flex-col lg:flex-row gap-12">
 
@@ -227,7 +243,7 @@ const BlogPost = () => {
                 <CopyLinkButton />
               </div>
 
-              {/* MDX */}
+              {/* MDX content */}
               <div className="prose-container">
                 {PostContent ? (
                   <MDXProvider components={MDXComponents}>
@@ -282,7 +298,6 @@ const BlogPost = () => {
           {/* Sidebar */}
           <aside className="lg:w-80 xl:w-96 flex-shrink-0">
             <div className="sticky top-24 space-y-8">
-
               <div>
                 <h3 className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-4">Related Articles</h3>
                 <div className="space-y-4">
