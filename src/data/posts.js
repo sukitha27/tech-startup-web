@@ -41,7 +41,7 @@ export const posts = [
     readTime: '5 min read',
     tags: ['Sri Lanka', 'Business', 'Strategy'],
     featured: false,
-    image: 'image: sriLankaImg',
+    image: sriLankaImg,
   },
   {
     id: 3,
@@ -54,7 +54,7 @@ export const posts = [
     readTime: '7 min read',
     tags: ['React', 'Next.js', 'Architecture'],
     featured: false,
-    image: 'image: reactNextImg',
+    image: reactNextImg,
   },
   {
     id: 4,
@@ -67,7 +67,7 @@ export const posts = [
     readTime: '8 min read',
     tags: ['E-commerce', 'CRO', 'UX'],
     featured: false,
-    image: 'image: ecommerceImg',
+    image: ecommerceImg,
   },
   {
     id: 5,
@@ -80,7 +80,7 @@ export const posts = [
     readTime: '5 min read',
     tags: ['Process', 'Client Tips', 'Budget'],
     featured: false,
-    image: 'image: softwareBriefImg',
+    image: softwareBriefImg,
   },
   {
     id: 6,
@@ -93,7 +93,7 @@ export const posts = [
     readTime: '6 min read',
     tags: ['Budget', 'Quality', 'Business'],
     featured: false,
-    image: 'image: cheapWebsiteImg',
+    image: cheapWebsiteImg,
   },
 ];
 
