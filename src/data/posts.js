@@ -7,7 +7,7 @@
 // Example: import webTrendsImg from '@/assets/blog/web-trends-2025.jpg'
 // Then set  image: webTrendsImg  on the matching post.
 import webTrendsImg        from '@/assets/blog/web-development-trends-2025.jpg';
-  import sriLankaImg         from '@/assets/blog/sri-lankan-businesses-web-presence-2025.jpg';
+  import sriLankaImg         from '@/assets/blog/sri-lankan-businesses-web-presence.jpg';
   import reactNextImg        from '@/assets/blog/react-vs-nextjs-business-site.png';
   import ecommerceImg        from '@/assets/blog/ecommerce-conversion-rate-optimisation.png';
   import softwareBriefImg    from '@/assets/blog/how-to-write-a-software-brief.png';
