@@ -1,6 +1,14 @@
 // src/data/posts.js
 // Single source of truth for blog post metadata.
-// Keep this in sync with the MDX files in src/content/posts/
+//
+// COVER IMAGES
+// ------------
+// Add your image files to src/assets/blog/ and reference them here.
+// Example: import webTrendsImg from '@/assets/blog/web-trends-2025.jpg'
+// Then set  image: webTrendsImg  on the matching post.
+//
+// If `image` is omitted or null the cards fall back to a styled
+// category-coloured gradient — so nothing breaks while you're adding images.
 
 export const posts = [
   {
@@ -14,6 +22,7 @@ export const posts = [
     readTime: '6 min read',
     tags: ['React', 'AI', 'Performance'],
     featured: true,
+    image: null, // e.g. import img from '@/assets/blog/web-trends-2025.jpg'
   },
   {
     id: 2,
@@ -26,6 +35,7 @@ export const posts = [
     readTime: '5 min read',
     tags: ['Sri Lanka', 'Business', 'Strategy'],
     featured: false,
+    image: null,
   },
   {
     id: 3,
@@ -38,6 +48,7 @@ export const posts = [
     readTime: '7 min read',
     tags: ['React', 'Next.js', 'Architecture'],
     featured: false,
+    image: null,
   },
   {
     id: 4,
@@ -50,6 +61,7 @@ export const posts = [
     readTime: '8 min read',
     tags: ['E-commerce', 'CRO', 'UX'],
     featured: false,
+    image: null,
   },
   {
     id: 5,
@@ -62,6 +74,7 @@ export const posts = [
     readTime: '5 min read',
     tags: ['Process', 'Client Tips', 'Budget'],
     featured: false,
+    image: null,
   },
   {
     id: 6,
@@ -74,6 +87,7 @@ export const posts = [
     readTime: '6 min read',
     tags: ['Budget', 'Quality', 'Business'],
     featured: false,
+    image: null,
   },
 ];
 
@@ -85,4 +99,13 @@ export const categoryColors = {
   'Digital Strategy':   'bg-purple-100 text-purple-800',
   'E-commerce':         'bg-green-100 text-green-800',
   'Project Management': 'bg-orange-100 text-orange-800',
+};
+
+// Fallback gradient per category — used when post.image is null
+export const categoryGradients = {
+  'Web Development':    'from-blue-600 to-indigo-700',
+  'Digital Strategy':   'from-purple-600 to-violet-700',
+  'E-commerce':         'from-emerald-500 to-teal-700',
+  'Project Management': 'from-orange-500 to-amber-600',
+  default:              'from-slate-600 to-slate-800',
 };
