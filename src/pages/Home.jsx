@@ -557,52 +557,63 @@ const Home = () => {
       </section>
 
       {/* ── Blog Preview ── */}
-      <section className="relative py-20 bg-gray-900">
-        <div className="absolute inset-0">
-          <img src={blogBg} alt="Background" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-black/60"></div>
+<section className="relative py-20 bg-gray-900">
+  <div className="absolute inset-0">
+    <img src={blogBg} alt="Background" className="w-full h-full object-cover" />
+    <div className="absolute inset-0 bg-black/60"></div>
+  </div>
+ 
+  <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="text-center mb-16">
+      <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">From Our Blog</h2>
+      <p className="text-xl text-gray-200">Insights and tips on web development and digital strategy</p>
+    </div>
+ 
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {blogPreviews.map((post) => (
+        <div key={post.id} className="group bg-white rounded-xl shadow-md overflow-hidden flex flex-col hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+          {/* Cover image */}
+          <BlogCoverImage
+            image={post.image}
+            category={post.category}
+            alt={post.title}
+            aspectClass="h-44"
+          />
+ 
+          <div className="p-6 flex-1 flex flex-col">
+            <span className={`text-xs font-semibold px-2 py-1 rounded-full mb-3 w-fit ${
+              categoryColors[post.category] ?? 'bg-gray-100 text-gray-700'
+            }`}>
+              {post.category}
+            </span>
+            <h3 className="text-lg font-bold text-gray-900 mb-3 flex-1 group-hover:text-blue-600 transition-colors">
+              {post.title}
+            </h3>
+            <p className="text-gray-600 text-sm mb-4 line-clamp-2">{post.excerpt}</p>
+          </div>
+ 
+          <div className="border-t border-gray-200 px-6 py-4 flex items-center justify-between">
+            <div className="flex items-center gap-1 text-xs text-gray-400">
+              <Clock className="h-3 w-3" /> {post.readTime}
+            </div>
+            <Link
+              to={`/blog/${post.slug}`}
+              className="flex items-center text-blue-600 font-medium text-sm gap-1 group-hover:gap-2 transition-all"
+            >
+              Read more <ChevronRight className="h-4 w-4" />
+            </Link>
+          </div>
         </div>
-
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">From Our Blog</h2>
-            <p className="text-xl text-gray-200">Insights and tips on web development and digital strategy</p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {blogPreviews.map((post) => (
-              <div key={post.id} className="bg-white rounded-xl shadow-md overflow-hidden flex flex-col">
-                <div className="bg-gradient-to-br from-blue-600 to-indigo-700 h-32 flex items-center justify-center">
-                  <span className="text-white/30 text-5xl font-bold">{post.category.charAt(0)}</span>
-                </div>
-                <div className="p-6 flex-1 flex flex-col">
-                  <span className={`text-xs font-semibold px-2 py-1 rounded-full mb-3 w-fit ${
-                    categoryColors[post.category] ?? 'bg-gray-100 text-gray-700'
-                  }`}>
-                    {post.category}
-                  </span>
-                  <h3 className="text-lg font-bold text-gray-900 mb-3 flex-1">{post.title}</h3>
-                  <p className="text-gray-600 text-sm mb-4">{post.excerpt}</p>
-                </div>
-                <div className="border-t border-gray-200 px-6 py-4 flex items-center justify-between">
-                  <div className="flex items-center gap-1 text-xs text-gray-400">
-                    <Clock className="h-3 w-3" /> {post.readTime}
-                  </div>
-                  <Link to={`/blog/${post.slug}`} className="flex items-center text-blue-600 font-medium text-sm hover:gap-2 gap-1 transition-all">
-                    Read more <ChevronRight className="h-4 w-4" />
-                  </Link>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div className="text-center mt-12">
-            <Button asChild variant="outline" className="border-white text-white hover:bg-white hover:text-gray-900">
-              <Link to="/blog">View All Articles</Link>
-            </Button>
-          </div>
-        </div>
-      </section>
+      ))}
+    </div>
+ 
+    <div className="text-center mt-12">
+      <Button asChild variant="outline" className="border-white text-white hover:bg-white hover:text-gray-900">
+        <Link to="/blog">View All Articles</Link>
+      </Button>
+    </div>
+  </div>
+</section>
 
       {/* ── CTA ── */}
       <section className="py-16 lg:py-20 bg-slate-800 relative overflow-hidden">
