@@ -4,35 +4,63 @@ import { Button } from '@/components/ui/button';
 import SEO from '@/components/SEO';
 import { Search, Clock, Tag, ChevronRight } from 'lucide-react';
 import blogHeroBg from '../assets/blog-bg.jpg';
-import { posts, categoryColors } from '@/data/posts';   // ← @/ alias, matches posts.js location
+import { posts, categoryColors } from '@/data/posts';
+import BlogCoverImage from '@/components/BlogCoverImage';
 
 const categories = ['All', 'Web Development', 'Digital Strategy', 'E-commerce', 'Project Management'];
 
+// ── Blog card ─────────────────────────────────────────────────────────────────
 const BlogCard = ({ post, large = false }) => (
-  <article className={`bg-white rounded-2xl shadow-md overflow-hidden flex flex-col hover:shadow-xl hover:-translate-y-1 transition-all duration-300 ${large ? 'md:flex-row' : ''}`}>
-    <div className={`bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center flex-shrink-0 ${large ? 'md:w-2/5 min-h-[240px]' : 'h-48'}`}>
-      <span className="text-white/30 text-6xl font-bold select-none">{post.category.charAt(0)}</span>
-    </div>
+  <article
+    className={`group bg-white rounded-2xl shadow-md overflow-hidden flex flex-col hover:shadow-xl hover:-translate-y-1 transition-all duration-300 ${
+      large ? 'md:flex-row' : ''
+    }`}
+  >
+    {/* Cover image */}
+    <BlogCoverImage
+      image={post.image}
+      category={post.category}
+      alt={post.title}
+      aspectClass={large ? 'md:w-2/5 min-h-[240px] h-52' : 'h-52'}
+      className="flex-shrink-0"
+    />
+
+    {/* Content */}
     <div className="p-6 flex flex-col flex-1">
       <div className="flex items-center gap-2 mb-3 flex-wrap">
-        <span className={`text-xs font-semibold px-2 py-1 rounded-full ${categoryColors[post.category] ?? 'bg-gray-100 text-gray-700'}`}>
+        <span
+          className={`text-xs font-semibold px-2 py-1 rounded-full ${
+            categoryColors[post.category] ?? 'bg-gray-100 text-gray-700'
+          }`}
+        >
           {post.category}
         </span>
         <span className="text-gray-400 text-xs flex items-center gap-1">
           <Clock className="h-3 w-3" /> {post.readTime}
         </span>
       </div>
-      <h2 className={`font-bold text-gray-900 mb-3 leading-snug hover:text-blue-600 transition-colors ${large ? 'text-2xl' : 'text-lg'}`}>
+
+      <h2
+        className={`font-bold text-gray-900 mb-3 leading-snug group-hover:text-blue-600 transition-colors ${
+          large ? 'text-2xl' : 'text-lg'
+        }`}
+      >
         {post.title}
       </h2>
+
       <p className="text-gray-600 text-sm leading-relaxed flex-1 mb-4">{post.excerpt}</p>
+
       <div className="flex flex-wrap gap-1 mb-4">
         {post.tags.map((tag) => (
-          <span key={tag} className="text-xs bg-gray-100 text-gray-500 px-2 py-0.5 rounded flex items-center gap-1">
+          <span
+            key={tag}
+            className="text-xs bg-gray-100 text-gray-500 px-2 py-0.5 rounded flex items-center gap-1"
+          >
             <Tag className="h-2.5 w-2.5" /> {tag}
           </span>
         ))}
       </div>
+
       <div className="flex items-center justify-between border-t border-gray-100 pt-4 mt-auto">
         <div>
           <p className="text-sm font-medium text-gray-800">{post.author}</p>
@@ -49,22 +77,24 @@ const BlogCard = ({ post, large = false }) => (
   </article>
 );
 
+// ── Page ──────────────────────────────────────────────────────────────────────
 const Blog = () => {
   const [activeCategory, setActiveCategory] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
 
   const filtered = posts.filter((p) => {
-    const matchCat    = activeCategory === 'All' || p.category === activeCategory;
-    const matchSearch = searchQuery === '' ||
+    const matchCat = activeCategory === 'All' || p.category === activeCategory;
+    const matchSearch =
+      searchQuery === '' ||
       p.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       p.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
     return matchCat && matchSearch;
   });
 
-  const featured    = filtered.find((p) => p.featured);
-  const rest        = filtered.filter((p) => !p.featured);
+  const featured = filtered.find((p) => p.featured);
+  const rest = filtered.filter((p) => !p.featured);
   const showFeatured = featured && activeCategory === 'All' && searchQuery === '';
-  const gridPosts   = showFeatured ? rest : filtered;
+  const gridPosts = showFeatured ? rest : filtered;
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -76,7 +106,11 @@ const Blog = () => {
       {/* ── Hero ── */}
       <section
         className="relative min-h-[60vh] flex items-center justify-center"
-        style={{ backgroundImage: `url(${blogHeroBg})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
+        style={{
+          backgroundImage: `url(${blogHeroBg})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}
       >
         <div className="absolute inset-0 bg-slate-900/80" />
         <div className="absolute top-10 left-1/4 w-72 h-72 bg-blue-500/20 rounded-full blur-3xl" />
@@ -86,9 +120,15 @@ const Blog = () => {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <nav className="text-white text-sm">
               <ul className="flex space-x-2">
-                <li><Link to="/" className="hover:text-blue-300 transition-colors uppercase tracking-wide">Home</Link></li>
+                <li>
+                  <Link to="/" className="hover:text-blue-300 transition-colors uppercase tracking-wide">
+                    Home
+                  </Link>
+                </li>
                 <li className="text-gray-400 before:content-['/'] before:mr-2">
-                  <Link to="/blog" className="text-blue-300 font-semibold uppercase tracking-wide">Blog</Link>
+                  <Link to="/blog" className="text-blue-300 font-semibold uppercase tracking-wide">
+                    Blog
+                  </Link>
                 </li>
               </ul>
             </nav>
@@ -126,6 +166,7 @@ const Blog = () => {
 
       {/* ── Posts ── */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        {/* Category filters */}
         <div className="flex flex-wrap gap-3 mb-10">
           {categories.map((cat) => (
             <button
@@ -154,14 +195,21 @@ const Blog = () => {
           </div>
         ) : (
           <>
+            {/* Featured post */}
             {showFeatured && (
               <div className="mb-10">
-                <h2 className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-4">Featured</h2>
+                <h2 className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-4">
+                  Featured
+                </h2>
                 <BlogCard post={featured} large />
               </div>
             )}
+
+            {/* Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {gridPosts.map((post) => <BlogCard key={post.id} post={post} />)}
+              {gridPosts.map((post) => (
+                <BlogCard key={post.id} post={post} />
+              ))}
             </div>
           </>
         )}
@@ -173,8 +221,14 @@ const Blog = () => {
             Get new articles, project case studies, and web tips delivered to your inbox — no spam, ever.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-            <input type="email" placeholder="you@example.com" className="flex-1 px-4 py-3 rounded-xl text-gray-900 focus:outline-none focus:ring-2 focus:ring-white" />
-            <Button className="bg-white text-blue-700 hover:bg-blue-50 font-semibold px-6">Subscribe</Button>
+            <input
+              type="email"
+              placeholder="you@example.com"
+              className="flex-1 px-4 py-3 rounded-xl text-gray-900 focus:outline-none focus:ring-2 focus:ring-white"
+            />
+            <Button className="bg-white text-blue-700 hover:bg-blue-50 font-semibold px-6">
+              Subscribe
+            </Button>
           </div>
         </div>
       </div>
