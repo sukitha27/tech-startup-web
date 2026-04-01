@@ -29,6 +29,7 @@ import profilepic from '@/assets/pro_pic.png';
 import WhatsAppWidget from "react-whatsapp-chat-widget";
 import "react-whatsapp-chat-widget/index.css";
 import { useEffect, useState, useRef } from 'react';
+import SEO from '@/components/SEO';
 
 // ── Shared blog data — single source of truth ────────────────────────────────
 import { blogPreviews, categoryColors } from '@/data/posts';
