@@ -417,31 +417,19 @@ const Home = () => {
                 reality and reach their business goals faster.
               </p>
               <div className="mb-8">
-                <h3 className="text-white font-semibold text-lg mb-4">Follow Us:</h3>
-                <div className="flex space-x-4">
-                  {[
-                    {
-                      icon: 'fa-facebook-f',
-                      label: 'Facebook',
-                      href: 'https://www.facebook.com/share/17RF4han7K/',
-                      hover: 'hover:bg-blue-600',
-                    },
-                  ].map(({ icon, label, href, hover }) => (
-                    
-                      key={label}
-                      href={href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={`Follow Velora Tech on ${label}`}
-                      className={`w-12 h-12 bg-gray-600 ${hover} rounded-full flex items-center justify-center transition-all duration-300`}
-                    >
-                      <i className={`fab ${icon} text-white text-lg`}></i>
-                    </a>
-                      <i className={`fab ${icon} text-white text-lg`}></i>
-                    </a>
-                  ))}
-                </div>
+              <h3 className="text-white font-semibold text-lg mb-4">Follow Us:</h3>
+              <div className="flex space-x-4">
+                
+                  href="https://www.facebook.com/share/17RF4han7K/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Follow Velora Tech on Facebook"
+                  className="w-12 h-12 bg-gray-600 hover:bg-blue-600 rounded-full flex items-center justify-center transition-all duration-300"
+                >
+                  <i className="fab fa-facebook-f text-white text-lg"></i>
+                </a>
               </div>
+            </div>
               <Button asChild className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-md transition-all duration-300 text-base font-semibold">
                 <Link to="/about" className="flex items-center">
                   Discover More <ArrowRight className="ml-2 h-4 w-4" />
