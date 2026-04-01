@@ -5,10 +5,18 @@ import remarkGfm from 'remark-gfm';
 import rehypeSlug from 'rehype-slug';
 import tailwindcss from '@tailwindcss/vite'
 import path from 'path'
+import { vitePrerender } from 'vite-plugin-prerender'  // ← ADD
 
-// https://vite.dev/config/
 export default defineConfig({
-  plugins: [react(), mdx({ remarkPlugins: [remarkGfm], rehypePlugins: [rehypeSlug] }), tailwindcss()],
+  plugins: [
+    react(),
+    mdx({ remarkPlugins: [remarkGfm], rehypePlugins: [rehypeSlug] }),
+    tailwindcss(),
+    vitePrerender({                                      // ← ADD
+      staticDir: path.join(__dirname, 'dist'),
+      routes: ['/', '/services', '/portfolio', '/about', '/contact', '/blog', '/privacy-policy'],
+    }),
+  ],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
