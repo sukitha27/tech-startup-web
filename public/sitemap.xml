@@ -50,4 +50,12 @@
     <priority>0.3</priority>
   </url>
 
+<!-- Blog posts -->
+  <url><loc>https://www.veloratech.com.lk/blog/web-development-trends-2025</loc>              <lastmod>2025-03-10</lastmod><changefreq>yearly</changefreq> <priority>0.7</priority></url>
+  <url><loc>https://www.veloratech.com.lk/blog/sri-lankan-businesses-web-presence-2025</loc>  <lastmod>2025-02-28</lastmod><changefreq>yearly</changefreq> <priority>0.7</priority></url>
+  <url><loc>https://www.veloratech.com.lk/blog/react-vs-nextjs-business-site</loc>            <lastmod>2025-02-14</lastmod><changefreq>yearly</changefreq> <priority>0.7</priority></url>
+  <url><loc>https://www.veloratech.com.lk/blog/ecommerce-conversion-rate-optimisation</loc>   <lastmod>2025-01-30</lastmod><changefreq>yearly</changefreq> <priority>0.7</priority></url>
+  <url><loc>https://www.veloratech.com.lk/blog/how-to-write-a-software-brief</loc>            <lastmod>2025-01-15</lastmod><changefreq>yearly</changefreq> <priority>0.7</priority></url>
+  <url><loc>https://www.veloratech.com.lk/blog/real-cost-of-cheap-website</loc>               <lastmod>2024-12-20</lastmod><changefreq>yearly</changefreq> <priority>0.7</priority></url>
+  
 </urlset>

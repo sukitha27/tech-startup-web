@@ -221,6 +221,11 @@ const Home = () => {
 
   return (
     <div>
+      <SEO
+  title="Software & Web Development Company in Sri Lanka"
+  description="Velora Tech — Expert web development, e-commerce, mobile apps and software solutions. 58+ projects delivered with 100% client satisfaction."
+  url="https://www.veloratech.com.lk/"
+/>
       {/* ── Hero ── */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
         <div

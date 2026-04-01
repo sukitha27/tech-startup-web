@@ -125,9 +125,10 @@ const About = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-900 to-slate-800 text-white">
       <SEO
-        title="About Us"
-        description="Learn about Velora Tech — a Sri Lankan web and software development company with 58+ projects delivered and a commitment to client success."
-      />
+  title="About Us"
+  description="Learn about Velora Tech — a Sri Lankan web and software development company with 58+ projects delivered and a commitment to client success."
+  url="https://www.veloratech.com.lk/about"
+/>
 
       {/* Hero */}
       <section className="relative py-24 overflow-hidden">

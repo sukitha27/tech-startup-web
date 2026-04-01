@@ -101,9 +101,10 @@ const Services = () => {
   return (
     <div className="min-h-screen">
       <SEO
-        title="Services"
-        description="Custom web development, e-commerce solutions, software development, API integration, and technical consulting — tailored to your business needs."
-      />
+  title="Services"
+  description="Custom web development, e-commerce solutions, software development, API integration, and technical consulting — tailored to your business needs."
+  url="https://www.veloratech.com.lk/services"
+/>
 
       {/* Hero */}
       <section

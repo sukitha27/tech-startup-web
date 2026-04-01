@@ -25,6 +25,7 @@ export const posts = [
     category: 'Web Development',
     author: 'Velora Tech Team',
     date: 'March 10, 2025',
+    isoDate: '2025-03-10',        // ← ADD — used in JSON-LD
     readTime: '6 min read',
     tags: ['React', 'AI', 'Performance'],
     featured: true,
@@ -38,6 +39,7 @@ export const posts = [
     category: 'Digital Strategy',
     author: 'Velora Tech Team',
     date: 'February 28, 2025',
+    isoDate: '2025-02-28',        // ← ADD
     readTime: '5 min read',
     tags: ['Sri Lanka', 'Business', 'Strategy'],
     featured: false,
@@ -51,6 +53,7 @@ export const posts = [
     category: 'Web Development',
     author: 'Velora Tech Team',
     date: 'February 14, 2025',
+    isoDate: '2025-02-14',        // ← ADD
     readTime: '7 min read',
     tags: ['React', 'Next.js', 'Architecture'],
     featured: false,
@@ -64,6 +67,7 @@ export const posts = [
     category: 'E-commerce',
     author: 'Velora Tech Team',
     date: 'January 30, 2025',
+    isoDate: '2025-01-30',        // ← ADD
     readTime: '8 min read',
     tags: ['E-commerce', 'CRO', 'UX'],
     featured: false,
@@ -77,6 +81,7 @@ export const posts = [
     category: 'Project Management',
     author: 'Velora Tech Team',
     date: 'January 15, 2025',
+    isoDate: '2025-01-15',        // ← ADD
     readTime: '5 min read',
     tags: ['Process', 'Client Tips', 'Budget'],
     featured: false,
@@ -90,6 +95,7 @@ export const posts = [
     category: 'Digital Strategy',
     author: 'Velora Tech Team',
     date: 'December 20, 2024',
+    isoDate: '2024-12-20',        // ← ADD
     readTime: '6 min read',
     tags: ['Budget', 'Quality', 'Business'],
     featured: false,

@@ -166,7 +166,11 @@ const BlogPost = () => {
   if (!post || loadError) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
-        <SEO title="Post Not Found" description="This blog post could not be found." />
+        <SEO
+          title="Post Not Found"
+          description="This blog post could not be found."
+          noindex={true}
+        />
         <div className="text-center max-w-md">
           <div className="text-8xl font-black text-transparent bg-clip-text bg-gradient-to-b from-blue-400 to-indigo-600 mb-6 select-none">404</div>
           <h1 className="text-2xl font-bold text-gray-900 mb-3">Post not found</h1>
@@ -194,10 +198,14 @@ const BlogPost = () => {
         absolute URL so Facebook / WhatsApp / LinkedIn can fetch the preview image.
       */}
       <SEO
+        type="article"
         title={post.title}
         description={post.excerpt}
         url={canonicalUrl}
         image={post.image ?? undefined}
+        datePublished={post.isoDate}
+        dateModified={post.isoDate}
+        author={post.author}
       />
 
       {/* ── Hero ─────────────────────────────────────────────────────────── */}
