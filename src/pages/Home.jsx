@@ -420,16 +420,20 @@ const Home = () => {
                 <h3 className="text-white font-semibold text-lg mb-4">Follow Us:</h3>
                 <div className="flex space-x-4">
                   {[
-                    { icon: 'fa-facebook-f', label: 'Facebook' },
-                    { icon: 'fa-instagram',  label: 'Instagram' },
-                    { icon: 'fa-twitter',    label: 'Twitter' },
-                    { icon: 'fa-linkedin-in',label: 'LinkedIn' },
-                  ].map(({ icon, label }) => (
-                    <a
+                    {
+                      icon: 'fa-facebook-f',
+                      label: 'Facebook',
+                      href: 'https://www.facebook.com/share/17RF4han7K/',
+                      hover: 'hover:bg-blue-600',
+                    },
+                  ].map(({ icon, label, href, hover }) => (
+                    
                       key={label}
-                      href="#"
-                      aria-label={label}
-                      className="w-12 h-12 bg-gray-600 hover:bg-blue-600 rounded-full flex items-center justify-center transition-all duration-300"
+                      href={href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`Follow Velora Tech on ${label}`}
+                      className={`w-12 h-12 bg-gray-600 ${hover} rounded-full flex items-center justify-center transition-all duration-300`}
                     >
                       <i className={`fab ${icon} text-white text-lg`}></i>
                     </a>
