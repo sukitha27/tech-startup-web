@@ -223,10 +223,11 @@ const Home = () => {
   return (
     <div>
       <SEO
-  title="Software & Web Development Company in Sri Lanka"
-  description="Velora Tech — Expert web development, e-commerce, mobile apps and software solutions. 58+ projects delivered with 100% client satisfaction."
-  url="https://www.veloratech.com.lk/"
-/>
+        title="Software & Web Development Company in Sri Lanka"
+        description="Velora Tech — Expert web development, e-commerce, mobile apps and software solutions. 58+ projects delivered with 100% client satisfaction."
+        url="https://www.veloratech.com.lk/"
+      />
+
       {/* ── Hero ── */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
         <div
@@ -307,7 +308,6 @@ const Home = () => {
           backgroundImage: `url(${servicesBgImage})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
-          // Removed backgroundAttachment: 'fixed' — causes poor performance on mobile
         }}
       >
         <div className="absolute inset-0 bg-slate-900/90"></div>
@@ -416,20 +416,23 @@ const Home = () => {
                 We empower entrepreneurs, startups, and expanding companies to turn their vision into
                 reality and reach their business goals faster.
               </p>
+
+              {/* ── Follow Us ── */}
               <div className="mb-8">
-              <h3 className="text-white font-semibold text-lg mb-4">Follow Us:</h3>
-              <div className="flex space-x-4">
-                
-                  href="https://www.facebook.com/share/17RF4han7K/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Follow Velora Tech on Facebook"
-                  className="w-12 h-12 bg-gray-600 hover:bg-blue-600 rounded-full flex items-center justify-center transition-all duration-300"
-                >
-                  <i className="fab fa-facebook-f text-white text-lg"></i>
-                </a>
+                <h3 className="text-white font-semibold text-lg mb-4">Follow Us:</h3>
+                <div className="flex space-x-4">
+                  <a
+                    href="https://www.facebook.com/share/17RF4han7K/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Follow Velora Tech on Facebook"
+                    className="w-12 h-12 bg-gray-600 hover:bg-blue-600 rounded-full flex items-center justify-center transition-all duration-300"
+                  >
+                    <i className="fab fa-facebook-f text-white text-lg"></i>
+                  </a>
+                </div>
               </div>
-            </div>
+
               <Button asChild className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-md transition-all duration-300 text-base font-semibold">
                 <Link to="/about" className="flex items-center">
                   Discover More <ArrowRight className="ml-2 h-4 w-4" />
@@ -558,63 +561,60 @@ const Home = () => {
       </section>
 
       {/* ── Blog Preview ── */}
-<section className="relative py-20 bg-gray-900">
-  <div className="absolute inset-0">
-    <img src={blogBg} alt="Background" className="w-full h-full object-cover" />
-    <div className="absolute inset-0 bg-black/60"></div>
-  </div>
- 
-  <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div className="text-center mb-16">
-      <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">From Our Blog</h2>
-      <p className="text-xl text-gray-200">Insights and tips on web development and digital strategy</p>
-    </div>
- 
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-      {blogPreviews.map((post) => (
-        <div key={post.id} className="group bg-white rounded-xl shadow-md overflow-hidden flex flex-col hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-          {/* Cover image */}
-          <BlogCoverImage
-            image={post.image}
-            category={post.category}
-            alt={post.title}
-            aspectClass="h-44"
-          />
- 
-          <div className="p-6 flex-1 flex flex-col">
-            <span className={`text-xs font-semibold px-2 py-1 rounded-full mb-3 w-fit ${
-              categoryColors[post.category] ?? 'bg-gray-100 text-gray-700'
-            }`}>
-              {post.category}
-            </span>
-            <h3 className="text-lg font-bold text-gray-900 mb-3 flex-1 group-hover:text-blue-600 transition-colors">
-              {post.title}
-            </h3>
-            <p className="text-gray-600 text-sm mb-4 line-clamp-2">{post.excerpt}</p>
+      <section className="relative py-20 bg-gray-900">
+        <div className="absolute inset-0">
+          <img src={blogBg} alt="Background" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-black/60"></div>
+        </div>
+
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">From Our Blog</h2>
+            <p className="text-xl text-gray-200">Insights and tips on web development and digital strategy</p>
           </div>
- 
-          <div className="border-t border-gray-200 px-6 py-4 flex items-center justify-between">
-            <div className="flex items-center gap-1 text-xs text-gray-400">
-              <Clock className="h-3 w-3" /> {post.readTime}
-            </div>
-            <Link
-              to={`/blog/${post.slug}`}
-              className="flex items-center text-blue-600 font-medium text-sm gap-1 group-hover:gap-2 transition-all"
-            >
-              Read more <ChevronRight className="h-4 w-4" />
-            </Link>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {blogPreviews.map((post) => (
+              <div key={post.id} className="group bg-white rounded-xl shadow-md overflow-hidden flex flex-col hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                <BlogCoverImage
+                  image={post.image}
+                  category={post.category}
+                  alt={post.title}
+                  aspectClass="h-44"
+                />
+                <div className="p-6 flex-1 flex flex-col">
+                  <span className={`text-xs font-semibold px-2 py-1 rounded-full mb-3 w-fit ${
+                    categoryColors[post.category] ?? 'bg-gray-100 text-gray-700'
+                  }`}>
+                    {post.category}
+                  </span>
+                  <h3 className="text-lg font-bold text-gray-900 mb-3 flex-1 group-hover:text-blue-600 transition-colors">
+                    {post.title}
+                  </h3>
+                  <p className="text-gray-600 text-sm mb-4 line-clamp-2">{post.excerpt}</p>
+                </div>
+                <div className="border-t border-gray-200 px-6 py-4 flex items-center justify-between">
+                  <div className="flex items-center gap-1 text-xs text-gray-400">
+                    <Clock className="h-3 w-3" /> {post.readTime}
+                  </div>
+                  <Link
+                    to={`/blog/${post.slug}`}
+                    className="flex items-center text-blue-600 font-medium text-sm gap-1 group-hover:gap-2 transition-all"
+                  >
+                    Read more <ChevronRight className="h-4 w-4" />
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="text-center mt-12">
+            <Button asChild variant="outline" className="border-white text-white hover:bg-white hover:text-gray-900">
+              <Link to="/blog">View All Articles</Link>
+            </Button>
           </div>
         </div>
-      ))}
-    </div>
- 
-    <div className="text-center mt-12">
-      <Button asChild variant="outline" className="border-white text-white hover:bg-white hover:text-gray-900">
-        <Link to="/blog">View All Articles</Link>
-      </Button>
-    </div>
-  </div>
-</section>
+      </section>
 
       {/* ── CTA ── */}
       <section className="py-16 lg:py-20 bg-slate-800 relative overflow-hidden">
