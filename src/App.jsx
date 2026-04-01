@@ -12,6 +12,7 @@ import PrivacyPolicy from './pages/PrivacyPolicy';
 import NotFound from './pages/NotFound';
 import Footer from './components/Footer';
 import ErrorBoundary from './components/ErrorBoundary';
+import CookieConsent from './components/CookieConsent';  // ← ADD
 import './App.css';
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
             </ErrorBoundary>
           </main>
           <Footer />
+          <CookieConsent />
         </div>
       </Router>
     </HelmetProvider>

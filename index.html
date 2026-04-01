@@ -45,14 +45,20 @@
       rel="stylesheet"
     />
 
-    <!-- Google Analytics GA4 -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PX9MLV49JQ"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-PX9MLV49JQ');
-    </script>
+    <!-- GA4 — consent denied by default until user accepts cookie banner -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', {
+      analytics_storage: 'denied',
+      wait_for_update: 500,
+    });
+  </script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PX9MLV49JQ"></script>
+  <script>
+    gtag('js', new Date());
+    gtag('config', 'G-PX9MLV49JQ', { anonymize_ip: true });
+  </script>
   </head>
   <body>
     <div id="root"></div>
