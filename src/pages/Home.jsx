@@ -437,6 +437,8 @@ const Home = () => {
                     >
                       <i className={`fab ${icon} text-white text-lg`}></i>
                     </a>
+                      <i className={`fab ${icon} text-white text-lg`}></i>
+                    </a>
                   ))}
                 </div>
               </div>
