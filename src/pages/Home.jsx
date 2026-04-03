@@ -486,7 +486,7 @@ const Home = () => {
       >
         <div className="absolute inset-0 bg-black/60"></div>
         <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-2xl lg:text-3xl xl:text-4xl font-bold text-white mb-3">Loved by teams everywhere</h2>
+          <h2 className="text-2xl lg:text-3xl xl:text-4xl font-bold text-white mb-3">Real feedback from real projects.</h2>
           <p className="text-gray-200 mb-8 lg:mb-10 text-base lg:text-lg">
             Ship faster, look sharper, and delight users—without the extra hours.
           </p>
