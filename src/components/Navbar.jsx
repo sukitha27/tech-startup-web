@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Menu, X } from 'lucide-react';
 import logoImage from '@/assets/logo.png';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,7 +21,6 @@ const Navbar = () => {
 
   const isActive = (path) => location.pathname === path;
 
-  // Close mobile menu whenever route changes
   useEffect(() => {
     setIsOpen(false);
   }, [location.pathname]);
@@ -31,7 +31,6 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Prevent body scroll when mobile menu is open
   useEffect(() => {
     document.body.style.overflow = isOpen ? 'hidden' : '';
     return () => { document.body.style.overflow = ''; };
@@ -45,6 +44,35 @@ const Navbar = () => {
         ${isScrolled ? 'bg-black shadow-lg' : 'bg-black'}
       `}
     >
+      {/* ── Top Contact Bar ── */}
+      <div className="hidden md:block bg-slate-800 border-b border-white/10 py-1.5">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between text-xs text-gray-400">
+            <div className="flex items-center gap-6">
+              <a
+                href="tel:+94761148054"
+                className="flex items-center gap-2 hover:text-blue-400 transition-colors duration-200"
+              >
+                <i className="fas fa-phone text-blue-500 text-xs"></i>
+                +94 76 114 8054
+              </a>
+              <a
+                href="mailto:hello@veloratech.com.lk"
+                className="flex items-center gap-2 hover:text-blue-400 transition-colors duration-200"
+              >
+                <i className="fas fa-envelope text-blue-500 text-xs"></i>
+                hello@veloratech.com.lk
+              </a>
+            </div>
+            <div className="flex items-center gap-2">
+              <i className="fas fa-map-marker-alt text-blue-500 text-xs"></i>
+              <span>Nagollagama, Sri Lanka</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* ── Main Navbar ── */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
@@ -122,20 +150,29 @@ const Navbar = () => {
           `}
         >
           <div className="pt-2 pb-4 space-y-1 bg-black border-t border-gray-800">
+            {/* Mobile contact info */}
+            <div className="px-4 py-3 border-b border-gray-800 flex flex-col gap-2 normal-case">
+              <a href="tel:+94761148054" className="flex items-center gap-2 text-xs text-gray-400 hover:text-blue-400 transition-colors">
+                <i className="fas fa-phone text-blue-500 text-xs"></i>
+                +94 76 114 8054
+              </a>
+              <a href="mailto:hello@veloratech.com.lk" className="flex items-center gap-2 text-xs text-gray-400 hover:text-blue-400 transition-colors">
+                <i className="fas fa-envelope text-blue-500 text-xs"></i>
+                hello@veloratech.com.lk
+              </a>
+            </div>
+
             {navigation.map((item) => (
               <Link
                 key={item.name}
                 to={item.href}
                 className={`
                   block px-4 py-3 text-base font-semibold transition-all duration-200 relative
-                  ${
-                    isActive(item.href)
-                      ? 'text-white bg-gray-900'
-                      : 'text-gray-300 hover:text-white hover:bg-gray-800'
+                  ${isActive(item.href)
+                    ? 'text-white bg-gray-900'
+                    : 'text-gray-300 hover:text-white hover:bg-gray-800'
                   }
                 `}
-                // onClick closes via the useEffect on location change,
-                // but we also close immediately for same-page taps
                 onClick={() => setIsOpen(false)}
               >
                 {item.name}
