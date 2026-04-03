@@ -633,13 +633,30 @@ const Home = () => {
           <p className="text-blue-100 mb-6 lg:mb-8 max-w-3xl mx-auto leading-relaxed text-base lg:text-xl">
             Let's discuss your project and create a solution that drives real results for your business.
           </p>
+
+          {/* Free Consultation Badge */}
+          <div className="flex flex-wrap justify-center gap-4 mb-8">
+            <div className="flex items-center gap-2 bg-green-500/20 border border-green-500/40 text-green-400 text-sm font-semibold px-4 py-2 rounded-full">
+              <CheckCircle className="h-4 w-4" />
+              Free Consultation
+            </div>
+            <div className="flex items-center gap-2 bg-blue-500/20 border border-blue-500/40 text-blue-300 text-sm font-semibold px-4 py-2 rounded-full">
+              <CheckCircle className="h-4 w-4" />
+              No Obligation Quote
+            </div>
+            <div className="flex items-center gap-2 bg-purple-500/20 border border-purple-500/40 text-purple-300 text-sm font-semibold px-4 py-2 rounded-full">
+              <CheckCircle className="h-4 w-4" />
+              Response Within 24 Hours
+            </div>
+          </div>
+
           <Button asChild size="lg" variant="secondary" className="transition-all duration-300 hover:scale-105">
             <Link to="/contact">
-              Get Started Today <ArrowRight className="ml-2 h-4 w-4 lg:h-5 lg:w-5" />
+              Book Free Consultation <ArrowRight className="ml-2 h-4 w-4 lg:h-5 lg:w-5" />
             </Link>
           </Button>
           <p className="text-blue-100 text-xs lg:text-sm mt-4 lg:mt-6">
-            No obligation quote. Response within 24 hours.
+            No credit card required. Let's talk about your project.
           </p>
         </div>
       </section>

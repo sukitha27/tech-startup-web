@@ -18,13 +18,14 @@ const Footer = () => {
               <img src={logoImage} alt="Velora Tech Logo" className="h-10 w-auto" />
             </div>
             <p className="text-gray-300 mb-4 max-w-md">
-              Expert software development and web solutions for growing businesses.
-              Transforming ideas into powerful digital solutions that drive results.
+              We build fast, modern websites and software for growing businesses in 
+              Sri Lanka and beyond. Every project delivered with full attention, 
+              clean code, and 100% client satisfaction.
             </p>
             <div className="space-y-2">
               <div className="flex items-center space-x-2 text-gray-300">
                 <Mail className="h-4 w-4" />
-                <span>hello@veloratech.com</span>
+                <span>hello@veloratech.com.lk</span>
               </div>
               <div className="flex items-center space-x-2 text-gray-300">
                 <Phone className="h-4 w-4" />
