@@ -19,7 +19,7 @@ import woocomLogo from "@/assets/logos/woocommerce-icon.svg";
 import htmlLogo from "@/assets/logos/html-5.svg";
 import logo354 from "@/assets/logos/logoipsum-354.svg";
 import logo369 from "@/assets/logos/logoipsum-369.svg";
-import logo393 from "@/assets/logos/homestay-logo.png";
+import logo393 from "@/assets/logos/homestay-logo1.png";
 import logo398 from "@/assets/logos/logoipsum-398.svg";
 import webdevImage from '../assets/webdev.jpg';
 import sketchImage from '../assets/sketch.jpg';
@@ -212,10 +212,10 @@ const Home = () => {
     },
     {
       quote: "Velora Tech built us a beautiful website that captures the warmth of authentic Sri Lankan hospitality. Guests now find us easily and bookings have grown significantly.",
-      name: "",
+      name: "Mrs. Thamara",
       role: "Owner",
       company: "Anuradhapura Homestay",
-      avatar: "AP",
+      avatar: "AH",
       brandName: "Anuradhapura Homestay",
       logo: logo393,
     },
