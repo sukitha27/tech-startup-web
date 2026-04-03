@@ -369,10 +369,10 @@ const Home = () => {
                 </div>
                 <div className="absolute bottom-0 left-0 w-0 h-1 bg-gradient-to-r from-blue-500 to-blue-600 group-hover:w-full transition-all duration-500"></div>
                 <div className="mt-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <div className="flex items-center text-blue-400 text-sm font-medium">
+                  <Link to="/services" className="flex items-center text-blue-400 text-sm font-medium hover:text-blue-300 transition-colors duration-200">
                     <span>Learn more</span>
                     <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform duration-300" />
-                  </div>
+                  </Link>
                 </div>
               </div>
             ))}
