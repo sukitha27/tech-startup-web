@@ -668,7 +668,7 @@ const Home = () => {
         widgetWidthMobile="260px"
         autoOpen={false}
         autoOpenTimer={5000}
-        messageBox={false}
+        messageBox={true}
         messageBoxTxt="Hi Team, is there any related service available?"
         iconSize="52"
         iconColor="#ffffff"
