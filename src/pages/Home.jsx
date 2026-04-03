@@ -284,7 +284,7 @@ const Home = () => {
                 {stats.map((stat, i) => (
                   <div key={i} className="text-center p-4">
                     <div className="text-4xl md:text-5xl font-bold text-white mb-3">
-                      {animatedStats[i]}+
+                      {animatedStats[i]}
                     </div>
                     <div className="text-gray-300 text-sm md:text-base font-medium">{stat.label}</div>
                   </div>
