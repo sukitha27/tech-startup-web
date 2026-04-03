@@ -17,7 +17,7 @@ function buildOrganizationLD() {
     name: SITE_NAME,
     url: SITE_URL,
     logo: `${SITE_URL}/og-image.png`,
-    description: 'Expert software development and web solutions for growing businesses. Based in Sri Lanka, serving clients worldwide.',
+    description: 'Velora Tech - Fast, modern web development, e-commerce, and software solutions for growing businesses in Sri Lanka. 100% client satisfaction guaranteed.',
     address: { '@type': 'PostalAddress', addressCountry: 'LK' },
     areaServed: 'Worldwide',
     serviceType: ['Software Development', 'Web Development', 'Mobile App Development', 'UI/UX Design'],
@@ -90,7 +90,7 @@ function buildArticleLD({ title, description, url, image, datePublished, dateMod
  */
 const SEO = ({
   title,
-  description = 'Expert software development and web solutions for growing businesses. Transforming ideas into powerful digital solutions.',
+  description = 'Velora Tech - Fast, modern web development, e-commerce, and software solutions for growing businesses in Sri Lanka. 100% client satisfaction guaranteed.',
   image,
   url,
   type = 'website',

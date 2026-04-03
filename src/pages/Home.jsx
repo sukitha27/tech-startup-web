@@ -225,7 +225,7 @@ const Home = () => {
     <div>
       <SEO
         title="Software & Web Development Company in Sri Lanka"
-        description="Velora Tech — Expert web development, e-commerce, mobile apps and software solutions. 58+ projects delivered with 100% client satisfaction."
+        description="Velora Tech — Fast, modern web development, e-commerce, and software solutions for growing businesses in Sri Lanka. 100% client satisfaction guaranteed."
         url="https://www.veloratech.com.lk/"
       />
 
@@ -260,8 +260,9 @@ const Home = () => {
             </div>
 
             <p className="text-lg lg:text-xl text-gray-300 mb-10 max-w-2xl mx-auto leading-relaxed">
-              Expert software development and web solutions for growing businesses.
-              58+ projects delivered with 100% client satisfaction.
+              We build fast, modern websites and software for growing businesses in 
+              Sri Lanka and beyond. Every project delivered with full attention, 
+              clean code, and 100% client satisfaction.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
@@ -329,8 +330,10 @@ const Home = () => {
             </div>
             <div className="fade-in">
               <p className="text-gray-300 text-lg lg:text-xl leading-relaxed">
-                We are committed to provide web design Sri Lanka service to our customers
-                with the full potential of our web design Sri Lanka team.
+                From startups to growing businesses, we build fast, modern digital 
+                products that solve real problems. Every project we take on gets our 
+                full attention — clean code, thoughtful design, and results that 
+                actually matter to your bottom line.
               </p>
             </div>
           </div>
