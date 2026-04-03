@@ -148,11 +148,11 @@ const Home = () => {
   }, []);
 
   const stats = [
-    { value: '58+', label: 'Projects Completed' },
-    { value: '34+', label: 'Happy Customers' },
-    { value: '17+', label: 'Web Solutions' },
-    { value: '41+', label: 'Creative Designs' },
-  ];
+  { value: '3+',   label: 'Projects Completed' },
+  { value: '100%', label: 'Client Satisfaction' },
+  { value: '24h',  label: 'Response Time' },
+  { value: '1+',   label: 'Years Experience' },
+];
 
   const servicesData = [
     {
