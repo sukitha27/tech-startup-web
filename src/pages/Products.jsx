@@ -39,40 +39,39 @@ const Products = () => (
       description="Ordera is a free order management platform built for Sri Lankan online businesses. Track COD, verify bank slips, dispatch to couriers — all in one dashboard."
     />
 
-    {/* ── Hero — GIF full background ── */}
-    <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden">
+    {/* ── Hero ──
+        Mobile : solid dark bg + text + GIF card below
+        Desktop: GIF as full background with overlay + centred text
+    ── */}
+    <section className="relative bg-[#1e1b4b] overflow-hidden">
 
-      {/* GIF background */}
-      <img
-        src={orderaGif}
-        alt=""
-        aria-hidden="true"
-        className="absolute inset-0 w-full h-full object-cover object-center"
+      {/* ── Desktop only: GIF full background ── */}
+      <div
+        className="hidden md:block absolute inset-0 w-full h-full"
+        style={{
+          backgroundImage: `url(${orderaGif})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center center',
+          backgroundRepeat: 'no-repeat',
+        }}
       />
-
-      {/* Dark indigo overlay — keeps brand colour and legibility */}
-      <div className="absolute inset-0 bg-[#1e1b4b]/80" />
-
-      {/* Subtle vignette on edges */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/40" />
+      {/* Desktop overlay */}
+      <div className="hidden md:block absolute inset-0 bg-[#1e1b4b]/78" />
+      <div className="hidden md:block absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/50" />
 
       {/* Breadcrumb */}
-      <div className="absolute top-8 left-0 right-0 z-10">
+      <div className="relative z-10 pt-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <nav className="text-white/60 text-sm flex gap-2 items-center">
-            <Link to="/" className="hover:text-white transition-colors uppercase tracking-wide text-xs">
-              Home
-            </Link>
+            <Link to="/" className="hover:text-white transition-colors uppercase tracking-wide text-xs">Home</Link>
             <span>/</span>
-            <span className="text-violet-300 font-semibold uppercase tracking-wide text-xs">
-              Products
-            </span>
+            <span className="text-violet-300 font-semibold uppercase tracking-wide text-xs">Products</span>
           </nav>
         </div>
       </div>
 
-      {/* Hero content — centred like other pages */}
-      <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-32">
+      {/* ── Content ── */}
+      <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-12 pb-0 md:py-36">
 
         {/* Live badge */}
         <div className="inline-flex items-center gap-2 bg-violet-500/20 border border-violet-400/30 text-violet-300 text-sm font-medium px-4 py-2 rounded-full mb-8">
@@ -92,7 +91,7 @@ const Products = () => (
           Order management for Sri Lankan businesses
         </p>
 
-        <p className="text-base text-white/50 max-w-xl mx-auto mb-10 leading-relaxed">
+        <p className="text-base text-white/60 max-w-xl mx-auto mb-10 leading-relaxed">
           Stop managing COD orders through WhatsApp and Excel.
           One clean dashboard for orders, bank slips, and courier dispatch.
         </p>
@@ -100,17 +99,14 @@ const Products = () => (
         {/* Feature pills */}
         <div className="flex flex-wrap justify-center gap-2 mb-10">
           {['Order Pipeline', 'COD Tracking', 'Bank Slip Verification', 'Koombiyo · Pronto · Domex', 'Sinhala + English'].map((tag) => (
-            <span
-              key={tag}
-              className="text-xs bg-white/10 border border-white/15 text-white/70 px-3 py-1.5 rounded-full backdrop-blur-sm"
-            >
+            <span key={tag} className="text-xs bg-white/10 border border-white/20 text-white/80 px-3 py-1.5 rounded-full backdrop-blur-sm">
               {tag}
             </span>
           ))}
         </div>
 
         {/* CTAs */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+        <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
           <a
             href="https://ordera.veloratech.com.lk"
             target="_blank"
@@ -126,10 +122,38 @@ const Products = () => (
             Request a Demo <ArrowRight className="h-5 w-5" />
           </Link>
         </div>
+
+        {/* ── Mobile only: GIF shown as product preview card ── */}
+        <div className="block md:hidden w-full max-w-sm mx-auto mb-0">
+          {/* Browser chrome frame */}
+          <div className="rounded-t-2xl overflow-hidden border border-white/10 shadow-2xl shadow-black/50">
+            <div className="bg-[#12103a] px-4 py-2.5 flex items-center gap-2 border-b border-white/10">
+              <div className="flex gap-1.5">
+                <div className="w-2.5 h-2.5 rounded-full bg-red-500/70" />
+                <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/70" />
+                <div className="w-2.5 h-2.5 rounded-full bg-green-500/70" />
+              </div>
+              <div className="flex-1 mx-2">
+                <div className="bg-white/10 rounded px-2 py-0.5 text-[10px] text-white/40 font-mono truncate">
+                  ordera.veloratech.com.lk
+                </div>
+              </div>
+            </div>
+            <img
+              src={orderaGif}
+              alt="Ordera dashboard demo"
+              className="w-full block"
+              loading="lazy"
+            />
+          </div>
+        </div>
       </div>
 
-      {/* Bottom fade into white */}
-      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white to-transparent" />
+      {/* Desktop bottom fade */}
+      <div className="hidden md:block absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white to-transparent" />
+
+      {/* Mobile bottom fade — fades the GIF card into white */}
+      <div className="block md:hidden h-16 bg-gradient-to-t from-white to-transparent" />
     </section>
 
     {/* ── Problem vs Solution ── */}
@@ -142,7 +166,6 @@ const Products = () => (
           </p>
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
-          {/* Before */}
           <div className="bg-red-50 border border-red-100 rounded-2xl p-8">
             <div className="flex items-center gap-3 mb-6">
               <div className="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center">
@@ -159,8 +182,6 @@ const Products = () => (
               ))}
             </ul>
           </div>
-
-          {/* After */}
           <div className="bg-[#1e1b4b] rounded-2xl p-8">
             <div className="flex items-center gap-3 mb-6">
               <div className="w-8 h-8 bg-violet-500/30 rounded-full flex items-center justify-center">
@@ -197,10 +218,7 @@ const Products = () => (
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {features.map((feature, i) => (
-            <div
-              key={i}
-              className="bg-white rounded-2xl p-6 border border-gray-100 hover:border-violet-200 hover:shadow-lg hover:shadow-violet-500/5 transition-all duration-300 hover:-translate-y-1 group"
-            >
+            <div key={i} className="bg-white rounded-2xl p-6 border border-gray-100 hover:border-violet-200 hover:shadow-lg hover:shadow-violet-500/5 transition-all duration-300 hover:-translate-y-1 group">
               <div className="w-12 h-12 bg-[#1e1b4b] rounded-xl flex items-center justify-center mb-4 group-hover:bg-violet-600 transition-colors duration-300">
                 <feature.icon className="h-6 w-6 text-violet-300" />
               </div>
@@ -245,7 +263,6 @@ const Products = () => (
             </div>
           </div>
 
-          {/* Pricing card */}
           <div className="bg-[#1e1b4b] rounded-3xl p-8 relative overflow-hidden">
             <div className="absolute top-0 right-0 w-48 h-48 bg-violet-600/20 rounded-full blur-2xl" />
             <div className="relative z-10">
@@ -258,14 +275,7 @@ const Products = () => (
               </div>
               <p className="text-white/50 mb-8 text-sm">during beta · full access · no limits</p>
               <ul className="space-y-3 mb-8">
-                {[
-                  'Unlimited orders',
-                  'All courier integrations',
-                  'Bank slip verification',
-                  'Public order form',
-                  'Sinhala + English UI',
-                  'Priority support during beta',
-                ].map((item, i) => (
+                {['Unlimited orders','All courier integrations','Bank slip verification','Public order form','Sinhala + English UI','Priority support during beta'].map((item, i) => (
                   <li key={i} className="flex items-center gap-3 text-white/70">
                     <CheckCircle className="h-4 w-4 text-violet-400 flex-shrink-0" />
                     <span className="text-sm">{item}</span>
@@ -290,12 +300,8 @@ const Products = () => (
     {/* ── Built by Velora ── */}
     <section className="py-20 bg-gray-50 border-t border-gray-100">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <p className="text-gray-400 text-sm uppercase tracking-widest font-medium mb-4">
-          A Velora Tech Product
-        </p>
-        <h2 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-4">
-          We use the tools we build
-        </h2>
+        <p className="text-gray-400 text-sm uppercase tracking-widest font-medium mb-4">A Velora Tech Product</p>
+        <h2 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-4">We use the tools we build</h2>
         <p className="text-gray-500 text-lg max-w-2xl mx-auto mb-8 leading-relaxed">
           Ordera isn't a side project — it's a product we built because we saw the problem firsthand
           working with Sri Lankan e-commerce clients. We run it, maintain it, and keep improving it.
