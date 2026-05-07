@@ -11,26 +11,30 @@ const Navbar = () => {
   const location = useLocation();
 
   const navigation = [
-    { name: 'Home', href: '/' },
-    { name: 'About Us', href: '/about' },
-    { name: 'Services', href: '/services' },
-    { name: 'Portfolio', href: '/portfolio' },
-    { name: 'Blog', href: '/blog' },
+    { name: 'Home',       href: '/' },
+    { name: 'About Us',   href: '/about' },
+    { name: 'Services',   href: '/services' },
+    { name: 'Portfolio',  href: '/portfolio' },
+    { name: 'Products',   href: '/products', badge: 'NEW' },
+    { name: 'Blog',       href: '/blog' },
     { name: 'Contact Us', href: '/contact' },
   ];
 
   const isActive = (path) => location.pathname === path;
 
+  // Close mobile menu on route change
   useEffect(() => {
     setIsOpen(false);
   }, [location.pathname]);
 
+  // Scroll detection
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 10);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Lock body scroll when mobile menu is open
   useEffect(() => {
     document.body.style.overflow = isOpen ? 'hidden' : '';
     return () => { document.body.style.overflow = ''; };
@@ -53,19 +57,19 @@ const Navbar = () => {
                 href="tel:+94761148054"
                 className="flex items-center gap-2 hover:text-blue-400 transition-colors duration-200"
               >
-                <i className="fas fa-phone text-blue-500 text-xs"></i>
+                <i className="fas fa-phone text-blue-500 text-xs" />
                 +94 76 114 8054
               </a>
               <a
                 href="mailto:hello@veloratech.com.lk"
                 className="flex items-center gap-2 hover:text-blue-400 transition-colors duration-200"
               >
-                <i className="fas fa-envelope text-blue-500 text-xs"></i>
+                <i className="fas fa-envelope text-blue-500 text-xs" />
                 hello@veloratech.com.lk
               </a>
             </div>
             <div className="flex items-center gap-2">
-              <i className="fas fa-map-marker-alt text-blue-500 text-xs"></i>
+              <i className="fas fa-map-marker-alt text-blue-500 text-xs" />
               <span>Nagollagama, Sri Lanka</span>
             </div>
           </div>
@@ -75,6 +79,7 @@ const Navbar = () => {
       {/* ── Main Navbar ── */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
+
           {/* Logo */}
           <div className="flex items-center">
             <Link to="/" className="flex items-center space-x-2 group">
@@ -87,20 +92,31 @@ const Navbar = () => {
           </div>
 
           {/* Desktop Nav */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-6">
             {navigation.map((item) => (
               <div key={item.name} className="relative group">
                 <Link
                   to={item.href}
                   className={`
-                    relative px-1 py-2 text-sm font-semibold transition-colors duration-400
+                    relative px-1 py-2 text-sm font-semibold transition-colors duration-300
+                    flex items-center gap-1.5
                     ${isActive(item.href) ? 'text-white' : 'text-gray-300 hover:text-white'}
                   `}
                 >
                   {item.name}
+
+                  {/* NEW badge for Products */}
+                  {item.badge && (
+                    <span className="text-[9px] bg-violet-500 text-white px-1.5 py-0.5 rounded-full font-bold leading-none normal-case tracking-normal">
+                      {item.badge}
+                    </span>
+                  )}
+
+                  {/* Underline — violet for Products, blue for others */}
                   <span
                     className={`
-                      absolute left-0 -bottom-0.5 h-0.5 bg-blue-500 transition-all duration-400
+                      absolute left-0 -bottom-0.5 h-0.5 transition-all duration-300
+                      ${item.badge ? 'bg-violet-500' : 'bg-blue-500'}
                       ${isActive(item.href) ? 'w-full' : 'w-0 group-hover:w-full'}
                     `}
                   />
@@ -108,6 +124,7 @@ const Navbar = () => {
               </div>
             ))}
 
+            {/* CTA Button */}
             <Button
               asChild
               className="relative overflow-hidden rounded-full border-2 border-blue-500 bg-blue-500 px-8 py-3 font-extrabold uppercase text-white group"
@@ -142,7 +159,7 @@ const Navbar = () => {
           </div>
         </div>
 
-        {/* Mobile Menu */}
+        {/* ── Mobile Menu ── */}
         <div
           className={`
             md:hidden transition-all duration-300 ease-in-out
@@ -150,34 +167,50 @@ const Navbar = () => {
           `}
         >
           <div className="pt-2 pb-4 space-y-1 bg-black border-t border-gray-800">
+
             {/* Mobile contact info */}
             <div className="px-4 py-3 border-b border-gray-800 flex flex-col gap-2 normal-case">
-              <a href="tel:+94761148054" className="flex items-center gap-2 text-xs text-gray-400 hover:text-blue-400 transition-colors">
-                <i className="fas fa-phone text-blue-500 text-xs"></i>
+              <a
+                href="tel:+94761148054"
+                className="flex items-center gap-2 text-xs text-gray-400 hover:text-blue-400 transition-colors"
+              >
+                <i className="fas fa-phone text-blue-500 text-xs" />
                 +94 76 114 8054
               </a>
-              <a href="mailto:hello@veloratech.com.lk" className="flex items-center gap-2 text-xs text-gray-400 hover:text-blue-400 transition-colors">
-                <i className="fas fa-envelope text-blue-500 text-xs"></i>
+              <a
+                href="mailto:hello@veloratech.com.lk"
+                className="flex items-center gap-2 text-xs text-gray-400 hover:text-blue-400 transition-colors"
+              >
+                <i className="fas fa-envelope text-blue-500 text-xs" />
                 hello@veloratech.com.lk
               </a>
             </div>
 
+            {/* Nav links */}
             {navigation.map((item) => (
               <Link
                 key={item.name}
                 to={item.href}
+                onClick={() => setIsOpen(false)}
                 className={`
-                  block px-4 py-3 text-base font-semibold transition-all duration-200 relative
+                  flex items-center gap-2 px-4 py-3 text-base font-semibold
+                  transition-all duration-200
                   ${isActive(item.href)
                     ? 'text-white bg-gray-900'
                     : 'text-gray-300 hover:text-white hover:bg-gray-800'
                   }
                 `}
-                onClick={() => setIsOpen(false)}
               >
                 {item.name}
+                {item.badge && (
+                  <span className="text-[9px] bg-violet-500 text-white px-1.5 py-0.5 rounded-full font-bold leading-none normal-case tracking-normal">
+                    {item.badge}
+                  </span>
+                )}
               </Link>
             ))}
+
+            {/* Mobile CTA */}
             <div className="px-4 py-3">
               <Button
                 asChild

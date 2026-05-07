@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Mail, Phone, MapPin } from 'lucide-react';
+import { Mail, Phone, MapPin, ArrowUpRight } from 'lucide-react';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import RotatingText from '@/blocks/TextAnimations/RotatingText/RotatingText';
 import logoImage from '@/assets/logo.png';
@@ -9,6 +9,30 @@ const Footer = () => {
 
   return (
     <footer className="bg-gray-900 text-white">
+
+      {/* ── Ordera Product Callout Strip ── */}
+      <div className="bg-[#1e1b4b] border-b border-violet-900/50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div className="flex items-center gap-3">
+              <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse flex-shrink-0" />
+              <span className="text-white/80 text-sm text-center sm:text-left">
+                <strong className="text-white">Ordera</strong> - Our free order management platform for Sri Lankan businesses is live
+              </span>
+            </div>
+            <a
+              href="https://ordera.veloratech.com.lk"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 text-violet-300 hover:text-white text-sm font-semibold transition-colors whitespace-nowrap"
+            >
+              Try it free <ArrowUpRight className="h-4 w-4" />
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {/* ── Main Footer ── */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
 
@@ -18,8 +42,8 @@ const Footer = () => {
               <img src={logoImage} alt="Velora Tech Logo" className="h-10 w-auto" />
             </div>
             <p className="text-gray-300 mb-4 max-w-md">
-              We build fast, modern websites and software for growing businesses in 
-              Sri Lanka and beyond. Every project delivered with full attention, 
+              We build fast, modern websites and software for growing businesses in
+              Sri Lanka and beyond. Every project delivered with full attention,
               clean code, and 100% client satisfaction.
             </p>
             <div className="space-y-2">
@@ -56,12 +80,44 @@ const Footer = () => {
               />
             </h3>
             <ul className="space-y-2">
-              <li><Link to="/"         className="text-gray-300 hover:text-blue-400 transition-colors">Home</Link></li>
-              <li><Link to="/services" className="text-gray-300 hover:text-blue-400 transition-colors">Services</Link></li>
-              <li><Link to="/portfolio"className="text-gray-300 hover:text-blue-400 transition-colors">Portfolio</Link></li>
-              <li><Link to="/blog"     className="text-gray-300 hover:text-blue-400 transition-colors">Blog</Link></li>
-              <li><Link to="/about"    className="text-gray-300 hover:text-blue-400 transition-colors">About</Link></li>
-              <li><Link to="/contact"  className="text-gray-300 hover:text-blue-400 transition-colors">Contact</Link></li>
+              <li>
+                <Link to="/" className="text-gray-300 hover:text-blue-400 transition-colors">
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link to="/services" className="text-gray-300 hover:text-blue-400 transition-colors">
+                  Services
+                </Link>
+              </li>
+              <li>
+                <Link to="/portfolio" className="text-gray-300 hover:text-blue-400 transition-colors">
+                  Portfolio
+                </Link>
+              </li>
+              <li>
+                <Link to="/products" className="flex items-center gap-2 text-gray-300 hover:text-blue-400 transition-colors">
+                  Products
+                  <span className="text-[9px] bg-violet-500 text-white px-1.5 py-0.5 rounded-full font-bold leading-none">
+                    NEW
+                  </span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/blog" className="text-gray-300 hover:text-blue-400 transition-colors">
+                  Blog
+                </Link>
+              </li>
+              <li>
+                <Link to="/about" className="text-gray-300 hover:text-blue-400 transition-colors">
+                  About
+                </Link>
+              </li>
+              <li>
+                <Link to="/contact" className="text-gray-300 hover:text-blue-400 transition-colors">
+                  Contact
+                </Link>
+              </li>
             </ul>
           </div>
 

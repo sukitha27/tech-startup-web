@@ -7,6 +7,7 @@ import Portfolio from './pages/Portfolio';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import Blog from './pages/Blog';
+import Products from './pages/Products';
 import BlogPost from './pages/BlogPost';          // ← NEW
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import NotFound from './pages/NotFound';
@@ -27,6 +28,7 @@ function App() {
                 <Route path="/"               element={<Home />} />
                 <Route path="/services"       element={<Services />} />
                 <Route path="/portfolio"      element={<Portfolio />} />
+                <Route path="/products"       element={<Products />} />
                 <Route path="/about"          element={<About />} />
                 <Route path="/contact"        element={<Contact />} />
                 <Route path="/blog"           element={<Blog />} />
