@@ -2,10 +2,28 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import SEO from '@/components/SEO';
 import {
-  Code, Database, Lightbulb, Globe, ShoppingCart, Smartphone,
-  Server, Settings, BarChart3, Shield, Zap, CheckCircle
+  Globe, ShoppingCart, Smartphone,
+  Database, Server, Settings,
+  BarChart3, Shield, Zap, CheckCircle
 } from 'lucide-react';
 import servicesHeroBg from '../assets/shero-bg.jpg';
+
+// ── Tech logos from existing assets ──
+import reactLogo    from '@/assets/logos/react.svg';
+import vueLogo      from '@/assets/logos/vue.svg';
+import htmlLogo     from '@/assets/logos/html-5.svg';
+import tailwindLogo from '@/assets/logos/tailwindcss.svg';
+import typesLogo    from '@/assets/logos/typescript-icon.svg';
+import nodeLogo     from '@/assets/logos/nodejs.svg';
+import phpLogo      from '@/assets/logos/php.svg';
+import wpressLogo   from '@/assets/logos/wordpress.svg';
+import firebaseLogo from '@/assets/logos/firebase.svg';
+import woocomLogo   from '@/assets/logos/woocommerce-icon.svg';
+import awsLogo    from '@/assets/logos/aws.svg';
+import doLogo     from '@/assets/logos/digitalocean.svg';
+import vercelLogo from '@/assets/logos/vercel.svg';
+import dockerLogo from '@/assets/logos/docker.svg';
+import githubLogo from '@/assets/logos/github.svg';
 
 const Services = () => {
   const webServices = [
@@ -62,12 +80,57 @@ const Services = () => {
     },
   ];
 
+  // ── Technology stack with logos ──
   const technologies = [
-    { category: 'Frontend',       items: ['React', 'Vue.js', 'HTML5', 'CSS3', 'JavaScript', 'TypeScript'] },
-    { category: 'Backend',        items: ['Node.js', 'Python', 'PHP', 'Express.js', 'Django', 'Laravel'] },
-    { category: 'Databases',      items: ['MySQL', 'PostgreSQL', 'MongoDB', 'Redis', 'SQLite'] },
-    { category: 'Cloud & DevOps', items: ['AWS', 'Google Cloud', 'DigitalOcean', 'Docker', 'CI/CD'] },
+    {
+      category: 'Frontend',
+      color: 'blue',
+      items: [
+        { name: 'React',       logo: reactLogo },
+        { name: 'Vue.js',      logo: vueLogo },
+        { name: 'HTML5',       logo: htmlLogo },
+        { name: 'Tailwind',    logo: tailwindLogo },
+        { name: 'TypeScript',  logo: typesLogo },
+      ],
+    },
+    {
+      category: 'Backend',
+      color: 'green',
+      items: [
+        { name: 'Node.js',     logo: nodeLogo },
+        { name: 'PHP',         logo: phpLogo },
+        { name: 'WordPress',   logo: wpressLogo },
+        { name: 'Firebase',    logo: firebaseLogo },
+      ],
+    },
+    {
+      category: 'E-commerce',
+      color: 'purple',
+      items: [
+        { name: 'WooCommerce', logo: woocomLogo },
+        { name: 'WordPress',   logo: wpressLogo },
+        { name: 'Firebase',    logo: firebaseLogo },
+      ],
+    },
+    {
+  category: 'Cloud & DevOps',
+  color: 'orange',
+  items: [
+    { name: 'AWS',          logo: awsLogo },
+    { name: 'DigitalOcean', logo: doLogo },
+    { name: 'Vercel',       logo: vercelLogo },
+    { name: 'Docker',       logo: dockerLogo },
+    { name: 'GitHub Actions', logo: githubLogo },
+  ],
+},
   ];
+
+  const colorMap = {
+    blue:   { badge: 'bg-blue-50 border-blue-100',   icon: 'bg-blue-100 text-blue-700',   pill: 'bg-blue-50 text-blue-700 border border-blue-100' },
+    green:  { badge: 'bg-green-50 border-green-100',  icon: 'bg-green-100 text-green-700',  pill: 'bg-green-50 text-green-700 border border-green-100' },
+    purple: { badge: 'bg-purple-50 border-purple-100',icon: 'bg-purple-100 text-purple-700',pill: 'bg-purple-50 text-purple-700 border border-purple-100' },
+    orange: { badge: 'bg-orange-50 border-orange-100',icon: 'bg-orange-100 text-orange-700',pill: 'bg-orange-50 text-orange-700 border border-orange-100' },
+  };
 
   const ServiceSection = ({ title, description, services, bgColor = 'bg-white' }) => (
     <section className={`py-16 ${bgColor}`}>
@@ -101,12 +164,12 @@ const Services = () => {
   return (
     <div className="min-h-screen">
       <SEO
-  title="Services"
-  description="Custom web development, e-commerce solutions, software development, API integration, and technical consulting — tailored to your business needs."
-  url="https://www.veloratech.com.lk/services"
-/>
+        title="Services"
+        description="Custom web development, e-commerce solutions, software development, API integration, and technical consulting — tailored to your business needs."
+        url="https://www.veloratech.com.lk/services"
+      />
 
-      {/* Hero */}
+      {/* ── Hero ── */}
       <section
         className="relative py-20 min-h-[60vh] flex items-center justify-center"
         style={{ backgroundImage: `url(${servicesHeroBg})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
@@ -156,31 +219,62 @@ const Services = () => {
         services={consultingServices}
       />
 
-      {/* Technology Stack */}
-      <section className="py-16 bg-gray-50">
+      {/* ── Technology Stack with Logos ── */}
+      <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
+          <div className="text-center mb-14">
             <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">Technology Stack</h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               We work with modern, proven technologies to deliver robust and scalable solutions
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {technologies.map((tech, i) => (
-              <div key={i} className="bg-white rounded-xl shadow-lg p-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4 text-center">{tech.category}</h3>
-                <div className="flex flex-wrap gap-2 justify-center">
-                  {tech.items.map((item, j) => (
-                    <span key={j} className="px-3 py-1 bg-blue-100 text-blue-800 text-sm rounded-full">{item}</span>
-                  ))}
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {technologies.map((tech, i) => {
+              const c = colorMap[tech.color];
+              return (
+                <div
+                  key={i}
+                  className={`rounded-2xl border p-6 ${c.badge} hover:shadow-lg transition-all duration-300 hover:-translate-y-1`}
+                >
+                  {/* Category header */}
+                  <h3 className="text-base font-bold text-gray-900 mb-5 text-center tracking-wide uppercase text-xs">
+                    {tech.category}
+                  </h3>
+
+                  {/* Tech items with logo + name */}
+                  <div className="space-y-3">
+                    {tech.items.map((item, j) => (
+                      <div
+                        key={j}
+                        className="flex items-center gap-3 bg-white rounded-xl px-3 py-2.5 shadow-sm border border-white hover:shadow-md transition-all duration-200"
+                      >
+                        {/* Logo or fallback icon */}
+                        <div className="w-8 h-8 flex items-center justify-center flex-shrink-0">
+                          {item.logo ? (
+                            <img
+                              src={item.logo}
+                              alt={item.name}
+                              className="w-7 h-7 object-contain"
+                            />
+                          ) : (
+                            <div className={`w-7 h-7 rounded-md flex items-center justify-center text-xs font-black ${c.icon}`}>
+                              {item.name.charAt(0)}
+                            </div>
+                          )}
+                        </div>
+                        <span className="text-sm font-semibold text-gray-700">{item.name}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
 
-      {/* CTA */}
+      {/* ── CTA ── */}
       <section className="py-20 bg-blue-600">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl lg:text-4xl font-bold text-white mb-6">Ready to Start Your Project?</h2>

@@ -70,8 +70,8 @@ githubUrl: '#'
   ];
 
   const stats = [
-    { number: '58+',  label: 'Projects Completed' },
-    { number: '34+',  label: 'Happy Clients' },
+    { number: '3+',  label: 'Projects Completed' },
+    { number: '5+',  label: 'Happy Clients' },
     { number: '100%', label: 'Client Satisfaction' },
     { number: '24/7', label: 'Support Available' },
   ];
