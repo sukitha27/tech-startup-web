@@ -70,7 +70,7 @@ const Navbar = () => {
             </div>
             <div className="flex items-center gap-2">
               <i className="fas fa-map-marker-alt text-blue-500 text-xs" />
-              <span>Nagollagama, Sri Lanka</span>
+              <span>Nugegoda, Sri Lanka</span>
             </div>
           </div>
         </div>
