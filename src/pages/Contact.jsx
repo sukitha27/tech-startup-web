@@ -139,7 +139,7 @@ const Contact = () => {
   const contactInfo = [
     { icon: Mail,   title: 'Email',         value: 'hello@veloratech.com.lk', description: 'Send us an email anytime' },
     { icon: Phone,  title: 'Phone',         value: '+94 (076) 114-8054',       description: 'Call for urgent inquiries' },
-    { icon: MapPin, title: 'Location',      value: 'Nagollagama, Sri Lanka',   description: 'Available for worldwide projects' },
+    { icon: MapPin, title: 'Location',      value: 'Nugegoda, Sri Lanka',   description: 'Available for worldwide projects' },
     { icon: Clock,  title: 'Response Time', value: '< 24 hours',              description: 'We typically respond within 24 hours' },
   ];
 

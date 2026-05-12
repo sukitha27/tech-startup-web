@@ -58,7 +58,7 @@ const Navbar = () => {
                 className="flex items-center gap-2 hover:text-blue-400 transition-colors duration-200"
               >
                 <i className="fas fa-phone text-blue-500 text-xs" />
-                +94 76 114 8054
+                +94 75 642 5773
               </a>
               <a
                 href="mailto:hello@veloratech.com.lk"
