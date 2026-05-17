@@ -54,7 +54,7 @@ const Navbar = () => {
           <div className="flex items-center justify-between text-xs text-gray-400">
             <div className="flex items-center gap-6">
               <a
-                href="tel:+94761148054"
+                href="tel:+94756425773"
                 className="flex items-center gap-2 hover:text-blue-400 transition-colors duration-200"
               >
                 <i className="fas fa-phone text-blue-500 text-xs" />
@@ -171,11 +171,11 @@ const Navbar = () => {
             {/* Mobile contact info */}
             <div className="px-4 py-3 border-b border-gray-800 flex flex-col gap-2 normal-case">
               <a
-                href="tel:+94761148054"
+                href="tel:+94756425773"
                 className="flex items-center gap-2 text-xs text-gray-400 hover:text-blue-400 transition-colors"
               >
                 <i className="fas fa-phone text-blue-500 text-xs" />
-                +94 76 114 8054
+                +94 75 642 5773
               </a>
               <a
                 href="mailto:hello@veloratech.com.lk"
